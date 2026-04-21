@@ -1,99 +1,97 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lorette Curling Club App</title>
-<link rel="stylesheet" href="styles.css" />
-<link rel="manifest" href="manifest.json" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="LCC App" />
-<link rel="apple-touch-icon" href="lcc-logo.png" />
-<meta name="theme-color" content="#1f6f4a" />
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Lorette Curling Club App</title>
+ <link rel="stylesheet" href="styles.css" />
+ <link rel="manifest" href="manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+ <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+ <meta name="apple-mobile-web-app-title" content="LCC App" />
+ <link rel="apple-touch-icon" href="lcc-logo.png" />
+ <meta name="theme-color" content="#1f6f4a" />
 </head>
 <script>
-if ('serviceWorker' in navigator) {
-window.addEventListener('load', () => {
-navigator.serviceWorker.register('/1cc-app/sw.js');
-});
-}
+ if ('serviceWorker' in navigator) {
+   window.addEventListener('load', () => {
+     navigator.serviceWorker.register('/lcc-app/sw.js');
+   });
+ }
 </script>
 <body>
-<div class="container">
-<header class="header">
-<img src="lcc-logo.png" alt="Lorette Curling Club logo" class="logo" />
-<p>App Prototype</p>
-</header>
+ <div class="container">
+   <header class="header">
+     <img src="lcc-logo.png" alt="Lorette Curling Club logo" class="logo" />
+     <p>App Prototype</p>
+   </header>
 
-<main>
-<section class="card">
-<h2>Leagues</h2>
-<div class="button-list">
-<a href="ladies.html" class="button">Ladies League</a>
-<a href="mens.html" class="button">Mens League</a>
-<a href="mixed.html" class="button">Mixed League</a>
-<a href="doubles.html" class="button">Doubles</a>
-</div>
-</section>
+   <main>
+     <section class="card">
+       <h2>Leagues</h2>
+       <div class="button-list">
+         <a href="ladies.html" class="button">Ladies League</a>
+         <a href="mens.html" class="button">Mens League</a>
+         <a href="mixed.html" class="button">Mixed League</a>
+         <a href="doubles.html" class="button">Doubles</a>
+       </div>
+     </section>
 
-<section class="card">
-<h2>Curling Club News</h2>
-<p>Stay tuned for Registration Information! See you in the fall!</p>
-</section>
+     <section class="card">
+       <h2>Curling Club News</h2>
+       <p>Stay tuned for Registration Information! See you in the fall!</p>
+     </section>
 
-<section class="card">
-<h2>Recent 50/50 Numbers</h2>
-<p><strong>Friday, March 20:</strong> 234567</p>
-<p><strong>Friday, March 13:</strong> 765432</p>
-<p><strong>Friday, March 6:</strong> 000000</p>
-<p><strong>Licence Number:</strong> TBD</p>
-<p>The numbers above are used as examples, and were not the numbers of the tickets drawn.</p>
-</section>
+     <section class="card">
+       <h2>Recent 50/50 Numbers</h2>
+       <p><strong>Friday, March 20:</strong> 234567</p>
+       <p><strong>Friday, March 13:</strong> 765432</p>
+       <p><strong>Friday, March 6:</strong> 000000</p>
+       <p><strong>Licence Number:</strong> TBD</p>
+       <p>The numbers above are used as examples, and were not the numbers of the tickets drawn.</p>
+     </section>
 
-<section class="card">
-<h2>Drop-In Curling</h2>
-<div class="button-list">
-<a href="wednesday.html" class="button">Wednesday Drop-In</a>
-<a href="saturday.html" class="button">Saturday Night Drop-In</a>
-</div>
-<p>Looking for more opportunities to curl, try our Drop-In Curling events.</p>
-</section>
+     <section class="card">
+       <h2>Drop-In Curling</h2>
+       <div class="button-list">
+         <a href="wednesday.html" class="button">Wednesday Drop-In</a>
+         <a href="saturday.html" class="button">Saturday Night Drop-In</a>
+       </div>
+       <p>Looking for more opportunities to curl, try our Drop-In Curling events.</p>
+     </section>
 
-<section class="card">
-<h2>Junior Curling</h2>
-<div class="button-list">
-<a href="Juniors.html" class="button">Junior Curling</a>
-</div>
-<p>Information about our Junior Curling program for ages 8–19.</p>
-</section>
+     <section class="card">
+       <h2>Junior Curling</h2>
+       <div class="button-list">
+         <a href="juniors.html" class="button">Junior Curling</a>
+       </div>
+       <p>Information about our Junior Curling program for ages 8–19.</p>
+     </section>
 
-<section class="card">
-<h2>Bonspiels</h2>
-<div class="button-list">
-<a href="bonspiel.html" class="button">Bonspiel Info</a>
-</div>
-<p>Stay tuned for upcoming bonspiel dates and details.</p>
-</section>
+     <section class="card">
+       <h2>Bonspiels</h2>
+       <div class="button-list">
+         <a href="bonspiel.html" class="button">Bonspiel Info</a>
+       </div>
+       <p>Stay tuned for upcoming bonspiel dates and details.</p>
+     </section>
 
-<section class="card">
-<h2>Wind-Up &amp; AGM</h2>
-<div class="button-list">
-<a href="windup.html" class="button">Wind-Up &amp; AGM Info</a>
-</div>
-<p>Stay tuned for Wind-Up and AGM dates and details.</p>
-</section>
+     <section class="card">
+       <h2>Wind-Up &amp; AGM</h2>
+       <div class="button-list">
+         <a href="windup.html" class="button">Wind-Up &amp; AGM Info</a>
+       </div>
+       <p>Stay tuned for Wind-Up and AGM dates and details.</p>
+     </section>
 
-<section class="card">
-<h2>About This App</h2>
-<p>This is a starter prototype for a Lorette Curling Club app.</p>
-<p>The goal is to help league members quickly check schedules, standings, and team information.</p>
-</section>
+     <section class="card">
+       <h2>About This App</h2>
+       <p>This is a starter prototype for a Lorette Curling Club app.</p>
+       <p>The goal is to help league members quickly check schedules, standings, and team information.</p>
+     </section>
 
-<img src="sponsors.jpg" alt="Thank you to our sponsors" style="width: 100%; height: auto; margin-bottom: 20px;" />
-</main>
-
-</div>
+     <img src="sponsors.jpg" alt="Thank you to our sponsors" style="width: 100%; height: auto; margin-bottom: 20px;" />
+   </main>
+ </div>
 </body>
 </html>
