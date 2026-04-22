@@ -9,12 +9,12 @@
  "orientation": "portrait",
  "icons": [
    {
-     "src": "lcc-logo-app.jpg",
+     "src": "lcc-logo-app2.jpg",
      "sizes": "192x192",
      "type": "image/png"
    },
    {
-     "src": "lcc-logo-app.jpg",
+     "src": "lcc-logo-app2.jpg",
      "sizes": "512x512",
      "type": "image/png"
    }
