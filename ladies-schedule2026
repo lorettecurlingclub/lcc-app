@@ -11,7 +11,7 @@
 <header class="header">
 <h1>Ladies League Schedule</h1>
 <div class="button-list">
-<a href="Ladies.html" class="button">Back to Ladies League</a>
+<a href="ladies.html" class="button">Back to Ladies League</a>
 <a href="index.html" class="button">Home</a>
 </div>
 
