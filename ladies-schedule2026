@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Schedule</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container">
+<header class="header">
+<h1>Ladies League Schedule</h1>
+<div class="button-list">
+<a href="Ladies.html" class="button">Back to Ladies League</a>
+<a href="index.html" class="button">Home</a>
+</div>
+
+<main id="top">
+<section class="card" id="october">
+<h3>Date: October 5, 2026</h3>
+<p><strong>50/50 Team:</strong> Team 1</p>
+<p><strong>Bye Week:</strong> Team 9</p>
+
+<h3>Early Draw Time: 7:00 PM</h3>
+<table>
+<thead>
+<tr>
+<th>Sheet</th>
+<th>Matchup</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Team 1 vs Team 2</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Team 3 vs Team 4</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Team 5 vs Team 6</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+
+<h3>Late Draw Time: 9:15 PM</h3>
+<table>
+<thead>
+<tr>
+<th>Sheet</th>
+<th>Matchup</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Team 7 vs Team 8</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section class="card">
+<h3>Date: October 12, 2026</h3>
+<p><strong>50/50 Team:</strong> Team 2</p>
+<p><strong>Bye Week:</strong> Team 8</p>
+
+<h3>Early Draw Time: 7:00 PM</h3>
+<table>
+<thead>
+<tr>
+<th>Sheet</th>
+<th>Matchup</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Team 2 vs Team 3</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Team 4 vs Team 5</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Team 6 vs 7</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+
+<h3>Late Draw Time: 9:15 PM</h3>
+<table>
+<thead>
+<tr>
+<th>Sheet</th>
+<th>Matchup</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Team 1 vs Team 9</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section class="card">
+<h2>What This Page Will Show Later</h2>
+<p>Eventually this page can show the full league schedule, filters by team, and completed game results.</p>
+</section> 
+
+<section class="card">
+<h2>Schedule Notes</h2>
+<p>This prototype currently shows a few sample games only.</p>
+<p>Later this page can include the full season schedule and game results for every team.</p>
+
+<div class="button-list">
+<a href="#top" class="button">Back to Top</a>
+</div>
+</section> 
+</main>
+</div>
+</body>
+</html>
