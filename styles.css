@@ -129,6 +129,30 @@ margin: 0 auto;
  display: block;
 }
 
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-top: 3px solid #1f6f4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.bottom-bar-button {
+  background: #1f3a93;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
 body {
- padding-top: 90px;
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
