@@ -108,3 +108,27 @@ color: #1f3a93;
 max-width: 700px;
 margin: 0 auto;
 }
+
+.top-bar {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ background: #ffffff;
+ border-bottom: 3px solid #1f6f4a;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 10px 0;
+ z-index: 1000;
+}
+
+.top-bar-logo {
+ max-width: 140px;
+ height: auto;
+ display: block;
+}
+
+body {
+ padding-top: 90px;
+}
