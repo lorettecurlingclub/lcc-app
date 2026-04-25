@@ -1,22 +1,22 @@
 {
- "name": "Lorette Curling Club",
- "short_name": "LCC App",
- "description": "Lorette Curling Club leagues, schedules, standings, and more.",
- "start_url": "/lcc-app/index.html",
- "display": "standalone",
- "background_color": "#f4f6f8",
- "theme_color": "#1f6f4a",
- "orientation": "portrait",
- "icons": [
-   {
-     "src": "lcc-logo-app2.jpg",
-     "sizes": "192x192",
-     "type": "image/png"
-   },
-   {
-     "src": "lcc-logo-app2.jpg",
-     "sizes": "512x512",
-     "type": "image/png"
-   }
- ]
+  "name": "Lorette Curling Club",
+  "short_name": "LCC App",
+  "description": "Lorette Curling Club leagues, schedules, standings, and more.",
+  "start_url": "/lcc-app/index.html",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#1f6f4a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "lcc-logo-app3.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "lcc-logo-app3.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
 }
