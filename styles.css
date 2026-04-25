@@ -157,3 +157,13 @@ body {
   padding-top: 90px;
   padding-bottom: 90px;
 }
+
+.bottom-bar-four {
+  gap: 8px;
+  padding: 10px 8px;
+}
+
+.bottom-bar-button-small {
+  font-size: 14px;
+  padding: 8px 10px;
+}
