@@ -1,9 +1,13 @@
-const CACHE_NAME = 'lcc-app-v2';
+const CACHE_NAME = 'lcc-app-v3';
 const ASSETS = [
   '/lcc-app/index.html',
   '/lcc-app/styles.css',
   '/lcc-app/lcc-logo.png',
   '/lcc-app/lcc-logo-app3.jpg',
+  '/lcc-app/lcc-logo-ladies.jpg',
+  '/lcc-app/lcc-logo-mens.jpg',
+  '/lcc-app/lcc-logo-mixed.jpg',
+  '/lcc-app/lcc-logo-doubles.jpg',
   '/lcc-app/sponsors.jpg',
   '/lcc-app/Bronze.jpg',
   '/lcc-app/PlatGold.jpg',
