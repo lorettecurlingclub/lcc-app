@@ -1,6 +1,6 @@
 {
   "name": "Lorette Curling Club",
-  "short_name": "LCC App",
+  "short_name": "Curling",
   "description": "Lorette Curling Club leagues, schedules, standings, and more.",
   "start_url": "/lcc-app/index.html",
   "display": "standalone",
