@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lcc-app-v3';
+const CACHE_NAME = 'lcc-app-v4';
 const ASSETS = [
  '/lcc-app/index.html',
  '/lcc-app/styles.css',
@@ -34,6 +34,11 @@ const ASSETS = [
  '/lcc-app/Juniors.html',
  '/lcc-app/bonspiel.html',
  '/lcc-app/windup.html'
+ '/lcc-app/lcc-logo-wednesday.jpg',
+ '/lcc-app/lcc-logo-saturday.jpg',
+ '/lcc-app/lcc-logo-juniors.jpg',
+ '/lcc-app/lcc-logo-bonspiel.jpg',
+ '/lcc-app/lcc-logo-windup.jpg',
 ];
 
 self.addEventListener('install', event => {
