@@ -174,3 +174,32 @@ body {
   font-size: 14px;
   padding: 8px 10px;
 }
+
+.bottom-bar-four {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
+  gap: 0;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+
+.bottom-bar-four .bottom-bar-button-small {
+  min-width: 0;
+  padding: 7px 3px 5px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.72rem;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.bottom-bar-icon {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1;
+  font-weight: 700;
+}
