@@ -279,8 +279,21 @@ function renderStandings(
     })
     .join("");
 
+  const winPoints = numberOrZero(
+    leagueData.scoring?.win
+  );
+
+  const lossPoints = numberOrZero(
+    leagueData.scoring?.loss
+  );
+
+  const tiePoints = numberOrZero(
+    leagueData.scoring?.tie
+  );
+
   container.innerHTML = `
     <section class="standings-card">
+
       <div class="standings-card-heading">
         <h1>Regular Season Standings</h1>
 
@@ -308,12 +321,11 @@ function renderStandings(
       </div>
 
       <p class="standings-scoring-note">
-        Win: ${numberOrZero(leagueData.scoring?.win)} points
-        ·
-        Tie: ${numberOrZero(leagueData.scoring?.tie)} points
-        ·
-        Loss: ${numberOrZero(leagueData.scoring?.loss)} points
+        Win: ${winPoints} Points -
+        Loss: ${lossPoints} Points -
+        Tie: ${tiePoints} Points
       </p>
+
     </section>
   `;
 }
