@@ -1972,3 +1972,200 @@ body.ladies-schedule-page
     font-size: 0.64rem;
   }
 }
+
+
+/* =========================================================
+   LADIES SCHEDULE — BLUE CARD COLOUR SYSTEM
+   Green remains in the fixed club navigation.
+   Blue controls the schedule content.
+   ========================================================= */
+
+body.ladies-schedule-page {
+  --schedule-blue-dark: #242e61;
+  --schedule-blue-medium: #364780;
+  --schedule-blue-soft: #eef1fa;
+  --schedule-blue-pale: #f7f8fc;
+  --schedule-blue-border: #d7dced;
+  --schedule-blue-text: #29366f;
+}
+
+/* =========================================================
+   WEEK AND DATE HEADER
+   ========================================================= */
+
+body.ladies-schedule-page .schedule-week-header,
+body.ladies-schedule-page .schedule-card-header,
+body.ladies-schedule-page .schedule-week-card-header {
+  color: #ffffff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--schedule-blue-dark),
+      var(--schedule-blue-medium)
+    ) !important;
+
+  border-color: var(--schedule-blue-dark) !important;
+}
+
+body.ladies-schedule-page .schedule-week-header *,
+body.ladies-schedule-page .schedule-card-header *,
+body.ladies-schedule-page .schedule-week-card-header * {
+  color: #ffffff !important;
+}
+
+/* Week label or bubble */
+
+body.ladies-schedule-page .schedule-week-number,
+body.ladies-schedule-page .schedule-week-label,
+body.ladies-schedule-page .week-number {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+
+  border-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* =========================================================
+   EARLY AND LATE DRAW HEADINGS
+   ========================================================= */
+
+body.ladies-schedule-page .schedule-draw-header,
+body.ladies-schedule-page .schedule-draw-heading,
+body.ladies-schedule-page .draw-header,
+body.ladies-schedule-page .draw-heading {
+  color: var(--schedule-blue-dark) !important;
+}
+
+/* Early Draw and Late Draw wording */
+
+body.ladies-schedule-page .schedule-draw-label,
+body.ladies-schedule-page .draw-label,
+body.ladies-schedule-page .schedule-draw-name {
+  color: var(--schedule-blue-dark) !important;
+}
+
+/* Draw time */
+
+body.ladies-schedule-page .schedule-draw-time,
+body.ladies-schedule-page .draw-time,
+body.ladies-schedule-page .schedule-time {
+  color: var(--schedule-blue-text) !important;
+}
+
+/* Early and Late bubbles */
+
+body.ladies-schedule-page .schedule-draw-badge,
+body.ladies-schedule-page .draw-badge,
+body.ladies-schedule-page .schedule-time-badge {
+  background: var(--schedule-blue-dark) !important;
+  color: #ffffff !important;
+
+  border-color: var(--schedule-blue-dark) !important;
+}
+
+/* Any light draw-heading background */
+
+body.ladies-schedule-page .schedule-draw-top,
+body.ladies-schedule-page .draw-heading-row {
+  background: var(--schedule-blue-soft) !important;
+
+  border-color: var(--schedule-blue-border) !important;
+}
+
+/* =========================================================
+   MATCHUP TABLE
+   ========================================================= */
+
+/* Dark table heading */
+
+body.ladies-schedule-page .schedule-table thead,
+body.ladies-schedule-page .schedule-table thead tr,
+body.ladies-schedule-page .schedule-table th {
+  background: var(--schedule-blue-dark) !important;
+  color: #ffffff !important;
+
+  border-color: #45538b !important;
+}
+
+/* Main table border */
+
+body.ladies-schedule-page .schedule-table,
+body.ladies-schedule-page .schedule-table-wrapper {
+  border-color: var(--schedule-blue-border) !important;
+}
+
+/* White and pale-blue alternating matchup rows */
+
+body.ladies-schedule-page .schedule-table tbody tr {
+  background: #ffffff !important;
+}
+
+body.ladies-schedule-page .schedule-table tbody tr:nth-child(even) {
+  background: var(--schedule-blue-soft) !important;
+}
+
+body.ladies-schedule-page .schedule-table tbody tr:nth-child(odd) {
+  background: var(--schedule-blue-pale) !important;
+}
+
+/* Table cell borders */
+
+body.ladies-schedule-page .schedule-table td {
+  border-color: var(--schedule-blue-border) !important;
+}
+
+/* Sheet-number column */
+
+body.ladies-schedule-page .schedule-table td:first-child {
+  background: rgba(36, 46, 97, 0.07) !important;
+  color: var(--schedule-blue-dark) !important;
+
+  font-weight: 800;
+}
+
+/* Winner and matchup accent text */
+
+body.ladies-schedule-page .schedule-table td:nth-child(2),
+body.ladies-schedule-page .schedule-table td:nth-child(3) {
+  color: #27324f;
+}
+
+/* Completed winner or result styling */
+
+body.ladies-schedule-page .schedule-winner,
+body.ladies-schedule-page .winner-text,
+body.ladies-schedule-page .schedule-result {
+  color: var(--schedule-blue-dark) !important;
+}
+
+/* =========================================================
+   DRAW SECTIONS AND CARD BORDERS
+   ========================================================= */
+
+body.ladies-schedule-page .schedule-draw,
+body.ladies-schedule-page .draw-section {
+  border-color: var(--schedule-blue-border) !important;
+}
+
+body.ladies-schedule-page .schedule-week-card,
+body.ladies-schedule-page .schedule-card {
+  border-color: rgba(36, 46, 97, 0.18) !important;
+
+  box-shadow:
+    0 5px 16px rgba(36, 46, 97, 0.11) !important;
+}
+
+/* Keep 50/50 and Bye small and secondary */
+
+body.ladies-schedule-page
+.schedule-secondary-information {
+  background: #f4f5f9 !important;
+  color: #4b5563 !important;
+
+  border-color: var(--schedule-blue-border) !important;
+}
+
+body.ladies-schedule-page
+.schedule-secondary-information strong {
+  color: var(--schedule-blue-dark) !important;
+}
