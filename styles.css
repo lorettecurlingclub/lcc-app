@@ -1792,3 +1792,78 @@ body.league-home-page .upcoming-week-message p {
     font-size: 0.68rem;
   }
 }
+
+/* =========================================================
+   UPCOMING WEEK HEADING AND PHASE BUBBLE
+   ========================================================= */
+
+body.league-home-page .upcoming-week-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 13px 15px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--lcc-blue),
+      #364780
+    );
+}
+
+body.league-home-page .upcoming-week-card-heading h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+body.league-home-page .upcoming-week-phase {
+  flex-shrink: 0;
+
+  padding: 6px 10px;
+
+  background: #ffffff;
+  color: var(--lcc-blue);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+body.league-home-page .upcoming-week-phase.playoffs {
+  background: var(--lcc-green);
+  color: #ffffff;
+
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+@media (max-width: 430px) {
+  body.league-home-page .upcoming-week-card-heading {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  body.league-home-page .upcoming-week-card-heading h2 {
+    font-size: 1.12rem;
+  }
+
+  body.league-home-page .upcoming-week-phase {
+    padding: 6px 8px;
+    font-size: 0.64rem;
+  }
+}
