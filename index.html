@@ -1,20 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
   <title>Lorette Curling Club App</title>
 
-  <link rel="stylesheet" href="styles.css?v=5" />
-  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="manifest" href="manifest.json">
 
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Curling" />
-  <meta name="theme-color" content="#1f6f4a" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <link rel="apple-touch-icon" href="lcc-logo-app3.jpg" />
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="default"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="Curling"
+  >
+
+  <meta
+    name="theme-color"
+    content="#1f6f4a"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="lcc-logo-app3.jpg"
+  >
+
+  <style>
+    /*
+      Page-specific spacing so the large club logo
+      clears the fixed top header.
+    */
+
+    body.home-page .home-page-container {
+      padding-top:
+        calc(88px + env(safe-area-inset-top));
+    }
+
+    /*
+      Consistent footer icon sizing.
+    */
+
+    .home-league-footer .home-footer-icon {
+      width: 25px;
+      height: 25px;
+
+      display: block;
+
+      margin: 0 auto 3px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .home-league-footer .home-footer-icon-fill {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    @media (max-width: 430px) {
+      body.home-page .home-page-container {
+        padding-top:
+          calc(84px + env(safe-area-inset-top));
+      }
+
+      .home-league-footer .home-footer-icon {
+        width: 23px;
+        height: 23px;
+      }
+    }
+  </style>
 
   <script>
     if ("serviceWorker" in navigator) {
@@ -25,23 +92,24 @@
   </script>
 </head>
 
-<body>
-  <div class="container">
+<body class="home-page">
+
+  <div class="container home-page-container">
 
     <header class="top-bar">
       <img
         src="lcc-logo.png"
         alt="Lorette Curling Club logo"
         class="top-bar-logo"
-      />
+      >
     </header>
 
-    <header class="header">
+    <header class="header home-page-logo-header">
       <img
         src="lcc-logo.png"
         alt="Lorette Curling Club logo"
         class="logo"
-      />
+      >
     </header>
 
     <main>
@@ -50,24 +118,64 @@
         <h2>Leagues</h2>
 
         <div class="button-list">
-          <a href="ladies.html" class="button">Ladies League</a>
-          <a href="mens.html" class="button">Mens League</a>
-          <a href="mixed.html" class="button">Mixed League</a>
-          <a href="doubles.html" class="button">Doubles</a>
+
+          <a
+            href="ladies.html"
+            class="button"
+          >
+            Ladies League
+          </a>
+
+          <a
+            href="mens.html"
+            class="button"
+          >
+            Mens League
+          </a>
+
+          <a
+            href="mixed.html"
+            class="button"
+          >
+            Mixed League
+          </a>
+
+          <a
+            href="doubles.html"
+            class="button"
+          >
+            Doubles
+          </a>
+
         </div>
       </section>
 
       <section class="card">
         <h2>Recent 50/50 Numbers</h2>
 
-        <p><strong>Friday, March 20:</strong> 234567</p>
-        <p><strong>Friday, March 13:</strong> 765432</p>
-        <p><strong>Friday, March 6:</strong> 000000</p>
-        <p><strong>Licence Number:</strong> TBD</p>
+        <p>
+          <strong>Friday, March 20:</strong>
+          234567
+        </p>
 
         <p>
-          The numbers above are used as examples, and were not the numbers
-          of the tickets drawn.
+          <strong>Friday, March 13:</strong>
+          765432
+        </p>
+
+        <p>
+          <strong>Friday, March 6:</strong>
+          000000
+        </p>
+
+        <p>
+          <strong>Licence Number:</strong>
+          TBD
+        </p>
+
+        <p>
+          The numbers above are used as examples and were
+          not the numbers of the tickets drawn.
         </p>
       </section>
 
@@ -75,7 +183,8 @@
         <h2>Drop-In Curling</h2>
 
         <p>
-          Looking for more opportunities to curl, try our Drop-In Curling events.
+          Looking for more opportunities to curl?
+          Try our Drop-In Curling events.
         </p>
 
         <div class="button-list">
@@ -94,7 +203,8 @@
         <h2>Junior Curling</h2>
 
         <p>
-          Information about our Junior Curling program for ages 8–19.
+          Information about our Junior Curling program
+          for ages 8–19.
         </p>
 
         <div class="button-list">
@@ -131,61 +241,129 @@
       <section class="card">
         <h2>About This App</h2>
 
-        <p>This is a starter app for Curling in Lorette.</p>
+        <p>
+          This is a starter app for Curling in Lorette.
+        </p>
 
         <p>
-          The goal is to help individuals quickly check schedules,
-          standings, and curling in Lorette information.
+          The goal is to help individuals quickly check
+          schedules, standings, and Curling in Lorette
+          information.
         </p>
       </section>
 
     </main>
+
   </div>
 
-  <footer class="bottom-bar bottom-bar-four">
-  <a
-    href="ladies.html"
-    class="bottom-bar-button bottom-bar-button-small active"
-    aria-label="Ladies League"
+  <footer
+    class="bottom-bar bottom-bar-four home-league-footer"
+    aria-label="League navigation"
   >
-    <span class="bottom-bar-icon" aria-hidden="true">
-      ♀
-    </span>
-    <span class="bottom-bar-label">Ladies</span>
-  </a>
 
-  <a
-    href="mens.html"
-    class="bottom-bar-button bottom-bar-button-small"
-    aria-label="Mens League"
-  >
-    <span class="bottom-bar-icon" aria-hidden="true">
-      ♂
-    </span>
-    <span class="bottom-bar-label">Mens</span>
-  </a>
+    <!-- Ladies: curling rock and broom -->
 
-  <a
-    href="mixed.html"
-    class="bottom-bar-button bottom-bar-button-small"
-    aria-label="Mixed League"
-  >
-    <span class="bottom-bar-icon" aria-hidden="true">
-      ⚭
-    </span>
-    <span class="bottom-bar-label">Mixed</span>
-  </a>
+    <a
+      href="ladies.html"
+      class="bottom-bar-button bottom-bar-button-small"
+      aria-label="Ladies League"
+    >
+      <svg
+        class="home-footer-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M7 15.5h9.5"></path>
+        <path d="M8.5 15.5v-2.7c0-1.1.9-2 2-2H15"></path>
+        <path d="M13 10.8V8.9h3.5"></path>
+        <path d="M6 15.5h12l1.2 3.3H4.8L6 15.5Z"></path>
+        <path d="M4 5 9 14"></path>
+        <path d="m3 4 2.2 1.3"></path>
+      </svg>
 
-  <a
-    href="doubles.html"
-    class="bottom-bar-button bottom-bar-button-small"
-    aria-label="Doubles"
-  >
-    <span class="bottom-bar-icon bottom-bar-icon-doubles" aria-hidden="true">
-      ●●
-    </span>
-    <span class="bottom-bar-label">Doubles</span>
-  </a>
-</footer>
+      <span class="bottom-bar-label">
+        Ladies
+      </span>
+    </a>
+
+    <!-- Mens: crossed curling brooms -->
+
+    <a
+      href="mens.html"
+      class="bottom-bar-button bottom-bar-button-small"
+      aria-label="Mens League"
+    >
+      <svg
+        class="home-footer-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M6 3 17 19"></path>
+        <path d="M18 3 7 19"></path>
+        <path d="m4.3 2.5 3.3 1"></path>
+        <path d="m19.7 2.5-3.3 1"></path>
+        <path d="m5.2 17.5 3.3 2.4"></path>
+        <path d="m18.8 17.5-3.3 2.4"></path>
+      </svg>
+
+      <span class="bottom-bar-label">
+        Mens
+      </span>
+    </a>
+
+    <!-- Mixed: curling stone between two brooms -->
+
+    <a
+      href="mixed.html"
+      class="bottom-bar-button bottom-bar-button-small"
+      aria-label="Mixed League"
+    >
+      <svg
+        class="home-footer-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M4 4 8 12"></path>
+        <path d="M20 4 16 12"></path>
+        <path d="m3 3 2.5 1.1"></path>
+        <path d="m21 3-2.5 1.1"></path>
+        <path d="M8 15.5h8"></path>
+        <path d="M9.5 15.5v-2h5v2"></path>
+        <path d="M7 15.5h10l1 3H6l1-3Z"></path>
+      </svg>
+
+      <span class="bottom-bar-label">
+        Mixed
+      </span>
+    </a>
+
+    <!-- Doubles: two curling stones -->
+
+    <a
+      href="doubles.html"
+      class="bottom-bar-button bottom-bar-button-small"
+      aria-label="Doubles"
+    >
+      <svg
+        class="home-footer-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M3.5 15.5h7"></path>
+        <path d="M5 15.5v-2h4v2"></path>
+        <path d="M3 15.5h8l.8 3H2.2l.8-3Z"></path>
+
+        <path d="M13.5 12.5h7"></path>
+        <path d="M15 12.5v-2h4v2"></path>
+        <path d="M13 12.5h8l.8 3h-9.6l.8-3Z"></path>
+      </svg>
+
+      <span class="bottom-bar-label">
+        Doubles
+      </span>
+    </a>
+
+  </footer>
+
 </body>
 </html>
