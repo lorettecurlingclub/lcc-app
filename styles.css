@@ -2221,3 +2221,14 @@ body.ladies-standings-page
 .standings-scoring-note {
   border-top-color: rgba(36, 46, 97, 0.15);
 }
+
+/* Keep the date readable inside the white date bubble */
+
+body.ladies-schedule-page
+.schedule-card-header
+.schedule-date-area,
+body.ladies-schedule-page
+.schedule-card-header
+.schedule-date-area * {
+  color: #1f2937 !important;
+}
