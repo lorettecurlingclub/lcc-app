@@ -1867,3 +1867,108 @@ body.league-home-page .upcoming-week-phase.playoffs {
     font-size: 0.64rem;
   }
 }
+
+
+/* =========================================================
+   LADIES SCHEDULE REFINEMENTS
+   ========================================================= */
+
+:root {
+  --lcc-green: #1f6f4a;
+  --lcc-blue: #242e61;
+  --lcc-blue-light: #eef1fa;
+}
+
+/* Ladies League image above schedule */
+
+body.ladies-schedule-page .schedule-logo-heading {
+  padding: 8px 12px 14px;
+  text-align: center;
+}
+
+body.ladies-schedule-page .schedule-league-logo {
+  display: block;
+
+  width: min(100%, 300px);
+  height: auto;
+
+  margin: 0 auto 7px;
+}
+
+body.ladies-schedule-page .schedule-logo-heading p {
+  margin: 0;
+
+  color: var(--lcc-blue);
+
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* Blue selected month instead of yellow */
+
+body.ladies-schedule-page .schedule-month-button.active,
+body.ladies-schedule-page .schedule-month-button.active:hover,
+body.ladies-schedule-page .schedule-month-button.active:focus,
+body.ladies-schedule-page .schedule-month-button.active:focus-visible {
+  background: var(--lcc-blue) !important;
+  color: #ffffff !important;
+
+  border-color: #52629b !important;
+
+  box-shadow:
+    inset 0 -3px 0 rgba(255, 255, 255, 0.18),
+    0 4px 10px rgba(36, 46, 97, 0.28) !important;
+}
+
+/* Remove any inherited yellow active indicator */
+
+body.ladies-schedule-page .schedule-month-button.active {
+  outline-color: var(--lcc-blue) !important;
+}
+
+/* Compact 50/50 and Bye details */
+
+body.ladies-schedule-page
+.schedule-secondary-information {
+  display: inline-flex;
+  align-items: center;
+
+  width: auto;
+
+  margin: 3px 4px 3px 0;
+  padding: 5px 8px;
+
+  background: #f3f6fa;
+  color: #4b5563;
+
+  border: 1px solid #dce2eb;
+  border-radius: 7px;
+
+  font-size: 0.69rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+body.ladies-schedule-page
+.schedule-secondary-information strong {
+  color: var(--lcc-green);
+  font-weight: 800;
+}
+
+@media (max-width: 430px) {
+  body.ladies-schedule-page .schedule-logo-heading {
+    padding-top: 5px;
+    padding-bottom: 11px;
+  }
+
+  body.ladies-schedule-page .schedule-league-logo {
+    width: min(100%, 270px);
+    margin-bottom: 5px;
+  }
+
+  body.ladies-schedule-page
+  .schedule-secondary-information {
+    padding: 4px 7px;
+    font-size: 0.64rem;
+  }
+}
