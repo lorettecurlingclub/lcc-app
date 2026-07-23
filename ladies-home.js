@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     if (!upcomingWeek) {
+      updateUpcomingWeekPhase(null);
+      
       showUpcomingWeekMessage(
         container,
         "The 2026–27 Ladies League schedule is complete."
@@ -61,7 +63,7 @@ function findUpcomingWeek(schedule) {
 
   return schedule
     .filter((week) => {
-      return !week.phase || week.phase === "regular";
+      return week && week.date;
     })
     .slice()
     .sort((weekA, weekB) => {
@@ -93,6 +95,8 @@ function renderUpcomingWeek(
     ? week.lateGames
     : [];
 
+  updateUpcomingWeekPhase(week);
+  
   container.innerHTML = `
     <div class="upcoming-week-date">
       <strong>
@@ -142,6 +146,40 @@ function renderUpcomingWeek(
   `;
 }
 
+
+function updateUpcomingWeekPhase(week) {
+  const phaseBubble = document.getElementById(
+    "upcoming-week-phase"
+  );
+
+  if (!phaseBubble) {
+    return;
+  }
+
+  if (!week) {
+    phaseBubble.hidden = true;
+    return;
+  }
+
+  const phase = String(
+    week.phase || "regular"
+  ).toLowerCase();
+
+  const isPlayoffs =
+    phase === "playoff" ||
+    phase === "playoffs";
+
+  phaseBubble.textContent = isPlayoffs
+    ? "Playoffs"
+    : "Regular Season";
+
+  phaseBubble.classList.toggle(
+    "playoffs",
+    isPlayoffs
+  );
+
+  phaseBubble.hidden = false;
+}
 
 function renderDraw(
   drawName,
