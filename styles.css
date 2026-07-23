@@ -2175,9 +2175,8 @@ body.ladies-schedule-page
    ========================================================= */
 
 body.ladies-standings-page .standings-card {
-  overflow: hidden;
-
   border-color: rgba(36, 46, 97, 0.18);
+  border-top: 5px solid #242e61;
 
   box-shadow:
     0 5px 16px rgba(36, 46, 97, 0.11);
@@ -2185,12 +2184,7 @@ body.ladies-standings-page .standings-card {
 
 body.ladies-standings-page
 .standings-card-heading {
-  margin:
-    -18px
-    -18px
-    16px;
-
-  padding: 14px 16px;
+  padding: 18px 16px;
 
   background:
     linear-gradient(
@@ -2208,29 +2202,22 @@ body.ladies-standings-page
 
   color: #ffffff;
 
-  font-size: 1.25rem;
+  font-size: clamp(1.35rem, 6vw, 1.8rem);
   font-weight: 800;
+  line-height: 1.15;
 }
 
 body.ladies-standings-page
 .standings-card-heading p {
-  margin: 3px 0 0;
+  margin: 5px 0 0;
 
   color: rgba(255, 255, 255, 0.82);
 
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
 body.ladies-standings-page
 .standings-scoring-note {
-  margin: 14px 0 0;
-  padding: 0 4px;
-
-  color: #4b5563;
-
-  font-size: 0.73rem;
-  font-weight: 700;
-  line-height: 1.4;
-  text-align: center;
+  border-top-color: rgba(36, 46, 97, 0.15);
 }
