@@ -2169,3 +2169,68 @@ body.ladies-schedule-page
 .schedule-secondary-information strong {
   color: var(--schedule-blue-dark) !important;
 }
+
+/* =========================================================
+   LADIES STANDINGS — BLUE CARD HEADING
+   ========================================================= */
+
+body.ladies-standings-page .standings-card {
+  overflow: hidden;
+
+  border-color: rgba(36, 46, 97, 0.18);
+
+  box-shadow:
+    0 5px 16px rgba(36, 46, 97, 0.11);
+}
+
+body.ladies-standings-page
+.standings-card-heading {
+  margin:
+    -18px
+    -18px
+    16px;
+
+  padding: 14px 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #242e61,
+      #364780
+    );
+
+  color: #ffffff;
+}
+
+body.ladies-standings-page
+.standings-card-heading h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+body.ladies-standings-page
+.standings-card-heading p {
+  margin: 3px 0 0;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+body.ladies-standings-page
+.standings-scoring-note {
+  margin: 14px 0 0;
+  padding: 0 4px;
+
+  color: #4b5563;
+
+  font-size: 0.73rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
