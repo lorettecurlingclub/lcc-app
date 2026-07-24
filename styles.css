@@ -1351,13 +1351,13 @@ body.league-standings-page {
 
 .standings-table th:nth-child(3),
 .standings-table td:nth-child(3) {
-  width: 22%;
+  width: 13%;
   text-align: center;
 }
 
 .standings-table th:nth-child(4),
 .standings-table td:nth-child(4) {
-  width: 13%;
+  width: 22%;
   text-align: center;
 }
 
