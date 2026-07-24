@@ -2174,7 +2174,7 @@ body.league-schedule-page
    LADIES STANDINGS — BLUE CARD HEADING
    ========================================================= */
 
-body.ladies-standings-page .standings-card {
+body.league-standings-page .standings-card {
   border-color: rgba(36, 46, 97, 0.18);
   border-top: 5px solid #242e61;
 
@@ -2182,7 +2182,7 @@ body.ladies-standings-page .standings-card {
     0 5px 16px rgba(36, 46, 97, 0.11);
 }
 
-body.ladies-standings-page
+body.league-standings-page
 .standings-card-heading {
   padding: 18px 16px;
 
@@ -2196,7 +2196,7 @@ body.ladies-standings-page
   color: #ffffff;
 }
 
-body.ladies-standings-page
+body.league-standings-page
 .standings-card-heading h1 {
   margin: 0;
 
@@ -2207,7 +2207,7 @@ body.ladies-standings-page
   line-height: 1.15;
 }
 
-body.ladies-standings-page
+body.league-standings-page
 .standings-card-heading p {
   margin: 5px 0 0;
 
@@ -2217,7 +2217,7 @@ body.ladies-standings-page
   font-weight: 700;
 }
 
-body.ladies-standings-page
+body.league-standings-page
 .standings-scoring-note {
   border-top-color: rgba(36, 46, 97, 0.15);
 }
