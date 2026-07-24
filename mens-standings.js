@@ -366,10 +366,8 @@ function renderStandingsRow(
       </td>
 
       <td class="standings-team">
-        ${escapeHtml(
-          team.teamName
-        )}
-      </td>
+  Team ${team.teamNumber}
+</td>
 
       <td class="standings-games-played">
         ${team.gamesPlayed}
