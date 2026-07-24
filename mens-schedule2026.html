@@ -8,35 +8,36 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Men’s League Schedule</title>
+  <title>Mixed League Schedule</title>
 
   <link
     rel="stylesheet"
-    href="styles.css?v=15"
+    href="styles.css?v=16"
   >
 
   <script
-    src="mens-data2026.js?v=1"
+    src="mixed-data2026.js?v=1"
     defer
   ></script>
 
   <script
-    src="mens-schedule.js?v=2"
+    src="mixed-schedule.js?v=1"
     defer
   ></script>
 </head>
 
-<body class="league-schedule-page mens-schedule-page">
+<body class="league-schedule-page mixed-schedule-page">
 
   <header class="schedule-month-header">
     <nav
       class="schedule-month-nav"
-      aria-label="Men’s League schedule months"
+      aria-label="Mixed League schedule months"
     >
       <button
         type="button"
         class="schedule-month-button active"
         data-month="october"
+        aria-pressed="true"
       >
         October
       </button>
@@ -45,6 +46,7 @@
         type="button"
         class="schedule-month-button"
         data-month="november"
+        aria-pressed="false"
       >
         November
       </button>
@@ -53,6 +55,7 @@
         type="button"
         class="schedule-month-button"
         data-month="december"
+        aria-pressed="false"
       >
         December
       </button>
@@ -61,6 +64,7 @@
         type="button"
         class="schedule-month-button"
         data-month="january"
+        aria-pressed="false"
       >
         January
       </button>
@@ -69,6 +73,7 @@
         type="button"
         class="schedule-month-button"
         data-month="february"
+        aria-pressed="false"
       >
         February
       </button>
@@ -77,6 +82,7 @@
         type="button"
         class="schedule-month-button"
         data-month="march"
+        aria-pressed="false"
       >
         March
       </button>
@@ -87,19 +93,16 @@
     id="top"
     class="schedule-page-content"
   >
-    <section
-      class="
-        schedule-page-heading
-        schedule-logo-heading
-      "
-    >
+    <section class="schedule-page-heading schedule-logo-heading">
       <img
-        src="lcc-logo-mens.jpg?v=1"
-        alt="Men’s League"
+        src="lcc-logo-mixed.jpg?v=1"
+        alt="Mixed League"
         class="schedule-league-logo"
       >
 
-      <p>2026–27 Schedule</p>
+      <p>
+        2026–27 Schedule
+      </p>
     </section>
 
     <div
@@ -108,7 +111,7 @@
     >
       <section class="schedule-message-card">
         <p>
-          Loading the Men’s League schedule…
+          Loading the Mixed League schedule…
         </p>
       </section>
     </div>
@@ -116,7 +119,7 @@
 
   <footer
     class="league-footer"
-    aria-label="Men’s League navigation"
+    aria-label="Mixed League navigation"
   >
     <a
       href="index.html"
@@ -124,12 +127,14 @@
     >
       <span class="league-footer-icon">
         <svg
-          width="26"
-          height="26"
+          width="27"
+          height="27"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.8"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
           aria-hidden="true"
         >
           <path
@@ -155,49 +160,71 @@
     </a>
 
     <a
-      href="mens.html"
+      href="mixed.html"
       class="league-footer-link"
     >
       <span class="league-footer-icon">
         <svg
-          width="26"
-          height="26"
+          width="27"
+          height="27"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.8"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
           aria-hidden="true"
         >
-          <circle cx="12" cy="7" r="3" />
+          <circle
+            cx="8"
+            cy="7"
+            r="3"
+          />
+
+          <circle
+            cx="16"
+            cy="7"
+            r="3"
+          />
 
           <path
             d="
-              M6 20
-              C6 15.5 8.5 13 12 13
-              C15.5 13 18 15.5 18 20
+              M3 20
+              C3 15.8 5.2 13 8 13
+              C10.8 13 13 15.8 13 20
+            "
+          />
+
+          <path
+            d="
+              M11 20
+              C11 15.8 13.2 13 16 13
+              C18.8 13 21 15.8 21 20
             "
           />
         </svg>
       </span>
 
       <span class="league-footer-label">
-        Men’s
+        Mixed
       </span>
     </a>
 
     <a
-      href="mens-schedule2026.html"
+      href="mixed-schedule2026.html"
       class="league-footer-link active"
       aria-current="page"
     >
       <span class="league-footer-icon">
         <svg
-          width="26"
-          height="26"
+          width="27"
+          height="27"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.8"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
           aria-hidden="true"
         >
           <rect
@@ -224,17 +251,19 @@
     </a>
 
     <a
-      href="mens-standings2026.html"
+      href="mixed-standings2026.html"
       class="league-footer-link"
     >
       <span class="league-footer-icon">
         <svg
-          width="26"
-          height="26"
+          width="27"
+          height="27"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.8"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
           aria-hidden="true"
         >
           <path d="M5 20V12" />
@@ -254,21 +283,24 @@
     document.addEventListener(
       "DOMContentLoaded",
       () => {
+        const monthButtons =
+          Array.from(
+            document.querySelectorAll(
+              ".schedule-month-button"
+            )
+          );
+
         const scheduleContainer =
           document.getElementById(
             "schedule-container"
           );
 
-        const monthButtons = Array.from(
-          document.querySelectorAll(
-            ".schedule-month-button"
-          )
-        );
-
-        function setActiveMonth(monthName) {
+        function setActiveMonth(
+          selectedButton
+        ) {
           monthButtons.forEach((button) => {
             const isActive =
-              button.dataset.month === monthName;
+              button === selectedButton;
 
             button.classList.toggle(
               "active",
@@ -282,13 +314,11 @@
           });
         }
 
-        function findMonthSection(monthName) {
-          if (!scheduleContainer) {
-            return null;
-          }
-
-          return scheduleContainer.querySelector(
-            `[data-schedule-month="${monthName}"]`
+        function findMonthSection(
+          monthName
+        ) {
+          return document.querySelector(
+            `#schedule-container #${monthName}`
           );
         }
 
@@ -300,13 +330,15 @@
                 button.dataset.month;
 
               const monthSection =
-                findMonthSection(monthName);
+                findMonthSection(
+                  monthName
+                );
 
               if (!monthSection) {
                 return;
               }
 
-              setActiveMonth(monthName);
+              setActiveMonth(button);
 
               monthSection.scrollIntoView({
                 behavior: "smooth",
@@ -316,67 +348,25 @@
           );
         });
 
-        function updateActiveMonth() {
-          if (!scheduleContainer) {
-            return;
-          }
+        const observer =
+          new MutationObserver(() => {
+            const firstAvailableButton =
+              monthButtons.find((button) => {
+                return Boolean(
+                  findMonthSection(
+                    button.dataset.month
+                  )
+                );
+              });
 
-          const monthSections = Array.from(
-            scheduleContainer.querySelectorAll(
-              "[data-schedule-month]"
-            )
-          );
-
-          if (monthSections.length === 0) {
-            return;
-          }
-
-          const headerOffset = 135;
-
-          let activeSection =
-            monthSections[0];
-
-          monthSections.forEach((section) => {
-            const sectionTop =
-              section.getBoundingClientRect().top;
-
-            if (sectionTop <= headerOffset) {
-              activeSection = section;
+            if (firstAvailableButton) {
+              setActiveMonth(
+                firstAvailableButton
+              );
             }
           });
 
-          setActiveMonth(
-            activeSection.dataset.scheduleMonth
-          );
-        }
-
-        let scrollUpdatePending = false;
-
-        window.addEventListener(
-          "scroll",
-          () => {
-            if (scrollUpdatePending) {
-              return;
-            }
-
-            scrollUpdatePending = true;
-
-            window.requestAnimationFrame(() => {
-              updateActiveMonth();
-              scrollUpdatePending = false;
-            });
-          },
-          {
-            passive: true
-          }
-        );
-
         if (scheduleContainer) {
-          const observer =
-            new MutationObserver(() => {
-              updateActiveMonth();
-            });
-
           observer.observe(
             scheduleContainer,
             {
@@ -388,5 +378,6 @@
       }
     );
   </script>
+
 </body>
 </html>
