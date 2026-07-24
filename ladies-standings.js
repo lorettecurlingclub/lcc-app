@@ -263,13 +263,13 @@ function renderStandings(
             ${escapeHtml(team.teamName)}
           </td>
 
-          <td class="standings-record">
-            ${record}
-          </td>
-
           <td class="standings-games-played">
-            ${team.gamesPlayed}
-          </td>
+  ${team.gamesPlayed}
+</td>
+
+<td class="standings-record">
+  ${record}
+</td>
 
           <td class="standings-points">
             ${team.points}
@@ -308,8 +308,8 @@ function renderStandings(
             <tr>
               <th scope="col">#</th>
               <th scope="col">Team</th>
-              <th scope="col">Record</th>
               <th scope="col">GP</th>
+              <th scope="col">Record</th>
               <th scope="col">Pts</th>
             </tr>
           </thead>
