@@ -280,22 +280,25 @@ function renderGameRows(
         ${numberOrBlank(game.sheet)}
       </td>
 
-      <td class="schedule-matchup">
-        ${renderTeamLabel(
-          teamA,
-          game,
-          leagueData
-        )}
+      <td>
+  <span class="schedule-matchup">
+    ${renderTeamLabel(
+      teamA,
+      game,
+      leagueData
+    )}
 
-        <span class="schedule-versus">
-          vs
-        </span>
+    <span class="schedule-versus">
+      vs
+    </span>
 
-        ${renderTeamLabel(
-          teamB,
-          game,
-          leagueData
-        )}
+    ${renderTeamLabel(
+      teamB,
+      game,
+      leagueData
+    )}
+  </span>
+</td>
       </td>
 
       <td>
