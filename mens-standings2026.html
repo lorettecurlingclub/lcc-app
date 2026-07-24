@@ -1,58 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Standings</title>
-<link rel="stylesheet" href="styles.css?v=4" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Men’s League Standings</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css?v=16"
+  >
+
+  <script
+    src="mens-data2026.js?v=1"
+    defer
+  ></script>
+
+  <script
+    src="mens-standings.js?v=1"
+    defer
+  ></script>
 </head>
-<body>
-<div class="container">
 
-<header class="top-bar">
-  <img src="lcc-logo.png" alt="Lorette Curling Club logo" class="top-bar-logo" />
-</header>
+<body class="league-standings-page mens-standings-page">
 
-<header class="header">
-<img src="lcc-logo-mens.jpg?v=1" alt="Mens League" class="league-logo" />
-</header>
+  <header class="top-bar">
+    <a
+      href="index.html"
+      aria-label="Return to the Lorette Curling Club home page"
+    >
+      <img
+        src="lcc-logo.png"
+        alt="Lorette Curling Club"
+        class="top-bar-logo"
+      >
+    </a>
+  </header>
 
-<main>
-<section class="card">
-<h2>2026/27 Regular Season Standings</h2>
-<table>
-<thead>
-<tr>
-<th>Rank</th>
-<th>Team</th>
-<th>GP</th>
-<th>Record</th>
-<th>Pts</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>Team 1</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>2</td><td>Team 2</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>3</td><td>Team 3</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>4</td><td>Team 4</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>5</td><td>Team 5</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>6</td><td>Team 6</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>7</td><td>Team 7</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>8</td><td>Team 8</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>9</td><td>Team 9</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>10</td><td>Team 10</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>11</td><td>Team 11</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-<tr><td>12</td><td>Team 12</td><td>0</td><td>0-0-0</td><td>-</td></tr>
-</tbody>
-</table>
-</section>
-</main>
+  <main class="standings-page-content">
 
-</div>
+    <header class="standings-page-header">
+      <img
+        src="lcc-logo-mens.jpg?v=1"
+        alt="Men’s League"
+        class="league-logo"
+      >
+    </header>
 
-<footer class="bottom-bar">
-  <a href="mens.html" class="bottom-bar-button">Mens League</a>
-  <a href="index.html" class="bottom-bar-button">Main Page</a>
-</footer>
+    <div
+      id="standings-container"
+      aria-live="polite"
+    >
+      <section class="standings-card standings-loading-card">
+        <p>
+          Loading the Men’s League standings…
+        </p>
+      </section>
+    </div>
+
+  </main>
+
+  <footer
+    class="bottom-bar-four"
+    aria-label="Men’s League navigation"
+  >
+    <a
+      href="index.html"
+      class="bottom-bar-button-small"
+    >
+      <span class="bottom-bar-icon">
+        <svg
+          width="27"
+          height="27"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="
+              M3 11.5
+              12 4
+              21 11.5
+              V20
+              H15
+              V14
+              H9
+              V20
+              H3
+              Z
+            "
+          />
+        </svg>
+      </span>
+
+      <span class="bottom-bar-label">
+        Home
+      </span>
+    </a>
+
+    <a
+      href="mens.html"
+      class="bottom-bar-button-small"
+    >
+      <span class="bottom-bar-icon">
+        <svg
+          width="27"
+          height="27"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle
+            cx="12"
+            cy="7"
+            r="3"
+          />
+
+          <path
+            d="
+              M6 20
+              C6 15.5 8.5 13 12 13
+              C15.5 13 18 15.5 18 20
+            "
+          />
+        </svg>
+      </span>
+
+      <span class="bottom-bar-label">
+        Men’s
+      </span>
+    </a>
+
+    <a
+      href="mens-schedule2026.html"
+      class="bottom-bar-button-small"
+    >
+      <span class="bottom-bar-icon">
+        <svg
+          width="27"
+          height="27"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect
+            x="3"
+            y="5"
+            width="18"
+            height="16"
+            rx="2"
+          />
+
+          <path d="M3 10H21" />
+          <path d="M8 3V7" />
+          <path d="M16 3V7" />
+          <path d="M7 14H10" />
+          <path d="M14 14H17" />
+          <path d="M7 18H10" />
+          <path d="M14 18H17" />
+        </svg>
+      </span>
+
+      <span class="bottom-bar-label">
+        Schedule
+      </span>
+    </a>
+
+    <a
+      href="mens-standings2026.html"
+      class="bottom-bar-button-small active"
+      aria-current="page"
+    >
+      <span class="bottom-bar-icon">
+        <svg
+          width="27"
+          height="27"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 20V12" />
+          <path d="M12 20V4" />
+          <path d="M19 20V8" />
+          <path d="M2 20H22" />
+        </svg>
+      </span>
+
+      <span class="bottom-bar-label">
+        Standings
+      </span>
+    </a>
+  </footer>
+
 </body>
 </html>
