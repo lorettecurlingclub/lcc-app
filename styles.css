@@ -1881,12 +1881,12 @@ body.league-home-page .upcoming-week-phase.playoffs {
 
 /* Ladies League image above schedule */
 
-body.ladies-schedule-page .schedule-logo-heading {
+body.league-schedule-page .schedule-logo-heading {
   padding: 8px 12px 14px;
   text-align: center;
 }
 
-body.ladies-schedule-page .schedule-league-logo {
+body.league-schedule-page .schedule-league-logo {
   display: block;
 
   width: min(100%, 300px);
@@ -1895,7 +1895,7 @@ body.ladies-schedule-page .schedule-league-logo {
   margin: 0 auto 7px;
 }
 
-body.ladies-schedule-page .schedule-logo-heading p {
+body.league-schedule-page .schedule-logo-heading p {
   margin: 0;
 
   color: var(--lcc-blue);
@@ -1906,10 +1906,10 @@ body.ladies-schedule-page .schedule-logo-heading p {
 
 /* Blue selected month instead of yellow */
 
-body.ladies-schedule-page .schedule-month-button.active,
-body.ladies-schedule-page .schedule-month-button.active:hover,
-body.ladies-schedule-page .schedule-month-button.active:focus,
-body.ladies-schedule-page .schedule-month-button.active:focus-visible {
+body.league-schedule-page .schedule-month-button.active,
+body.league-schedule-page .schedule-month-button.active:hover,
+body.league-schedule-page .schedule-month-button.active:focus,
+body.league-schedule-page .schedule-month-button.active:focus-visible {
   background: var(--lcc-blue) !important;
   color: #ffffff !important;
 
@@ -1922,13 +1922,13 @@ body.ladies-schedule-page .schedule-month-button.active:focus-visible {
 
 /* Remove any inherited yellow active indicator */
 
-body.ladies-schedule-page .schedule-month-button.active {
+body.league-schedule-page .schedule-month-button.active {
   outline-color: var(--lcc-blue) !important;
 }
 
 /* Compact 50/50 and Bye details */
 
-body.ladies-schedule-page
+body.league-schedule-page
 .schedule-secondary-information {
   display: inline-flex;
   align-items: center;
@@ -1949,24 +1949,24 @@ body.ladies-schedule-page
   line-height: 1.2;
 }
 
-body.ladies-schedule-page
+body.league-schedule-page
 .schedule-secondary-information strong {
   color: var(--lcc-green);
   font-weight: 800;
 }
 
 @media (max-width: 430px) {
-  body.ladies-schedule-page .schedule-logo-heading {
+  body.league-schedule-page .schedule-logo-heading {
     padding-top: 5px;
     padding-bottom: 11px;
   }
 
-  body.ladies-schedule-page .schedule-league-logo {
+  body.league-schedule-page .schedule-league-logo {
     width: min(100%, 270px);
     margin-bottom: 5px;
   }
 
-  body.ladies-schedule-page
+  body.league-schedule-page
   .schedule-secondary-information {
     padding: 4px 7px;
     font-size: 0.64rem;
@@ -1980,7 +1980,7 @@ body.ladies-schedule-page
    Blue controls the schedule content.
    ========================================================= */
 
-body.ladies-schedule-page {
+body.league-schedule-page {
   --schedule-blue-dark: #242e61;
   --schedule-blue-medium: #364780;
   --schedule-blue-soft: #eef1fa;
@@ -1993,9 +1993,9 @@ body.ladies-schedule-page {
    WEEK AND DATE HEADER
    ========================================================= */
 
-body.ladies-schedule-page .schedule-week-header,
-body.ladies-schedule-page .schedule-card-header,
-body.ladies-schedule-page .schedule-week-card-header {
+body.league-schedule-page .schedule-week-header,
+body.league-schedule-page .schedule-card-header,
+body.league-schedule-page .schedule-week-card-header {
   color: #ffffff !important;
 
   background:
@@ -2008,17 +2008,17 @@ body.ladies-schedule-page .schedule-week-card-header {
   border-color: var(--schedule-blue-dark) !important;
 }
 
-body.ladies-schedule-page .schedule-week-header *,
-body.ladies-schedule-page .schedule-card-header *,
-body.ladies-schedule-page .schedule-week-card-header * {
+body.league-schedule-page .schedule-week-header *,
+body.league-schedule-page .schedule-card-header *,
+body.league-schedule-page .schedule-week-card-header * {
   color: #ffffff !important;
 }
 
 /* Week label or bubble */
 
-body.ladies-schedule-page .schedule-week-number,
-body.ladies-schedule-page .schedule-week-label,
-body.ladies-schedule-page .week-number {
+body.league-schedule-page .schedule-week-number,
+body.league-schedule-page .schedule-week-label,
+body.league-schedule-page .week-number {
   background: rgba(255, 255, 255, 0.16) !important;
   color: #ffffff !important;
 
@@ -2029,34 +2029,34 @@ body.ladies-schedule-page .week-number {
    EARLY AND LATE DRAW HEADINGS
    ========================================================= */
 
-body.ladies-schedule-page .schedule-draw-header,
-body.ladies-schedule-page .schedule-draw-heading,
-body.ladies-schedule-page .draw-header,
-body.ladies-schedule-page .draw-heading {
+body.league-schedule-page .schedule-draw-header,
+body.league-schedule-page .schedule-draw-heading,
+body.league-schedule-page .draw-header,
+body.league-schedule-page .draw-heading {
   color: var(--schedule-blue-dark) !important;
 }
 
 /* Early Draw and Late Draw wording */
 
-body.ladies-schedule-page .schedule-draw-label,
-body.ladies-schedule-page .draw-label,
-body.ladies-schedule-page .schedule-draw-name {
+body.league-schedule-page .schedule-draw-label,
+body.league-schedule-page .draw-label,
+body.league-schedule-page .schedule-draw-name {
   color: var(--schedule-blue-dark) !important;
 }
 
 /* Draw time */
 
-body.ladies-schedule-page .schedule-draw-time,
-body.ladies-schedule-page .draw-time,
-body.ladies-schedule-page .schedule-time {
+body.league-schedule-page .schedule-draw-time,
+body.league-schedule-page .draw-time,
+body.league-schedule-page .schedule-time {
   color: var(--schedule-blue-text) !important;
 }
 
 /* Early and Late bubbles */
 
-body.ladies-schedule-page .schedule-draw-badge,
-body.ladies-schedule-page .draw-badge,
-body.ladies-schedule-page .schedule-time-badge {
+body.league-schedule-page .schedule-draw-badge,
+body.league-schedule-page .draw-badge,
+body.league-schedule-page .schedule-time-badge {
   background: var(--schedule-blue-dark) !important;
   color: #ffffff !important;
 
@@ -2065,8 +2065,8 @@ body.ladies-schedule-page .schedule-time-badge {
 
 /* Any light draw-heading background */
 
-body.ladies-schedule-page .schedule-draw-top,
-body.ladies-schedule-page .draw-heading-row {
+body.league-schedule-page .schedule-draw-top,
+body.league-schedule-page .draw-heading-row {
   background: var(--schedule-blue-soft) !important;
 
   border-color: var(--schedule-blue-border) !important;
@@ -2078,9 +2078,9 @@ body.ladies-schedule-page .draw-heading-row {
 
 /* Dark table heading */
 
-body.ladies-schedule-page .schedule-table thead,
-body.ladies-schedule-page .schedule-table thead tr,
-body.ladies-schedule-page .schedule-table th {
+body.league-schedule-page .schedule-table thead,
+body.league-schedule-page .schedule-table thead tr,
+body.league-schedule-page .schedule-table th {
   background: var(--schedule-blue-dark) !important;
   color: #ffffff !important;
 
@@ -2089,34 +2089,34 @@ body.ladies-schedule-page .schedule-table th {
 
 /* Main table border */
 
-body.ladies-schedule-page .schedule-table,
-body.ladies-schedule-page .schedule-table-wrapper {
+body.league-schedule-page .schedule-table,
+body.league-schedule-page .schedule-table-wrapper {
   border-color: var(--schedule-blue-border) !important;
 }
 
 /* White and pale-blue alternating matchup rows */
 
-body.ladies-schedule-page .schedule-table tbody tr {
+body.league-schedule-page .schedule-table tbody tr {
   background: #ffffff !important;
 }
 
-body.ladies-schedule-page .schedule-table tbody tr:nth-child(even) {
+body.league-schedule-page .schedule-table tbody tr:nth-child(even) {
   background: var(--schedule-blue-soft) !important;
 }
 
-body.ladies-schedule-page .schedule-table tbody tr:nth-child(odd) {
+body.league-schedule-page .schedule-table tbody tr:nth-child(odd) {
   background: var(--schedule-blue-pale) !important;
 }
 
 /* Table cell borders */
 
-body.ladies-schedule-page .schedule-table td {
+body.league-schedule-page .schedule-table td {
   border-color: var(--schedule-blue-border) !important;
 }
 
 /* Sheet-number column */
 
-body.ladies-schedule-page .schedule-table td:first-child {
+body.league-schedule-page .schedule-table td:first-child {
   background: rgba(36, 46, 97, 0.07) !important;
   color: var(--schedule-blue-dark) !important;
 
@@ -2125,16 +2125,16 @@ body.ladies-schedule-page .schedule-table td:first-child {
 
 /* Winner and matchup accent text */
 
-body.ladies-schedule-page .schedule-table td:nth-child(2),
-body.ladies-schedule-page .schedule-table td:nth-child(3) {
+body.league-schedule-page .schedule-table td:nth-child(2),
+body.league-schedule-page .schedule-table td:nth-child(3) {
   color: #27324f;
 }
 
 /* Completed winner or result styling */
 
-body.ladies-schedule-page .schedule-winner,
-body.ladies-schedule-page .winner-text,
-body.ladies-schedule-page .schedule-result {
+body.league-schedule-page .schedule-winner,
+body.league-schedule-page .winner-text,
+body.league-schedule-page .schedule-result {
   color: var(--schedule-blue-dark) !important;
 }
 
@@ -2142,13 +2142,13 @@ body.ladies-schedule-page .schedule-result {
    DRAW SECTIONS AND CARD BORDERS
    ========================================================= */
 
-body.ladies-schedule-page .schedule-draw,
-body.ladies-schedule-page .draw-section {
+body.league-schedule-page .schedule-draw,
+body.league-schedule-page .draw-section {
   border-color: var(--schedule-blue-border) !important;
 }
 
-body.ladies-schedule-page .schedule-week-card,
-body.ladies-schedule-page .schedule-card {
+body.league-schedule-page .schedule-week-card,
+body.league-schedule-page .schedule-card {
   border-color: rgba(36, 46, 97, 0.18) !important;
 
   box-shadow:
@@ -2157,7 +2157,7 @@ body.ladies-schedule-page .schedule-card {
 
 /* Keep 50/50 and Bye small and secondary */
 
-body.ladies-schedule-page
+body.league-schedule-page
 .schedule-secondary-information {
   background: #f4f5f9 !important;
   color: #4b5563 !important;
@@ -2165,7 +2165,7 @@ body.ladies-schedule-page
   border-color: var(--schedule-blue-border) !important;
 }
 
-body.ladies-schedule-page
+body.league-schedule-page
 .schedule-secondary-information strong {
   color: var(--schedule-blue-dark) !important;
 }
@@ -2224,10 +2224,10 @@ body.ladies-standings-page
 
 /* Keep the date readable inside the white date bubble */
 
-body.ladies-schedule-page
+body.league-schedule-page
 .schedule-card-header
 .schedule-date-area,
-body.ladies-schedule-page
+body.league-schedule-page
 .schedule-card-header
 .schedule-date-area * {
   color: #1f2937 !important;
