@@ -21,243 +21,232 @@
   ></script>
 
   <script
-    src="mens-schedule.js?v=1"
+    src="mens-schedule.js?v=2"
     defer
   ></script>
 </head>
 
-<body
-  class="
-    league-schedule-page
-    mens-schedule-page
-  "
->
-  <div class="container">
-    <header class="top-bar">
-      <a
-        href="index.html"
-        aria-label="Return to the Lorette Curling Club home page"
-      >
-        <img
-          src="lcc-logo.png"
-          alt="Lorette Curling Club"
-          class="top-bar-logo"
-        >
-      </a>
-    </header>
+<body class="league-schedule-page mens-schedule-page">
 
+  <header class="schedule-month-header">
     <nav
-      class="schedule-month-navigation"
+      class="schedule-month-nav"
       aria-label="Men’s League schedule months"
     >
-      <div class="schedule-month-buttons">
-        <a
-          href="#october"
-          class="
-            schedule-month-button
-            active
-          "
-          data-month="october"
-        >
-          October
-        </a>
+      <button
+        type="button"
+        class="schedule-month-button active"
+        data-month="october"
+      >
+        October
+      </button>
 
-        <a
-          href="#november"
-          class="schedule-month-button"
-          data-month="november"
-        >
-          November
-        </a>
+      <button
+        type="button"
+        class="schedule-month-button"
+        data-month="november"
+      >
+        November
+      </button>
 
-        <a
-          href="#december"
-          class="schedule-month-button"
-          data-month="december"
-        >
-          December
-        </a>
+      <button
+        type="button"
+        class="schedule-month-button"
+        data-month="december"
+      >
+        December
+      </button>
 
-        <a
-          href="#january"
-          class="schedule-month-button"
-          data-month="january"
-        >
-          January
-        </a>
+      <button
+        type="button"
+        class="schedule-month-button"
+        data-month="january"
+      >
+        January
+      </button>
 
-        <a
-          href="#february"
-          class="schedule-month-button"
-          data-month="february"
-        >
-          February
-        </a>
+      <button
+        type="button"
+        class="schedule-month-button"
+        data-month="february"
+      >
+        February
+      </button>
 
-        <a
-          href="#march"
-          class="schedule-month-button"
-          data-month="march"
-        >
-          March
-        </a>
-      </div>
+      <button
+        type="button"
+        class="schedule-month-button"
+        data-month="march"
+      >
+        March
+      </button>
     </nav>
+  </header>
 
-    <main id="top">
-      <section
-        class="
-          schedule-page-heading
-          schedule-logo-heading
-        "
+  <main
+    id="top"
+    class="schedule-page-content"
+  >
+    <section
+      class="
+        schedule-page-heading
+        schedule-logo-heading
+      "
+    >
+      <img
+        src="lcc-logo-mens.jpg?v=1"
+        alt="Men’s League"
+        class="schedule-league-logo"
       >
-        <img
-          src="lcc-logo-mens.jpg?v=1"
-          alt="Men’s League"
-          class="schedule-league-logo"
-        >
 
-        <p>2026–27 Schedule</p>
+      <p>2026–27 Schedule</p>
+    </section>
+
+    <div
+      id="schedule-container"
+      aria-live="polite"
+    >
+      <section class="schedule-message-card">
+        <p>
+          Loading the Men’s League schedule…
+        </p>
       </section>
-
-      <div
-        id="schedule-container"
-        aria-live="polite"
-      >
-        <section class="schedule-message-card">
-          <p>
-            Loading the Men’s League schedule…
-          </p>
-        </section>
-      </div>
-
-      <a
-        href="#top"
-        class="back-to-top-button"
-      >
-        Back to Top
-      </a>
-    </main>
-  </div>
+    </div>
+  </main>
 
   <footer
-    class="league-bottom-navigation"
+    class="league-footer"
     aria-label="Men’s League navigation"
   >
     <a
       href="index.html"
-      class="league-bottom-navigation-link"
+      class="league-footer-link"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path
-          d="
-            M3 11.5
-            12 4
-            21 11.5
-            V20
-            H15
-            V14
-            H9
-            V20
-            H3
-            Z
-          "
-        />
-      </svg>
+      <span class="league-footer-icon">
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path
+            d="
+              M3 11.5
+              12 4
+              21 11.5
+              V20
+              H15
+              V14
+              H9
+              V20
+              H3
+              Z
+            "
+          />
+        </svg>
+      </span>
 
-      <span>Home</span>
+      <span class="league-footer-label">
+        Home
+      </span>
     </a>
 
     <a
       href="mens.html"
-      class="league-bottom-navigation-link"
+      class="league-footer-link"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <circle
-          cx="8"
-          cy="8"
-          r="3"
-        />
+      <span class="league-footer-icon">
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="7" r="3" />
 
-        <circle
-          cx="16"
-          cy="8"
-          r="3"
-        />
+          <path
+            d="
+              M6 20
+              C6 15.5 8.5 13 12 13
+              C15.5 13 18 15.5 18 20
+            "
+          />
+        </svg>
+      </span>
 
-        <path
-          d="
-            M3 20
-            C3 16.5 5 14 8 14
-            C11 14 13 16.5 13 20
-          "
-        />
-
-        <path
-          d="
-            M11 20
-            C11 16.5 13 14 16 14
-            C19 14 21 16.5 21 20
-          "
-        />
-      </svg>
-
-      <span>Men’s</span>
+      <span class="league-footer-label">
+        Men’s
+      </span>
     </a>
 
     <a
       href="mens-schedule2026.html"
-      class="
-        league-bottom-navigation-link
-        active
-      "
+      class="league-footer-link active"
       aria-current="page"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <rect
-          x="3"
-          y="5"
-          width="18"
-          height="16"
-          rx="2"
-        />
+      <span class="league-footer-icon">
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <rect
+            x="3"
+            y="5"
+            width="18"
+            height="16"
+            rx="2"
+          />
 
-        <path d="M3 10H21" />
-        <path d="M8 3V7" />
-        <path d="M16 3V7" />
-        <path d="M7 14H10" />
-        <path d="M14 14H17" />
-        <path d="M7 18H10" />
-        <path d="M14 18H17" />
-      </svg>
+          <path d="M3 10H21" />
+          <path d="M8 3V7" />
+          <path d="M16 3V7" />
+          <path d="M7 14H10" />
+          <path d="M14 14H17" />
+          <path d="M7 18H10" />
+          <path d="M14 18H17" />
+        </svg>
+      </span>
 
-      <span>Schedule</span>
+      <span class="league-footer-label">
+        Schedule
+      </span>
     </a>
 
     <a
       href="mens-standings2026.html"
-      class="league-bottom-navigation-link"
+      class="league-footer-link"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M5 20V12" />
-        <path d="M12 20V4" />
-        <path d="M19 20V8" />
-        <path d="M2 20H22" />
-      </svg>
+      <span class="league-footer-icon">
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path d="M5 20V12" />
+          <path d="M12 20V4" />
+          <path d="M19 20V8" />
+          <path d="M2 20H22" />
+        </svg>
+      </span>
 
-      <span>Standings</span>
+      <span class="league-footer-label">
+        Standings
+      </span>
     </a>
   </footer>
 
@@ -279,28 +268,34 @@
         function setActiveMonth(monthName) {
           monthButtons.forEach((button) => {
             const isActive =
-              button.dataset.month ===
-              monthName;
+              button.dataset.month === monthName;
 
             button.classList.toggle(
               "active",
               isActive
             );
+
+            button.setAttribute(
+              "aria-pressed",
+              String(isActive)
+            );
           });
         }
 
         function findMonthSection(monthName) {
-          return scheduleContainer
-            ? scheduleContainer.querySelector(
-                `[data-schedule-month="${monthName}"]`
-              )
-            : null;
+          if (!scheduleContainer) {
+            return null;
+          }
+
+          return scheduleContainer.querySelector(
+            `[data-schedule-month="${monthName}"]`
+          );
         }
 
         monthButtons.forEach((button) => {
           button.addEventListener(
             "click",
-            (event) => {
+            () => {
               const monthName =
                 button.dataset.month;
 
@@ -308,11 +303,8 @@
                 findMonthSection(monthName);
 
               if (!monthSection) {
-                event.preventDefault();
                 return;
               }
-
-              event.preventDefault();
 
               setActiveMonth(monthName);
 
@@ -329,42 +321,32 @@
             return;
           }
 
-          const monthSections =
-            Array.from(
-              scheduleContainer.querySelectorAll(
-                "[data-schedule-month]"
-              )
-            );
+          const monthSections = Array.from(
+            scheduleContainer.querySelectorAll(
+              "[data-schedule-month]"
+            )
+          );
 
-          if (
-            monthSections.length === 0
-          ) {
+          if (monthSections.length === 0) {
             return;
           }
 
-          const navigationOffset = 180;
+          const headerOffset = 135;
 
           let activeSection =
             monthSections[0];
 
-          monthSections.forEach(
-            (section) => {
-              const sectionTop =
-                section.getBoundingClientRect()
-                  .top;
+          monthSections.forEach((section) => {
+            const sectionTop =
+              section.getBoundingClientRect().top;
 
-              if (
-                sectionTop <=
-                navigationOffset
-              ) {
-                activeSection = section;
-              }
+            if (sectionTop <= headerOffset) {
+              activeSection = section;
             }
-          );
+          });
 
           setActiveMonth(
-            activeSection.dataset
-              .scheduleMonth
+            activeSection.dataset.scheduleMonth
           );
         }
 
@@ -379,25 +361,23 @@
 
             scrollUpdatePending = true;
 
-            window.requestAnimationFrame(
-              () => {
-                updateActiveMonth();
-                scrollUpdatePending = false;
-              }
-            );
+            window.requestAnimationFrame(() => {
+              updateActiveMonth();
+              scrollUpdatePending = false;
+            });
           },
           {
             passive: true
           }
         );
 
-        const scheduleObserver =
-          new MutationObserver(() => {
-            updateActiveMonth();
-          });
-
         if (scheduleContainer) {
-          scheduleObserver.observe(
+          const observer =
+            new MutationObserver(() => {
+              updateActiveMonth();
+            });
+
+          observer.observe(
             scheduleContainer,
             {
               childList: true,
