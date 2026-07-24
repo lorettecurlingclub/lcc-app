@@ -1,165 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Schedule</title>
-<link rel="stylesheet" href="styles.css?v=4" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Men’s League Schedule</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css?v=15"
+  >
+
+  <script
+    src="mens-data2026.js?v=1"
+    defer
+  ></script>
+
+  <script
+    src="mens-schedule.js?v=1"
+    defer
+  ></script>
 </head>
-<body>
-<div class="container">
 
-<header class="top-bar">
-  <img src="lcc-logo.png" alt="Lorette Curling Club logo" class="top-bar-logo" />
-</header>
+<body
+  class="
+    league-schedule-page
+    mens-schedule-page
+  "
+>
+  <div class="container">
+    <header class="top-bar">
+      <a
+        href="index.html"
+        aria-label="Return to the Lorette Curling Club home page"
+      >
+        <img
+          src="lcc-logo.png"
+          alt="Lorette Curling Club"
+          class="top-bar-logo"
+        >
+      </a>
+    </header>
 
-<header class="header">
-<img src="lcc-logo-mens.jpg?v=1" alt="Mens League" class="league-logo" />
-</header>
+    <nav
+      class="schedule-month-navigation"
+      aria-label="Men’s League schedule months"
+    >
+      <div class="schedule-month-buttons">
+        <a
+          href="#october"
+          class="
+            schedule-month-button
+            active
+          "
+          data-month="october"
+        >
+          October
+        </a>
 
-<div class="button-list">
-<a href="#october" class="button">October</a>
-<a href="#november" class="button">November</a>
-<a href="#december" class="button">December</a>
-<a href="#january" class="button">January</a>
-<a href="#february" class="button">February</a>
-<a href="#march" class="button">March</a>
-</div>
-</header>
+        <a
+          href="#november"
+          class="schedule-month-button"
+          data-month="november"
+        >
+          November
+        </a>
 
-<main id="top">
-<section class="card" id="october">
-<h3>Date: October 1, 2026</h3>
-<p><strong>50/50 Team:</strong> Team Northam</p>
+        <a
+          href="#december"
+          class="schedule-month-button"
+          data-month="december"
+        >
+          December
+        </a>
 
-<h3>Early Draw Time: 7:00 PM</h3>
-<table>
-<thead>
-<tr>
-<th>Sheet</th>
-<th>Matchup</th>
-<th>Winner</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Team Bjarnason vs Team Lyle</td>
-<td>Team Lyle</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Team Ridge vs Team Stevenson</td>
-<td>Team Stevenson</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Team M. Rondeau vs Team Fouasse</td>
-<td>Team Fouasse</td>
-</tr>
-</tbody>
-</table>
+        <a
+          href="#january"
+          class="schedule-month-button"
+          data-month="january"
+        >
+          January
+        </a>
 
-<br>
+        <a
+          href="#february"
+          class="schedule-month-button"
+          data-month="february"
+        >
+          February
+        </a>
 
-<h3>Late Draw Time: 9:15 PM</h3>
-<table>
-<thead>
-<tr>
-<th>Sheet</th>
-<th>Matchup</th>
-<th>Winner</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Team Audette vs Team Hallonquist</td>
-<td>Team Audette</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Team Northam vs Team Messner</td>
-<td>Team Northam</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Team G. Rondeau vs Team Brunette</td>
-<td>Team G. Rondeau</td>
-</tr>
-</tbody>
-</table>
-</section>
+        <a
+          href="#march"
+          class="schedule-month-button"
+          data-month="march"
+        >
+          March
+        </a>
+      </div>
+    </nav>
 
-<section class="card">
-<h3>Date: October 8, 2026</h3>
-<p><strong>50/50 Team:</strong> Team Brunette</p>
+    <main id="top">
+      <section
+        class="
+          schedule-page-heading
+          schedule-logo-heading
+        "
+      >
+        <img
+          src="lcc-logo-mens.jpg?v=1"
+          alt="Men’s League"
+          class="schedule-league-logo"
+        >
 
-<h3>Early Draw Time: 7:00 PM</h3>
-<table>
-<thead>
-<tr>
-<th>Sheet</th>
-<th>Matchup</th>
-<th>Winner</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Team Stevenson vs Team Messner</td>
-<td>Team Messner</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Team G. Rondeau vs Team Audette</td>
-<td>Team G. Rondeau</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Team Northam vs Team Lyle</td>
-<td>Team Northam</td>
-</tr>
-</tbody>
-</table>
+        <p>2026–27 Schedule</p>
+      </section>
 
-<br>
+      <div
+        id="schedule-container"
+        aria-live="polite"
+      >
+        <section class="schedule-message-card">
+          <p>
+            Loading the Men’s League schedule…
+          </p>
+        </section>
+      </div>
 
-<h3>Late Draw Time: 9:15 PM</h3>
-<table>
-<thead>
-<tr>
-<th>Sheet</th>
-<th>Matchup</th>
-<th>Winner</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Team Fouasse vs Team Bjarnason</td>
-<td>Team Fouasse</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Team Brunette vs Team Hallonquist</td>
-<td>Team Brunette</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Team M. Rondeau vs Team Ridge</td>
-<td>Team M. Rondeau</td>
-</tr>
-</tbody>
-</table>
-</section>
-</main>
+      <a
+        href="#top"
+        class="back-to-top-button"
+      >
+        Back to Top
+      </a>
+    </main>
+  </div>
 
-</div>
+  <footer
+    class="league-bottom-navigation"
+    aria-label="Men’s League navigation"
+  >
+    <a
+      href="index.html"
+      class="league-bottom-navigation-link"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          d="
+            M3 11.5
+            12 4
+            21 11.5
+            V20
+            H15
+            V14
+            H9
+            V20
+            H3
+            Z
+          "
+        />
+      </svg>
 
-<footer class="bottom-bar">
-  <a href="mens.html" class="bottom-bar-button">Mens League</a>
-  <a href="index.html" class="bottom-bar-button">Main Page</a>
-</footer>
+      <span>Home</span>
+    </a>
+
+    <a
+      href="mens.html"
+      class="league-bottom-navigation-link"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <circle
+          cx="8"
+          cy="8"
+          r="3"
+        />
+
+        <circle
+          cx="16"
+          cy="8"
+          r="3"
+        />
+
+        <path
+          d="
+            M3 20
+            C3 16.5 5 14 8 14
+            C11 14 13 16.5 13 20
+          "
+        />
+
+        <path
+          d="
+            M11 20
+            C11 16.5 13 14 16 14
+            C19 14 21 16.5 21 20
+          "
+        />
+      </svg>
+
+      <span>Men’s</span>
+    </a>
+
+    <a
+      href="mens-schedule2026.html"
+      class="
+        league-bottom-navigation-link
+        active
+      "
+      aria-current="page"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="16"
+          rx="2"
+        />
+
+        <path d="M3 10H21" />
+        <path d="M8 3V7" />
+        <path d="M16 3V7" />
+        <path d="M7 14H10" />
+        <path d="M14 14H17" />
+        <path d="M7 18H10" />
+        <path d="M14 18H17" />
+      </svg>
+
+      <span>Schedule</span>
+    </a>
+
+    <a
+      href="mens-standings2026.html"
+      class="league-bottom-navigation-link"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M5 20V12" />
+        <path d="M12 20V4" />
+        <path d="M19 20V8" />
+        <path d="M2 20H22" />
+      </svg>
+
+      <span>Standings</span>
+    </a>
+  </footer>
+
+  <script>
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        const scheduleContainer =
+          document.getElementById(
+            "schedule-container"
+          );
+
+        const monthButtons = Array.from(
+          document.querySelectorAll(
+            ".schedule-month-button"
+          )
+        );
+
+        function setActiveMonth(monthName) {
+          monthButtons.forEach((button) => {
+            const isActive =
+              button.dataset.month ===
+              monthName;
+
+            button.classList.toggle(
+              "active",
+              isActive
+            );
+          });
+        }
+
+        function findMonthSection(monthName) {
+          return scheduleContainer
+            ? scheduleContainer.querySelector(
+                `[data-schedule-month="${monthName}"]`
+              )
+            : null;
+        }
+
+        monthButtons.forEach((button) => {
+          button.addEventListener(
+            "click",
+            (event) => {
+              const monthName =
+                button.dataset.month;
+
+              const monthSection =
+                findMonthSection(monthName);
+
+              if (!monthSection) {
+                event.preventDefault();
+                return;
+              }
+
+              event.preventDefault();
+
+              setActiveMonth(monthName);
+
+              monthSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+            }
+          );
+        });
+
+        function updateActiveMonth() {
+          if (!scheduleContainer) {
+            return;
+          }
+
+          const monthSections =
+            Array.from(
+              scheduleContainer.querySelectorAll(
+                "[data-schedule-month]"
+              )
+            );
+
+          if (
+            monthSections.length === 0
+          ) {
+            return;
+          }
+
+          const navigationOffset = 180;
+
+          let activeSection =
+            monthSections[0];
+
+          monthSections.forEach(
+            (section) => {
+              const sectionTop =
+                section.getBoundingClientRect()
+                  .top;
+
+              if (
+                sectionTop <=
+                navigationOffset
+              ) {
+                activeSection = section;
+              }
+            }
+          );
+
+          setActiveMonth(
+            activeSection.dataset
+              .scheduleMonth
+          );
+        }
+
+        let scrollUpdatePending = false;
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (scrollUpdatePending) {
+              return;
+            }
+
+            scrollUpdatePending = true;
+
+            window.requestAnimationFrame(
+              () => {
+                updateActiveMonth();
+                scrollUpdatePending = false;
+              }
+            );
+          },
+          {
+            passive: true
+          }
+        );
+
+        const scheduleObserver =
+          new MutationObserver(() => {
+            updateActiveMonth();
+          });
+
+        if (scheduleContainer) {
+          scheduleObserver.observe(
+            scheduleContainer,
+            {
+              childList: true,
+              subtree: true
+            }
+          );
+        }
+      }
+    );
+  </script>
 </body>
 </html>
