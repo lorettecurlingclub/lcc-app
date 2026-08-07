@@ -6,3 +6,4 @@ Build a Simple Men's League web app with :
 - Standings
 - Team Page
 - Admin Results Entry
+- Deployment refresh — August 7, 2026
