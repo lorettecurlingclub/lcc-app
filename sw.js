@@ -1,4 +1,4 @@
-const CACHE_NAME = "lcc-app-v5";
+const CACHE_NAME = "lcc-app-v6";
 
 const APP_ROOT = "/lcc-app/";
 
@@ -77,24 +77,43 @@ const ASSETS = [
 ];
 
 /*
-  Install the new cache.
+  Install the newest offline cache.
 
-  Each file is cached separately so one missing optional
-  file will not prevent the entire service worker from
-  installing.
+  Every file is handled separately so one missing optional
+  file cannot prevent the service worker from installing.
 */
 
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return Promise.allSettled(
-        ASSETS.map(asset => {
-          return cache.add(asset).catch(error => {
+        ASSETS.map(async asset => {
+          try {
+            /*
+              cache: "reload" makes sure installation asks
+              for the newest published copy instead of using
+              an older browser HTTP cache.
+            */
+            const response = await fetch(asset, {
+              cache: "reload"
+            });
+
+            if (!response.ok) {
+              throw new Error(
+                `HTTP ${response.status}`
+              );
+            }
+
+            await cache.put(
+              asset,
+              response.clone()
+            );
+          } catch (error) {
             console.warn(
               `Could not cache ${asset}:`,
               error
             );
-          });
+          }
         })
       );
     })
@@ -104,8 +123,8 @@ self.addEventListener("install", event => {
 });
 
 /*
-  Delete older cache versions and immediately control
-  open app pages.
+  Remove all previous LCC caches and immediately take
+  control of open app pages.
 */
 
 self.addEventListener("activate", event => {
@@ -113,8 +132,15 @@ self.addEventListener("activate", event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames
-          .filter(cacheName => cacheName !== CACHE_NAME)
-          .map(cacheName => caches.delete(cacheName))
+          .filter(cacheName => {
+            return (
+              cacheName.startsWith("lcc-app-") &&
+              cacheName !== CACHE_NAME
+            );
+          })
+          .map(cacheName => {
+            return caches.delete(cacheName);
+          })
       );
     })
   );
@@ -123,7 +149,7 @@ self.addEventListener("activate", event => {
 });
 
 /*
-  Only handle normal GET requests from this website.
+  Handle only normal GET requests from the LCC site.
 */
 
 self.addEventListener("fetch", event => {
@@ -140,33 +166,53 @@ self.addEventListener("fetch", event => {
   }
 
   /*
-    HTML pages use network first.
+    PAGE NAVIGATION
 
-    This ensures newly committed pages appear promptly,
-    while still allowing cached pages to work offline.
+    Try the newest online page first.
+
+    If there is no internet connection, return the cached
+    version. If that page has somehow never been cached,
+    return the cached app home page.
   */
 
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
         .then(response => {
-          const responseCopy = response.clone();
+          if (response.ok) {
+            const responseCopy =
+              response.clone();
 
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, responseCopy);
-          });
+            caches
+              .open(CACHE_NAME)
+              .then(cache => {
+                cache.put(
+                  request,
+                  responseCopy
+                );
+              });
+          }
 
           return response;
         })
         .catch(async () => {
-          const cachedPage = await caches.match(request);
+          const cachedPage =
+            await caches.match(
+              request,
+              {
+                ignoreSearch: true
+              }
+            );
 
           if (cachedPage) {
             return cachedPage;
           }
 
           return caches.match(
-            `${APP_ROOT}index.html`
+            `${APP_ROOT}index.html`,
+            {
+              ignoreSearch: true
+            }
           );
         })
     );
@@ -175,9 +221,12 @@ self.addEventListener("fetch", event => {
   }
 
   /*
-    CSS, JavaScript, JSON and data files also use
-    network first so updates are not hidden by an old
-    service-worker cache.
+    CSS, JAVASCRIPT AND JSON
+
+    Network first keeps schedules, standings and styling
+    current whenever internet is available.
+
+    In airplane mode, the cached versions are used.
   */
 
   const updateableFile =
@@ -189,18 +238,29 @@ self.addEventListener("fetch", event => {
     event.respondWith(
       fetch(request)
         .then(response => {
-          const responseCopy = response.clone();
+          if (response.ok) {
+            const responseCopy =
+              response.clone();
 
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, responseCopy);
-          });
+            caches
+              .open(CACHE_NAME)
+              .then(cache => {
+                cache.put(
+                  request,
+                  responseCopy
+                );
+              });
+          }
 
           return response;
         })
         .catch(() => {
-          return caches.match(request, {
-            ignoreSearch: true
-          });
+          return caches.match(
+            request,
+            {
+              ignoreSearch: true
+            }
+          );
         })
     );
 
@@ -208,24 +268,39 @@ self.addEventListener("fetch", event => {
   }
 
   /*
-    Images and other static files use the cache first,
-    then download and save anything not already cached.
+    IMAGES AND OTHER STATIC FILES
+
+    Use the cached copy immediately.
+
+    If it is not cached yet, download it and save it for
+    future offline use.
   */
 
   event.respondWith(
-    caches.match(request, {
-      ignoreSearch: true
-    }).then(cachedResponse => {
+    caches.match(
+      request,
+      {
+        ignoreSearch: true
+      }
+    ).then(cachedResponse => {
       if (cachedResponse) {
         return cachedResponse;
       }
 
       return fetch(request).then(response => {
-        const responseCopy = response.clone();
+        if (response.ok) {
+          const responseCopy =
+            response.clone();
 
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(request, responseCopy);
-        });
+          caches
+            .open(CACHE_NAME)
+            .then(cache => {
+              cache.put(
+                request,
+                responseCopy
+              );
+            });
+        }
 
         return response;
       });
