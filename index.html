@@ -42,19 +42,29 @@
     }
 
     .home-league-footer .home-footer-icon {
-      width: 25px;
-      height: 25px;
+  width: 25px;
+  height: 25px;
 
-      display: block;
+  display: block;
 
-      margin: 0 auto 3px;
+  margin: 0 auto 3px;
+}
 
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+.home-league-footer .icon-white {
+  fill: #ffffff;
+}
+
+.home-league-footer .icon-blue {
+  fill: #155a96;
+}
+
+.home-league-footer .icon-green {
+  fill: #1f6f4a;
+}
+
+.home-league-footer .icon-grey {
+  fill: #666666;
+}
 
     @media (max-width: 430px) {
       body.home-page .home-page-container {
@@ -243,105 +253,335 @@
   </div>
 
   <footer
-    class="bottom-bar-four home-league-footer"
-    aria-label="League navigation"
+  class="bottom-bar-four home-league-footer"
+  aria-label="League navigation"
+>
+
+  <!-- LADIES -->
+  <a
+    href="ladies.html"
+    class="bottom-bar-button-small"
+    aria-label="Ladies League"
   >
-
-    <a
-      href="ladies.html"
-      class="bottom-bar-button-small"
-      aria-label="Ladies League"
+    <svg
+      class="home-footer-icon"
+      viewBox="0 0 40 40"
+      aria-hidden="true"
     >
-      <svg
-        class="home-footer-icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M7 15.5h9.5"></path>
-        <path d="M8.5 15.5v-2.7c0-1.1.9-2 2-2H15"></path>
-        <path d="M13 10.8V8.9h3.5"></path>
-        <path d="M6 15.5h12l1.2 3.3H4.8L6 15.5Z"></path>
-        <path d="M4 5 9 14"></path>
-        <path d="m3 4 2.2 1.3"></path>
-      </svg>
+      <circle
+        cx="20"
+        cy="20"
+        r="18"
+        class="icon-white"
+      />
 
-      <span class="bottom-bar-label">
-        Ladies
-      </span>
-    </a>
+      <circle
+        cx="20"
+        cy="20"
+        r="15"
+        class="icon-green"
+      />
 
-    <a
-      href="mens.html"
-      class="bottom-bar-button-small"
-      aria-label="Mens League"
+      <path
+        class="icon-blue"
+        d="
+          M20 18
+          C16 13 11 14 11 18
+          C11 22 16 25 20 29
+          C24 25 29 22 29 18
+          C29 14 24 13 20 18Z
+        "
+        transform="translate(0 -7)"
+      />
+
+      <path
+        class="icon-blue"
+        d="
+          M20 18
+          C16 13 11 14 11 18
+          C11 22 16 25 20 29
+          C24 25 29 22 29 18
+          C29 14 24 13 20 18Z
+        "
+        transform="rotate(90 20 20) translate(0 -7)"
+      />
+
+      <path
+        class="icon-blue"
+        d="
+          M20 18
+          C16 13 11 14 11 18
+          C11 22 16 25 20 29
+          C24 25 29 22 29 18
+          C29 14 24 13 20 18Z
+        "
+        transform="rotate(180 20 20) translate(0 -7)"
+      />
+
+      <path
+        class="icon-blue"
+        d="
+          M20 18
+          C16 13 11 14 11 18
+          C11 22 16 25 20 29
+          C24 25 29 22 29 18
+          C29 14 24 13 20 18Z
+        "
+        transform="rotate(270 20 20) translate(0 -7)"
+      />
+    </svg>
+
+    <span class="bottom-bar-label">
+      Ladies
+    </span>
+  </a>
+
+
+  <!-- MEN'S -->
+  <a
+    href="mens.html"
+    class="bottom-bar-button-small"
+    aria-label="Mens League"
+  >
+    <svg
+      class="home-footer-icon"
+      viewBox="0 0 40 40"
+      aria-hidden="true"
     >
-      <svg
-        class="home-footer-icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M6 3 17 19"></path>
-        <path d="M18 3 7 19"></path>
-        <path d="m4.3 2.5 3.3 1"></path>
-        <path d="m19.7 2.5-3.3 1"></path>
-        <path d="m5.2 17.5 3.3 2.4"></path>
-        <path d="m18.8 17.5-3.3 2.4"></path>
-      </svg>
+      <path
+        class="icon-white"
+        d="M20 2 35 7v12c0 9-6 15-15 19C11 34 5 28 5 19V7Z"
+      />
 
-      <span class="bottom-bar-label">
-        Mens
-      </span>
-    </a>
+      <path
+        class="icon-blue"
+        d="M8 9 15 12v12l-7-3Z"
+      />
 
-    <a
-      href="mixed.html"
-      class="bottom-bar-button-small"
-      aria-label="Mixed League"
+      <path
+        class="icon-blue"
+        d="M32 9 25 12v12l7-3Z"
+      />
+
+      <path
+        class="icon-green"
+        d="
+          M13 11h14v3
+          c0 5-2 8-5 10
+          v3h4v3H14v-3h4v-3
+          c-3-2-5-5-5-10Z
+        "
+      />
+
+      <path
+        class="icon-green"
+        d="
+          M20 28
+          1.4 3
+          3.3-.8
+          -1.6 2.8
+          2.4 1.4
+          -3.3.5
+          .2 3.1
+          -2.4-2
+          -2.4 2
+          .2-3.1
+          -3.3-.5
+          2.4-1.4
+          -1.6-2.8
+          3.3.8Z
+        "
+      />
+    </svg>
+
+    <span class="bottom-bar-label">
+      Mens
+    </span>
+  </a>
+
+
+  <!-- MIXED -->
+  <a
+    href="mixed.html"
+    class="bottom-bar-button-small"
+    aria-label="Mixed League"
+  >
+    <svg
+      class="home-footer-icon"
+      viewBox="0 0 40 40"
+      aria-hidden="true"
     >
-      <svg
-        class="home-footer-icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M4 4 8 12"></path>
-        <path d="M20 4 16 12"></path>
-        <path d="m3 3 2.5 1.1"></path>
-        <path d="m21 3-2.5 1.1"></path>
-        <path d="M8 15.5h8"></path>
-        <path d="M9.5 15.5v-2h5v2"></path>
-        <path d="M7 15.5h10l1 3H6l1-3Z"></path>
-      </svg>
+      <path
+        class="icon-white"
+        d="M8 3h24l-2 7v15L20 37 10 25V10Z"
+      />
 
-      <span class="bottom-bar-label">
-        Mixed
-      </span>
-    </a>
+      <path
+        class="icon-green"
+        d="M10 7h6l-6 8Z"
+      />
 
-    <a
-      href="doubles.html"
-      class="bottom-bar-button-small"
-      aria-label="Doubles"
+      <path
+        class="icon-green"
+        d="M30 7h-6l6 8Z"
+      />
+
+      <path
+        class="icon-blue"
+        d="
+          M20 6
+          1.3 3
+          3-.8
+          -1.5 2.6
+          2.2 1.2
+          -3 .5
+          .2 2.8
+          -2-1.7
+          -2 1.7
+          .2-2.8
+          -3-.5
+          2.2-1.2
+          -1.5-2.6
+          3 .8Z
+        "
+      />
+
+      <!-- Proper curling rock -->
+      <rect
+        x="16"
+        y="20"
+        width="8"
+        height="2.5"
+        rx="1.2"
+        class="icon-blue"
+      />
+
+      <rect
+        x="18"
+        y="18"
+        width="7"
+        height="2.5"
+        rx="1.2"
+        class="icon-blue"
+      />
+
+      <ellipse
+        cx="20"
+        cy="27"
+        rx="9"
+        ry="5"
+        class="icon-grey"
+      />
+    </svg>
+
+    <span class="bottom-bar-label">
+      Mixed
+    </span>
+  </a>
+
+
+  <!-- MIXED DOUBLES -->
+  <a
+    href="doubles.html"
+    class="bottom-bar-button-small"
+    aria-label="Mixed Doubles"
+  >
+    <svg
+      class="home-footer-icon"
+      viewBox="0 0 40 40"
+      aria-hidden="true"
     >
-      <svg
-        class="home-footer-icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M3.5 15.5h7"></path>
-        <path d="M5 15.5v-2h4v2"></path>
-        <path d="M3 15.5h8l.8 3H2.2l.8-3Z"></path>
+      <path
+        class="icon-white"
+        d="M20 2 35 8v17L20 38 5 25V8Z"
+      />
 
-        <path d="M13.5 12.5h7"></path>
-        <path d="M15 12.5v-2h4v2"></path>
-        <path d="M13 12.5h8l.8 3h-9.6l.8-3Z"></path>
-      </svg>
+      <!-- Blue curling rock -->
+      <ellipse
+        cx="13"
+        cy="18"
+        rx="6"
+        ry="3.3"
+        class="icon-grey"
+      />
 
-      <span class="bottom-bar-label">
-        Doubles
-      </span>
-    </a>
+      <rect
+        x="10"
+        y="13"
+        width="7"
+        height="2"
+        rx="1"
+        class="icon-blue"
+      />
 
-  </footer>
+      <rect
+        x="12"
+        y="11"
+        width="6"
+        height="2"
+        rx="1"
+        class="icon-blue"
+      />
+
+      <!-- Green curling rock -->
+      <ellipse
+        cx="27"
+        cy="18"
+        rx="6"
+        ry="3.3"
+        class="icon-grey"
+      />
+
+      <rect
+        x="24"
+        y="13"
+        width="7"
+        height="2"
+        rx="1"
+        class="icon-green"
+      />
+
+      <rect
+        x="26"
+        y="11"
+        width="6"
+        height="2"
+        rx="1"
+        class="icon-green"
+      />
+
+      <!-- Curling house -->
+      <ellipse
+        cx="20"
+        cy="29"
+        rx="10"
+        ry="5"
+        class="icon-green"
+      />
+
+      <ellipse
+        cx="20"
+        cy="29"
+        rx="6.5"
+        ry="3.2"
+        class="icon-white"
+      />
+
+      <ellipse
+        cx="20"
+        cy="29"
+        rx="3"
+        ry="1.7"
+        class="icon-blue"
+      />
+    </svg>
+
+    <span class="bottom-bar-label">
+      Doubles
+    </span>
+  </a>
+
+</footer>
 
 </body>
 </html>
