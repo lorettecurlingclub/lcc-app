@@ -10,17 +10,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (
-    typeof ladiesLeagueData === "undefined" ||
-    !ladiesLeagueData
-  ) {
-    showUpcomingWeekMessage(
-      container,
-      "The Ladies League schedule could not be loaded."
-    );
-    return;
-  }
+  typeof ladiesLeagueData === "undefined" ||
+  !ladiesLeagueData
+) {
+  showUpcomingWeekMessage(
+    container,
+    "The Ladies League schedule could not be loaded."
+  );
+  return;
+}
 
-  try {
+if (
+  !Array.isArray(ladiesLeagueData.schedule) ||
+  ladiesLeagueData.schedule.length === 0
+) {
+  updateUpcomingWeekPhase(null);
+
+  container.innerHTML = `
+    <div class="upcoming-week-message">
+      <p>
+        <strong>Schedule Coming Soon</strong>
+      </p>
+
+      <p>
+        Upcoming games will appear here once the official
+        2026–27 Ladies League schedule is available.
+      </p>
+    </div>
+  `;
+
+  return;
+}
+
+try {
     const upcomingWeek = findUpcomingWeek(
       ladiesLeagueData.schedule
     );
