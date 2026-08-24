@@ -45,9 +45,24 @@ function renderLadiesSchedule() {
 
   scheduleContainer.innerHTML = "";
 
-  const scheduleByMonth = groupScheduleByMonth(
-    ladiesLeagueData.schedule
-  );
+if (ladiesLeagueData.schedule.length === 0) {
+  scheduleContainer.innerHTML = `
+    <section class="schedule-message-card">
+      <h2>2026–27 Schedule Coming Soon</h2>
+
+      <p>
+        The official Ladies League schedule will be posted here
+        once it has been finalized.
+      </p>
+    </section>
+  `;
+
+  return;
+}
+
+const scheduleByMonth = groupScheduleByMonth(
+  ladiesLeagueData.schedule
+);
 
   Object.entries(scheduleByMonth).forEach(([monthKey, weeks]) => {
     const monthSection = createMonthSection(monthKey, weeks);
