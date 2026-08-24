@@ -50,18 +50,19 @@ function renderSchedule(
     : [];
 
   if (schedule.length === 0) {
-    container.innerHTML = `
-      <section class="schedule-message-card">
-        <h2>Schedule Unavailable</h2>
+  container.innerHTML = `
+    <section class="schedule-message-card">
+      <h2>2026–27 Schedule Coming Soon</h2>
 
-        <p>
-          The Men’s League schedule has not been added yet.
-        </p>
-      </section>
-    `;
+      <p>
+        The official Men’s League schedule will be posted here
+        once it has been finalized.
+      </p>
+    </section>
+  `;
 
-    return;
-  }
+  return;
+}
 
   const scheduleByMonth =
     groupScheduleByMonth(schedule);
