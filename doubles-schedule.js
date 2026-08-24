@@ -44,13 +44,19 @@ function renderSchedule(
       : [];
 
   if (schedule.length === 0) {
-    renderScheduleError(
-      container,
-      "No Doubles League schedule is currently available."
-    );
+  container.innerHTML = `
+    <section class="schedule-message-card">
+      <h2>2026–27 Schedule Coming Soon</h2>
 
-    return;
-  }
+      <p>
+        The official Doubles League schedule will be posted here
+        once it has been finalized.
+      </p>
+    </section>
+  `;
+
+  return;
+}
 
   schedule.sort(compareWeeks);
 
