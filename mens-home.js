@@ -42,10 +42,29 @@ function renderUpcomingWeek(
     ? leagueData.schedule
     : [];
 
-  const upcomingWeek =
-    findUpcomingWeek(schedule);
+  if (schedule.length === 0) {
+  updatePhaseBubble(null);
 
-  if (!upcomingWeek) {
+  container.innerHTML = `
+    <div class="upcoming-week-message">
+      <p>
+        <strong>Schedule Coming Soon</strong>
+      </p>
+
+      <p>
+        Upcoming games will appear here once the official
+        2026–27 Men’s League schedule is available.
+      </p>
+    </div>
+  `;
+
+  return;
+}
+
+const upcomingWeek =
+  findUpcomingWeek(schedule);
+
+if (!upcomingWeek) {
     updatePhaseBubble(null);
 
     showUpcomingWeekMessage(
