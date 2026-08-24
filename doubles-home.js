@@ -44,13 +44,30 @@ function renderUpcomingWeek(
       : [];
 
   if (schedule.length === 0) {
-    renderUpcomingWeekMessage(
-      container,
-      "No Doubles League schedule is currently available."
+  const phaseBadge =
+    document.getElementById(
+      "upcoming-week-phase"
     );
 
-    return;
+  if (phaseBadge) {
+    phaseBadge.hidden = true;
   }
+
+  container.innerHTML = `
+    <div class="upcoming-week-message">
+      <p>
+        <strong>Schedule Coming Soon</strong>
+      </p>
+
+      <p>
+        Upcoming games will appear here once the official
+        2026–27 Doubles League schedule is available.
+      </p>
+    </div>
+  `;
+
+  return;
+}
 
   schedule.sort(compareWeeks);
 
