@@ -18,13 +18,1046 @@ const ladiesLeagueData = {
     5: "Team 5",
     6: "Team 6",
     7: "Team 7",
-    8: "Team 8",
-    9: "Team 9"
+    8: "Team 8"
   },
 
-  /*
-    Official 2026-27 Ladies League schedule
-    will be added once finalized.
-  */
-  schedule: []
+  schedule: [
+    {
+      week: 1,
+      date: "2026-10-05",
+      displayDate: "October 5, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 1,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 8,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 3,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 1,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 6,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 2,
+      date: "2026-10-13",
+      displayDate: "October 13, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 2,
+      notes: "Thanksgiving",
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 6,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 4,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 2,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 8,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 3,
+      date: "2026-10-19",
+      displayDate: "October 19, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 3,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 7,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 2,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 5,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 4,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 4,
+      date: "2026-10-26",
+      displayDate: "October 26, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 4,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 2,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 4,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 6,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 8,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 5,
+      date: "2026-11-02",
+      displayDate: "November 2, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 8,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 1,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 3,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 5,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 7,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 6,
+      date: "2026-11-09",
+      displayDate: "November 9, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 6,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 4,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 6,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 8,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 2,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 7,
+      date: "2026-11-16",
+      displayDate: "November 16, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 1,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 5,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 3,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 7,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 8,
+      date: "2026-11-23",
+      displayDate: "November 23, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 7,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 5,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 7,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 6,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 9,
+      date: "2026-11-30",
+      displayDate: "November 30, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 5,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 4,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 2,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 7,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 5,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 10,
+      date: "2026-12-07",
+      displayDate: "December 7, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 2,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 3,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 5,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 7,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 11,
+      date: "2026-12-14",
+      displayDate: "December 14, 2026",
+      phase: "regular",
+      fiftyFiftyTeam: 3,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 5,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 2,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 6,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: null,
+      date: "2026-12-21",
+      displayDate: "December 21, 2026",
+      phase: "special",
+      specialEvent:
+        "Dainties & Drinks — Christmas Party. All teams attend at 7:00 PM.",
+      earlyGames: [],
+      lateGames: []
+    },
+
+    {
+      week: null,
+      date: "2026-12-28",
+      displayDate: "December 28, 2026",
+      phase: "special",
+      specialEvent: "Christmas Break",
+      earlyGames: [],
+      lateGames: []
+    },
+
+    {
+      week: 12,
+      date: "2027-01-04",
+      displayDate: "January 4, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 4,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 8,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 6,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 4,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 2,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 13,
+      date: "2027-01-11",
+      displayDate: "January 11, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 6,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 6,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 8,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 3,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 14,
+      date: "2027-01-18",
+      displayDate: "January 18, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 5,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 7,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 5,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 1,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 3,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 15,
+      date: "2027-01-25",
+      displayDate: "January 25, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 2,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 5,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 4,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 2,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 7,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 16,
+      date: "2027-02-01",
+      displayDate: "February 1, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 8,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 2,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 8,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 6,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 4,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 17,
+      date: "2027-02-08",
+      displayDate: "February 8, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 1,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 8,
+          teamB: 1,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 2,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 4,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 6,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 18,
+      date: "2027-02-16",
+      displayDate: "February 16, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 7,
+      notes: "Louis Riel Day",
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 6,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 5,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 1,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 2,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 19,
+      date: "2027-02-22",
+      displayDate: "February 22, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 4,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 1,
+          teamB: 5,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 6,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 8,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 3,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 20,
+      date: "2027-03-01",
+      displayDate: "March 1, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 3,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 7,
+          teamB: 6,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 3,
+          teamB: 2,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 5,
+          teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 21,
+      date: "2027-03-08",
+      displayDate: "March 8, 2027",
+      phase: "playoffs",
+      roundName: "Round Robin Playoffs",
+      fiftyFiftyTeam: 5,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamALabel: "B1",
+          teamBLabel: "B4",
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamALabel: "A1",
+          teamBLabel: "A4",
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamALabel: "B2",
+          teamBLabel: "B3",
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamALabel: "A2",
+          teamBLabel: "A3",
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 22,
+      date: "2027-03-15",
+      displayDate: "March 15, 2027",
+      phase: "playoffs",
+      roundName: "Round Robin Playoffs",
+      fiftyFiftyTeam: 6,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamALabel: "A2",
+          teamBLabel: "A4",
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamALabel: "B2",
+          teamBLabel: "B4",
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamALabel: "A1",
+          teamBLabel: "A3",
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamALabel: "B1",
+          teamBLabel: "B3",
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 23,
+      date: "2027-03-22",
+      displayDate: "March 22, 2027",
+      phase: "playoffs",
+      roundName: "Round Robin Playoffs",
+      fiftyFiftyTeam: 7,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamALabel: "B1",
+          teamBLabel: "B2",
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamALabel: "A1",
+          teamBLabel: "A2",
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamALabel: "B3",
+          teamBLabel: "B4",
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamALabel: "A3",
+          teamBLabel: "A4",
+          resultType: null,
+          winner: null
+        }
+      ]
+    }
+  ]
 };
