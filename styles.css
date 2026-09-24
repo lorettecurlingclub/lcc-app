@@ -2641,3 +2641,11 @@ body.league-schedule-page
 .schedule-fifty-fifty strong {
   font-size: 0.9rem;
 }
+
+/* Match schedule 50/50 label size to team number */
+
+body.league-schedule-page
+.schedule-week-information
+.schedule-information-label.schedule-secondary-information {
+  font-size: 0.9rem !important;
+}
