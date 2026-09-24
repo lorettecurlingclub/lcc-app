@@ -2625,3 +2625,19 @@ body.league-standings-page
     padding-left: 6px;
   }
 }
+
+/* Larger 50/50 Team text */
+
+body.league-home-page
+.upcoming-week-fifty-fifty p {
+  font-size: 0.9rem;
+}
+
+body.league-schedule-page
+.schedule-fifty-fifty,
+body.league-schedule-page
+.schedule-information-label,
+body.league-schedule-page
+.schedule-fifty-fifty strong {
+  font-size: 0.9rem;
+}
