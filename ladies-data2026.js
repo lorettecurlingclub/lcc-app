@@ -797,7 +797,6 @@ const ladiesLeagueData = {
       displayDate: "February 16, 2027",
       phase: "regular",
       fiftyFiftyTeam: 7,
-      notes: "Louis Riel Day",
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
