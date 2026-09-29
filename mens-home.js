@@ -333,10 +333,10 @@ function renderUpcomingInformation(
     week.fiftyFiftyTeam !== ""
   ) {
     items.push(`
-      <p>
-        <strong>
-          50/50 Team:
-        </strong>
+      <p style="grid-column: 1 / -1;">
+  <strong>
+    50/50 Team:
+  </strong>
 
         Team ${escapeHtml(
           week.fiftyFiftyTeam
@@ -351,15 +351,15 @@ function renderUpcomingInformation(
     week.byeTeam !== ""
   ) {
     items.push(`
-      <p>
-        <strong>
-          Bye:
-        </strong>
+      <p style="grid-column: 1 / -1;">
+  <strong>
+    Bye:
+  </strong>
 
-        Team ${escapeHtml(
-          week.byeTeam
-        )}
-      </p>
+  Team ${escapeHtml(
+    week.byeTeam
+  )}
+</p>
     `);
   }
 
