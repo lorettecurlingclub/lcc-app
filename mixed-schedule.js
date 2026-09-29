@@ -44,19 +44,21 @@ function renderSchedule(
       : [];
 
   if (schedule.length === 0) {
-  container.innerHTML = `
-    <section class="schedule-message-card">
-      <h2>2026–27 Schedule Coming Soon</h2>
+    container.innerHTML = `
+      <section class="schedule-message-card">
+        <h2>
+          2026–27 Schedule Coming Soon
+        </h2>
 
-      <p>
-        The official Mixed League schedule will be posted here
-        once it has been finalized.
-      </p>
-    </section>
-  `;
+        <p>
+          The official Mixed League schedule will be posted here
+          once it has been finalized.
+        </p>
+      </section>
+    `;
 
-  return;
-}
+    return;
+  }
 
   const groupedSchedule =
     groupScheduleByMonth(
@@ -85,25 +87,31 @@ function groupScheduleByMonth(
   const monthGroups =
     new Map();
 
-  monthOrder.forEach((month) => {
-    monthGroups.set(
-      month,
-      []
-    );
-  });
+  monthOrder.forEach(
+    (month) => {
+      monthGroups.set(
+        month,
+        []
+      );
+    }
+  );
 
   [...schedule]
     .sort(compareScheduleWeeks)
     .forEach((week) => {
       const monthName =
-        getMonthName(week);
+        getMonthName(
+          week
+        );
 
       if (!monthName) {
         return;
       }
 
       if (
-        !monthGroups.has(monthName)
+        !monthGroups.has(
+          monthName
+        )
       ) {
         monthGroups.set(
           monthName,
@@ -127,18 +135,24 @@ function groupScheduleByMonth(
       };
     })
     .filter((month) => {
-      return month.weeks.length > 0;
+      return (
+        month.weeks.length > 0
+      );
     });
 }
 
 
-function renderMonthSection(month) {
+function renderMonthSection(
+  month
+) {
   const monthId =
     month.monthName.toLowerCase();
 
   return `
     <section
-      id="${escapeHtml(monthId)}"
+      id="${escapeHtml(
+        monthId
+      )}"
       class="schedule-month-section"
       aria-labelledby="${escapeHtml(
         `${monthId}-heading`
@@ -157,7 +171,9 @@ function renderMonthSection(month) {
 
       <div class="schedule-month-cards">
         ${month.weeks
-          .map(renderScheduleCard)
+          .map(
+            renderScheduleCard
+          )
           .join("")}
       </div>
     </section>
@@ -165,7 +181,23 @@ function renderMonthSection(month) {
 }
 
 
-function renderScheduleCard(week) {
+function renderScheduleCard(
+  week
+) {
+  const phase =
+    String(
+      week.phase || "regular"
+    )
+      .trim()
+      .toLowerCase();
+
+  const isPlayoffs =
+    phase === "playoff" ||
+    phase === "playoffs";
+
+  const isSpecial =
+    phase === "special";
+
   const earlyGames =
     normalizeGames(
       week.earlyGames
@@ -176,25 +208,114 @@ function renderScheduleCard(week) {
       week.lateGames
     );
 
+  let weekLabel = "";
+
+  if (isSpecial) {
+    weekLabel = "League Event";
+  } else if (isPlayoffs) {
+    weekLabel =
+      `Week ${numberOrBlank(
+        week.week
+      )} · Playoffs`;
+  } else {
+    weekLabel =
+      `Week ${numberOrBlank(
+        week.week
+      )}`;
+  }
+
+  if (week.specialEvent) {
+    return `
+      <article
+        class="schedule-card"
+        data-week="${numberOrBlank(
+          week.week
+        )}"
+        data-date="${escapeHtml(
+          week.date || ""
+        )}"
+      >
+        <header class="schedule-card-header">
+          <span class="schedule-week-label">
+            ${escapeHtml(
+              weekLabel
+            )}
+          </span>
+
+          <div class="schedule-date-area">
+            <span
+              class="schedule-calendar-icon"
+              aria-hidden="true"
+            >
+              ▣
+            </span>
+
+            <span class="schedule-date-text">
+              ${escapeHtml(
+                getDisplayDate(
+                  week
+                )
+              )}
+            </span>
+          </div>
+        </header>
+
+        <div
+          class="
+            schedule-week-information
+            schedule-week-information-single
+          "
+        >
+          <div class="schedule-fifty-fifty">
+            <strong>
+              ${escapeHtml(
+                week.specialEvent
+              )}
+            </strong>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
   return `
-    <article class="schedule-card">
+    <article
+      class="schedule-card"
+      data-week="${numberOrBlank(
+        week.week
+      )}"
+      data-date="${escapeHtml(
+        week.date || ""
+      )}"
+    >
       <header class="schedule-card-header">
         <span class="schedule-week-label">
-          Week ${numberOrBlank(
-            week.week
+          ${escapeHtml(
+            weekLabel
           )}
         </span>
 
-        <span class="schedule-date-area">
+        <div class="schedule-date-area">
+          <span
+            class="schedule-calendar-icon"
+            aria-hidden="true"
+          >
+            ▣
+          </span>
+
           <span class="schedule-date-text">
             ${escapeHtml(
-              getDisplayDate(week)
+              getDisplayDate(
+                week
+              )
             )}
           </span>
-        </span>
+        </div>
       </header>
 
-      ${renderWeekInformation(week)}
+      ${renderWeekInformation(
+        week
+      )}
 
       ${renderDrawSection(
         "Early Draw",
@@ -214,39 +335,34 @@ function renderScheduleCard(week) {
 }
 
 
-function renderWeekInformation(week) {
+function renderWeekInformation(
+  week
+) {
+  if (
+    week.fiftyFiftyTeam === null ||
+    week.fiftyFiftyTeam === undefined ||
+    week.fiftyFiftyTeam === ""
+  ) {
+    return "";
+  }
+
   return `
-    <div class="schedule-week-information">
-      <div
-        class="
-          schedule-fifty-fifty
-          schedule-secondary-information
-        "
-      >
+    <div
+      class="
+        schedule-week-information
+        schedule-week-information-single
+      "
+    >
+      <div class="schedule-fifty-fifty">
         <span class="schedule-information-label">
-          50/50 Team
+          50/50 Team:
         </span>
 
         <strong>
-          ${formatTeamNumber(
-            week.fiftyFiftyTeam
-          )}
-        </strong>
-      </div>
-
-      <div
-        class="
-          schedule-bye
-          schedule-secondary-information
-        "
-      >
-        <span class="schedule-information-label">
-          Bye Week
-        </span>
-
-        <strong>
-          ${formatTeamNumber(
-            week.byeTeam
+          ${escapeHtml(
+            formatTeamNumber(
+              week.fiftyFiftyTeam
+            )
           )}
         </strong>
       </div>
@@ -260,7 +376,9 @@ function renderDrawSection(
   drawTime,
   games
 ) {
-  if (games.length === 0) {
+  if (
+    games.length === 0
+  ) {
     return "";
   }
 
@@ -268,11 +386,15 @@ function renderDrawSection(
     <section class="schedule-draw-section">
       <div class="schedule-draw-heading">
         <h3>
-          ${escapeHtml(drawName)}
+          ${escapeHtml(
+            drawName
+          )}
         </h3>
 
         <span class="schedule-draw-time">
-          ${escapeHtml(drawTime)}
+          ${escapeHtml(
+            drawTime
+          )}
         </span>
       </div>
 
@@ -296,7 +418,9 @@ function renderDrawSection(
 
           <tbody>
             ${games
-              .map(renderGameRows)
+              .map(
+                renderGameRows
+              )
               .join("")}
           </tbody>
         </table>
@@ -306,12 +430,18 @@ function renderDrawSection(
 }
 
 
-function renderGameRows(game) {
+function renderGameRows(
+  game
+) {
   const result =
-    getGameResult(game);
+    getGameResult(
+      game
+    );
 
   const notes =
-    getGameNotes(game);
+    getGameNotes(
+      game
+    );
 
   return `
     <tr class="schedule-game-row">
@@ -325,7 +455,8 @@ function renderGameRows(game) {
         <span class="schedule-matchup">
           ${renderTeamLabel(
             game.teamA,
-            game
+            game,
+            "A"
           )}
 
           <span class="schedule-versus">
@@ -334,7 +465,8 @@ function renderGameRows(game) {
 
           ${renderTeamLabel(
             game.teamB,
-            game
+            game,
+            "B"
           )}
         </span>
       </td>
@@ -355,14 +487,16 @@ function renderGameRows(game) {
 
     ${notes
       ? `
-        <tr class="schedule-game-notes-row">
-          <td colspan="3">
-            <span class="schedule-game-note">
-              ${escapeHtml(notes)}
-            </span>
-          </td>
-        </tr>
-      `
+          <tr class="schedule-game-notes-row">
+            <td colspan="3">
+              <span class="schedule-game-note">
+                ${escapeHtml(
+                  notes
+                )}
+              </span>
+            </td>
+          </tr>
+        `
       : ""}
   `;
 }
@@ -370,16 +504,23 @@ function renderGameRows(game) {
 
 function renderTeamLabel(
   teamNumber,
-  game
+  game,
+  side
 ) {
   const number =
-    Number(teamNumber);
+    Number(
+      teamNumber
+    );
 
   const winner =
-    Number(game.winner);
+    Number(
+      game.winner
+    );
 
   const isWinner =
-    Number.isFinite(winner) &&
+    Number.isFinite(
+      winner
+    ) &&
     winner === number;
 
   return `
@@ -390,20 +531,26 @@ function renderTeamLabel(
           : ""
       }"
     >
-      Team ${numberOrBlank(number)}
+      Team ${numberOrBlank(
+        number
+      )}
     </span>
   `;
 }
 
 
-function getGameResult(game) {
+function getGameResult(
+  game
+) {
   const resultType =
     normalizeResultType(
       game.resultType
     );
 
   const winner =
-    Number(game.winner);
+    Number(
+      game.winner
+    );
 
   if (
     resultType === "tie" ||
@@ -460,22 +607,29 @@ function getGameResult(game) {
   }
 
   if (
-    isDefaultResult(resultType) &&
-    Number.isFinite(winner)
+    isDefaultResult(
+      resultType
+    ) &&
+    Number.isFinite(
+      winner
+    )
   ) {
     return {
       text:
-        `Team ${winner} by forfeit`,
+        `Team ${winner} by default`,
       className:
         "schedule-result-default"
     };
   }
 
   if (
-    Number.isFinite(winner)
+    Number.isFinite(
+      winner
+    )
   ) {
     return {
-      text: `Team ${winner}`,
+      text:
+        `Team ${winner}`,
       className:
         "schedule-result-win"
     };
@@ -497,11 +651,15 @@ function isDefaultResult(
     "forfeit",
     "default-win",
     "forfeit-win"
-  ].includes(resultType);
+  ].includes(
+    resultType
+  );
 }
 
 
-function getGameNotes(game) {
+function getGameNotes(
+  game
+) {
   const possibleNotes = [
     game.notes,
     game.note,
@@ -510,12 +668,14 @@ function getGameNotes(game) {
   ];
 
   const note =
-    possibleNotes.find((value) => {
-      return (
-        typeof value === "string" &&
-        value.trim()
-      );
-    });
+    possibleNotes.find(
+      (value) => {
+        return (
+          typeof value === "string" &&
+          value.trim()
+        );
+      }
+    );
 
   return note
     ? note.trim()
@@ -523,7 +683,9 @@ function getGameNotes(game) {
 }
 
 
-function getDisplayDate(week) {
+function getDisplayDate(
+  week
+) {
   if (
     typeof week.displayDate === "string" &&
     week.displayDate.trim()
@@ -551,7 +713,9 @@ function getDisplayDate(week) {
 }
 
 
-function getMonthName(week) {
+function getMonthName(
+  week
+) {
   const date =
     parseLocalDate(
       week.date
@@ -584,18 +748,30 @@ function compareScheduleWeeks(
       weekB.date
     );
 
-  if (dateA && dateB) {
-    return dateA - dateB;
+  if (
+    dateA &&
+    dateB
+  ) {
+    return (
+      dateA -
+      dateB
+    );
   }
 
   return (
-    numberOrZero(weekA.week) -
-    numberOrZero(weekB.week)
+    numberOrZero(
+      weekA.week
+    ) -
+    numberOrZero(
+      weekB.week
+    )
   );
 }
 
 
-function parseLocalDate(value) {
+function parseLocalDate(
+  value
+) {
   if (
     typeof value !== "string" ||
     !value.trim()
@@ -603,9 +779,35 @@ function parseLocalDate(value) {
     return null;
   }
 
+  const parts =
+    value
+      .trim()
+      .split("-")
+      .map(Number);
+
+  if (
+    parts.length !== 3 ||
+    parts.some(
+      (part) =>
+        !Number.isFinite(
+          part
+        )
+    )
+  ) {
+    return null;
+  }
+
+  const [
+    year,
+    month,
+    day
+  ] = parts;
+
   const date =
     new Date(
-      `${value.trim()}T00:00:00`
+      year,
+      month - 1,
+      day
     );
 
   return Number.isNaN(
@@ -616,48 +818,75 @@ function parseLocalDate(value) {
 }
 
 
-function normalizeGames(games) {
-  return Array.isArray(games)
+function normalizeGames(
+  games
+) {
+  return Array.isArray(
+    games
+  )
     ? games
     : [];
 }
 
 
-function normalizeResultType(value) {
+function normalizeResultType(
+  value
+) {
   return String(
     value ?? ""
   )
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, "-");
+    .replace(
+      /\s+/g,
+      "-"
+    );
 }
 
 
-function formatTeamNumber(value) {
+function formatTeamNumber(
+  value
+) {
   const number =
-    Number(value);
+    Number(
+      value
+    );
 
-  return Number.isFinite(number)
+  return Number.isFinite(
+    number
+  )
     ? `Team ${number}`
     : "—";
 }
 
 
-function numberOrBlank(value) {
+function numberOrBlank(
+  value
+) {
   const number =
-    Number(value);
+    Number(
+      value
+    );
 
-  return Number.isFinite(number)
+  return Number.isFinite(
+    number
+  )
     ? number
     : "";
 }
 
 
-function numberOrZero(value) {
+function numberOrZero(
+  value
+) {
   const number =
-    Number(value);
+    Number(
+      value
+    );
 
-  return Number.isFinite(number)
+  return Number.isFinite(
+    number
+  )
     ? number
     : 0;
 }
@@ -674,18 +903,39 @@ function renderScheduleError(
       </h2>
 
       <p>
-        ${escapeHtml(message)}
+        ${escapeHtml(
+          message
+        )}
       </p>
     </section>
   `;
 }
 
 
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function escapeHtml(
+  value
+) {
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
