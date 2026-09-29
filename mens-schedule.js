@@ -338,12 +338,8 @@ function renderWeeklyInformation(
     week.fiftyFiftyTeam !== ""
   ) {
     items.push(`
-      <div
-        class="
-          schedule-fifty-fifty
-          schedule-secondary-information
-        "
-      >
+      <div class="schedule-fifty-fifty">
+      
         <span class="schedule-information-label">
           50/50 Team:
         </span>
