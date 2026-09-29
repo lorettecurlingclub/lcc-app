@@ -321,32 +321,11 @@ function compareStandings(
     );
   }
 
-  if (
-    teamB.wins !== teamA.wins
-  ) {
-    return (
-      teamB.wins -
-      teamA.wins
-    );
-  }
-
-  if (
-    teamB.ties !== teamA.ties
-  ) {
-    return (
-      teamB.ties -
-      teamA.ties
-    );
-  }
-
-  if (
-    teamA.losses !== teamB.losses
-  ) {
-    return (
-      teamA.losses -
-      teamB.losses
-    );
-  }
+  /*
+    Teams tied in points remain in neutral
+    team-number order until an official
+    head-to-head tiebreak is required.
+  */
 
   return (
     teamA.teamNumber -
