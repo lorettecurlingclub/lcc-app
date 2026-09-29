@@ -36,35 +36,40 @@ function renderUpcomingWeek(
   container,
   leagueData
 ) {
-  const schedule = Array.isArray(
-    leagueData.schedule
-  )
-    ? leagueData.schedule
-    : [];
+  const schedule =
+    Array.isArray(
+      leagueData.schedule
+    )
+      ? leagueData.schedule
+      : [];
 
   if (schedule.length === 0) {
-  updatePhaseBubble(null);
+    updatePhaseBubble(null);
 
-  container.innerHTML = `
-    <div class="upcoming-week-message">
-      <p>
-        <strong>Schedule Coming Soon</strong>
-      </p>
+    container.innerHTML = `
+      <div class="upcoming-week-message">
+        <p>
+          <strong>
+            Schedule Coming Soon
+          </strong>
+        </p>
 
-      <p>
-        Upcoming games will appear here once the official
-        2026–27 Men’s League schedule is available.
-      </p>
-    </div>
-  `;
+        <p>
+          Upcoming games will appear here once the official
+          2026–27 Men’s League schedule is available.
+        </p>
+      </div>
+    `;
 
-  return;
-}
+    return;
+  }
 
-const upcomingWeek =
-  findUpcomingWeek(schedule);
+  const upcomingWeek =
+    findUpcomingWeek(
+      schedule
+    );
 
-if (!upcomingWeek) {
+  if (!upcomingWeek) {
     updatePhaseBubble(null);
 
     showUpcomingWeekMessage(
@@ -79,11 +84,51 @@ if (!upcomingWeek) {
     upcomingWeek.phase
   );
 
+  /*
+    Playoff dates are known, but the official
+    playoff matchups will not be available until
+    February.
+  */
+
+  if (upcomingWeek.specialEvent) {
+    container.innerHTML = `
+      <div class="upcoming-week-date">
+        <strong>
+          ${escapeHtml(
+            getDisplayDate(
+              upcomingWeek
+            )
+          )}
+        </strong>
+
+        <span class="upcoming-week-number">
+          Week ${numberOrBlank(
+            upcomingWeek.week
+          )}
+        </span>
+      </div>
+
+      <div class="upcoming-week-message">
+        <p>
+          <strong>
+            ${escapeHtml(
+              upcomingWeek.specialEvent
+            )}
+          </strong>
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
   container.innerHTML = `
     <div class="upcoming-week-date">
       <strong>
         ${escapeHtml(
-          getDisplayDate(upcomingWeek)
+          getDisplayDate(
+            upcomingWeek
+          )
         )}
       </strong>
 
@@ -115,8 +160,11 @@ if (!upcomingWeek) {
 }
 
 
-function findUpcomingWeek(schedule) {
-  const today = new Date();
+function findUpcomingWeek(
+  schedule
+) {
+  const today =
+    new Date();
 
   today.setHours(
     0,
@@ -125,26 +173,45 @@ function findUpcomingWeek(schedule) {
     0
   );
 
-  const validWeeks = schedule
-    .filter((week) => {
-      return Boolean(
-        parseLocalDate(week.date)
+  const validWeeks =
+    schedule
+      .filter((week) => {
+        return Boolean(
+          parseLocalDate(
+            week.date
+          )
+        );
+      })
+      .slice()
+      .sort(
+        (
+          weekA,
+          weekB
+        ) => {
+          return (
+            parseLocalDate(
+              weekA.date
+            ) -
+            parseLocalDate(
+              weekB.date
+            )
+          );
+        }
       );
-    })
-    .sort((weekA, weekB) => {
-      return (
-        parseLocalDate(weekA.date) -
-        parseLocalDate(weekB.date)
-      );
-    });
 
   return (
-    validWeeks.find((week) => {
-      const weekDate =
-        parseLocalDate(week.date);
+    validWeeks.find(
+      (week) => {
+        const weekDate =
+          parseLocalDate(
+            week.date
+          );
 
-      return weekDate >= today;
-    }) || null
+        return (
+          weekDate >= today
+        );
+      }
+    ) || null
   );
 }
 
@@ -154,40 +221,67 @@ function renderUpcomingDraw(
   drawTime,
   games
 ) {
-  const drawGames = Array.isArray(games)
-    ? games
-    : [];
+  const drawGames =
+    Array.isArray(games)
+      ? games
+      : [];
 
-  if (drawGames.length === 0) {
+  if (
+    drawGames.length === 0
+  ) {
     return "";
   }
 
   return `
     <section class="upcoming-week-draw">
       <h3>
-        ${escapeHtml(drawName)}
+        ${escapeHtml(
+          drawName
+        )}
         ·
-        ${escapeHtml(drawTime)}
+        ${escapeHtml(
+          drawTime
+        )}
       </h3>
 
       ${drawGames
-        .map(renderUpcomingGame)
+        .map(
+          renderUpcomingGame
+        )
         .join("")}
     </section>
   `;
 }
 
 
-function renderUpcomingGame(game) {
+function renderUpcomingGame(
+  game
+) {
+  const teamA =
+    getUpcomingTeamName(
+      game.teamA,
+      game.teamALabel
+    );
+
+  const teamB =
+    getUpcomingTeamName(
+      game.teamB,
+      game.teamBLabel
+    );
+
   return `
     <div class="upcoming-week-game">
       <span class="upcoming-week-sheet">
-        Sheet ${numberOrBlank(game.sheet)}
+        Sheet ${numberOrBlank(
+          game.sheet
+        )}
       </span>
 
       <div class="upcoming-week-matchup">
         <span>
-          Team ${numberOrBlank(game.teamA)}
+          ${escapeHtml(
+            teamA
+          )}
         </span>
 
         <span class="upcoming-week-vs">
@@ -195,7 +289,9 @@ function renderUpcomingGame(game) {
         </span>
 
         <span>
-          Team ${numberOrBlank(game.teamB)}
+          ${escapeHtml(
+            teamB
+          )}
         </span>
       </div>
     </div>
@@ -203,26 +299,87 @@ function renderUpcomingGame(game) {
 }
 
 
-function renderUpcomingInformation(week) {
-  const fiftyFiftyTeam =
-    week.fiftyFiftyTeam === null ||
-    week.fiftyFiftyTeam === undefined ||
-    week.fiftyFiftyTeam === ""
-      ? "—"
-      : `Team ${week.fiftyFiftyTeam}`;
+function getUpcomingTeamName(
+  teamNumber,
+  teamLabel
+) {
+  if (
+    typeof teamLabel === "string" &&
+    teamLabel.trim()
+  ) {
+    return teamLabel.trim();
+  }
+
+  if (
+    teamNumber === null ||
+    teamNumber === undefined ||
+    teamNumber === ""
+  ) {
+    return "To Be Announced";
+  }
+
+  return `Team ${teamNumber}`;
+}
+
+
+function renderUpcomingInformation(
+  week
+) {
+  const items = [];
+
+  if (
+    week.fiftyFiftyTeam !== null &&
+    week.fiftyFiftyTeam !== undefined &&
+    week.fiftyFiftyTeam !== ""
+  ) {
+    items.push(`
+      <p>
+        <strong>
+          50/50 Team:
+        </strong>
+
+        Team ${escapeHtml(
+          week.fiftyFiftyTeam
+        )}
+      </p>
+    `);
+  }
+
+  if (
+    week.byeTeam !== null &&
+    week.byeTeam !== undefined &&
+    week.byeTeam !== ""
+  ) {
+    items.push(`
+      <p>
+        <strong>
+          Bye:
+        </strong>
+
+        Team ${escapeHtml(
+          week.byeTeam
+        )}
+      </p>
+    `);
+  }
+
+  if (
+    items.length === 0
+  ) {
+    return "";
+  }
 
   return `
     <div class="upcoming-week-fifty-fifty">
-      <p style="grid-column: 1 / -1;">
-        <strong>50/50 Team:</strong>
-        ${escapeHtml(fiftyFiftyTeam)}
-      </p>
+      ${items.join("")}
     </div>
   `;
 }
 
 
-function updatePhaseBubble(phase) {
+function updatePhaseBubble(
+  phase
+) {
   const phaseBubble =
     document.getElementById(
       "upcoming-week-phase"
@@ -234,6 +391,7 @@ function updatePhaseBubble(phase) {
 
   if (!phase) {
     phaseBubble.hidden = true;
+
     phaseBubble.classList.remove(
       "playoffs"
     );
@@ -241,17 +399,21 @@ function updatePhaseBubble(phase) {
     return;
   }
 
-  const normalizedPhase = String(phase)
-    .trim()
-    .toLowerCase();
+  const normalizedPhase =
+    String(
+      phase
+    )
+      .trim()
+      .toLowerCase();
 
   const isPlayoffs =
     normalizedPhase === "playoff" ||
     normalizedPhase === "playoffs";
 
-  phaseBubble.textContent = isPlayoffs
-    ? "Playoffs"
-    : "Regular Season";
+  phaseBubble.textContent =
+    isPlayoffs
+      ? "Playoffs"
+      : "Regular Season";
 
   phaseBubble.classList.toggle(
     "playoffs",
@@ -262,7 +424,9 @@ function updatePhaseBubble(phase) {
 }
 
 
-function getDisplayDate(week) {
+function getDisplayDate(
+  week
+) {
   if (
     typeof week.displayDate === "string" &&
     week.displayDate.trim()
@@ -270,9 +434,10 @@ function getDisplayDate(week) {
     return week.displayDate.trim();
   }
 
-  const date = parseLocalDate(
-    week.date
-  );
+  const date =
+    parseLocalDate(
+      week.date
+    );
 
   if (!date) {
     return "";
@@ -289,7 +454,9 @@ function getDisplayDate(week) {
 }
 
 
-function parseLocalDate(value) {
+function parseLocalDate(
+  value
+) {
   if (
     typeof value !== "string" ||
     !value.trim()
@@ -297,9 +464,36 @@ function parseLocalDate(value) {
     return null;
   }
 
-  const date = new Date(
-    `${value.trim()}T00:00:00`
-  );
+  const parts =
+    value
+      .trim()
+      .split("-")
+      .map(Number);
+
+  if (
+    parts.length !== 3 ||
+    parts.some(
+      (part) =>
+        !Number.isFinite(
+          part
+        )
+    )
+  ) {
+    return null;
+  }
+
+  const [
+    year,
+    month,
+    day
+  ] = parts;
+
+  const date =
+    new Date(
+      year,
+      month - 1,
+      day
+    );
 
   return Number.isNaN(
     date.getTime()
@@ -316,27 +510,55 @@ function showUpcomingWeekMessage(
   container.innerHTML = `
     <div class="upcoming-week-message">
       <p>
-        ${escapeHtml(message)}
+        ${escapeHtml(
+          message
+        )}
       </p>
     </div>
   `;
 }
 
 
-function numberOrBlank(value) {
-  const number = Number(value);
+function numberOrBlank(
+  value
+) {
+  const number =
+    Number(
+      value
+    );
 
-  return Number.isFinite(number)
+  return Number.isFinite(
+    number
+  )
     ? number
     : "";
 }
 
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function escapeHtml(
+  value
+) {
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
