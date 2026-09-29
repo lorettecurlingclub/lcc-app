@@ -350,21 +350,24 @@ function compareStandings(
   teamA,
   teamB
 ) {
+  if (
+    teamB.points !== teamA.points
+  ) {
+    return (
+      teamB.points -
+      teamA.points
+    );
+  }
+
+  /*
+    Teams tied in points remain in neutral
+    team-number order until an official
+    head-to-head tiebreak is required.
+  */
+
   return (
-    teamB.points -
-      teamA.points ||
-
-    teamB.wins -
-      teamA.wins ||
-
-    teamB.ties -
-      teamA.ties ||
-
-    teamA.losses -
-      teamB.losses ||
-
     teamA.teamNumber -
-      teamB.teamNumber
+    teamB.teamNumber
   );
 }
 
