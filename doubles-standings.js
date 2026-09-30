@@ -50,8 +50,8 @@ function renderStandings(
         </h1>
 
         <p>
-          2026–27 Regular Season
-        </p>
+  2026 Fall Round Robin
+</p>
       </header>
 
       <div class="standings-table-wrapper">
@@ -341,35 +341,11 @@ function compareStandings(
     );
   }
 
-  if (
-    teamB.wins !==
-    teamA.wins
-  ) {
-    return (
-      teamB.wins -
-      teamA.wins
-    );
-  }
-
-  if (
-    teamB.ties !==
-    teamA.ties
-  ) {
-    return (
-      teamB.ties -
-      teamA.ties
-    );
-  }
-
-  if (
-    teamA.losses !==
-    teamB.losses
-  ) {
-    return (
-      teamA.losses -
-      teamB.losses
-    );
-  }
+  /*
+    Teams tied in points remain in neutral
+    team-number order until the official
+    draw-to-the-button tiebreak is applied.
+  */
 
   return (
     teamA.teamNumber -
