@@ -159,30 +159,76 @@ function renderUpcomingWeek(
   leagueData
 ) {
   const phase =
-    String(
-      week.phase || "regular"
-    )
-      .trim()
-      .toLowerCase();
+  String(
+    week.phase || "regular"
+  )
+    .trim()
+    .toLowerCase();
 
-  /*
-    Special dates such as the Christmas Party
-    and Christmas Break.
-  */
+const isPlayoffs =
+  phase === "playoff" ||
+  phase === "playoffs";
 
-  if (
-    phase === "special" ||
-    week.specialEvent
-  ) {
-    renderSpecialEvent(
-      container,
-      week
-    );
+/*
+  Special league events such as Dainties & Drinks
+  and Christmas Break.
+*/
 
-    return;
-  }
+if (phase === "special") {
+  renderSpecialEvent(
+    container,
+    week
+  );
 
-  const earlyGames =
+  return;
+}
+
+/*
+  Playoff dates are known, but the official
+  playoff matchups are not available yet.
+*/
+
+if (
+  isPlayoffs &&
+  week.specialEvent
+) {
+  updateUpcomingWeekPhase(
+    week
+  );
+
+  container.innerHTML = `
+    <div class="upcoming-week-date">
+      <strong>
+        ${escapeHtml(
+          week.displayDate ||
+          formatDisplayDate(
+            week.date
+          )
+        )}
+      </strong>
+
+      <div class="upcoming-week-number">
+        Week ${escapeHtml(
+          week.week
+        )}
+      </div>
+    </div>
+
+    <div class="upcoming-week-message">
+      <p>
+        <strong>
+          ${escapeHtml(
+            week.specialEvent
+          )}
+        </strong>
+      </p>
+    </div>
+  `;
+
+  return;
+}
+
+const earlyGames =
     Array.isArray(
       week.earlyGames
     )
@@ -357,16 +403,14 @@ function renderUpcomingInformation(
   week,
   leagueData
 ) {
-  if (
-    week.fiftyFiftyTeam === null ||
-    week.fiftyFiftyTeam === undefined ||
-    week.fiftyFiftyTeam === ""
-  ) {
-    return "";
-  }
+  const items = [];
 
-  return `
-    <div class="upcoming-week-fifty-fifty">
+  if (
+    week.fiftyFiftyTeam !== null &&
+    week.fiftyFiftyTeam !== undefined &&
+    week.fiftyFiftyTeam !== ""
+  ) {
+    items.push(`
       <p style="grid-column: 1 / -1;">
         <strong>
           50/50 Team:
@@ -379,6 +423,37 @@ function renderUpcomingInformation(
           )
         )}
       </p>
+    `);
+  }
+
+  if (
+    week.byeTeam !== null &&
+    week.byeTeam !== undefined &&
+    week.byeTeam !== ""
+  ) {
+    items.push(`
+      <p style="grid-column: 1 / -1;">
+        <strong>
+          Bye:
+        </strong>
+
+        ${escapeHtml(
+          getTeamName(
+            week.byeTeam,
+            leagueData
+          )
+        )}
+      </p>
+    `);
+  }
+
+  if (items.length === 0) {
+    return "";
+  }
+
+  return `
+    <div class="upcoming-week-fifty-fifty">
+      ${items.join("")}
     </div>
   `;
 }
