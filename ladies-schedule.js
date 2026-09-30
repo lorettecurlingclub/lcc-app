@@ -7,8 +7,8 @@
   the complete Ladies League schedule page automatically.
 
   Supports:
-  - Regular-season Team 1–8 matchups
-  - A1–A4 / B1–B4 playoff labels
+  - Regular-season Team 1–9 matchups
+  - A1–A5 / B1–B5 playoff labels
   - Special league dates such as Christmas events/breaks
   - 50/50 assignments
   - Results, defaults and rescheduled games
@@ -451,7 +451,15 @@ function createSpecialEventArea(
     );
 
   eventArea.className =
-    "schedule-week-information";
+    "schedule-week-information schedule-week-information-single";
+
+  const eventBox =
+    document.createElement(
+      "div"
+    );
+
+  eventBox.className =
+    "schedule-fifty-fifty";
 
   const eventText =
     document.createElement(
@@ -461,8 +469,12 @@ function createSpecialEventArea(
   eventText.textContent =
     message;
 
-  eventArea.appendChild(
+  eventBox.appendChild(
     eventText
+  );
+
+  eventArea.appendChild(
+    eventBox
   );
 
   return eventArea;
@@ -504,7 +516,7 @@ function createWeeklyInformation(
     );
 
   informationArea.className =
-    "schedule-week-information";
+  "schedule-week-information schedule-week-information-single";
 
   let hasInformation =
     false;
