@@ -251,8 +251,8 @@
 </footer>
 
   <!-- League data and schedule renderer -->
-  <script src="ladies-data2026.js?v=2"></script>
-  <script src="ladies-schedule.js?v=2"></script>
+  <script src="ladies-data2026.js?v=3"></script>
+  <script src="ladies-schedule.js?v=3"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -325,58 +325,6 @@
         });
       }
 
-      /*
-        Adds a compact secondary style to the generated
-        50/50 Team and Bye information without requiring
-        those details to become the focus of each card.
-      */
-
-      function markSecondaryScheduleInformation() {
-        if (!scheduleContainer) {
-          return;
-        }
-
-        const candidates = scheduleContainer.querySelectorAll(
-          "p, div, span"
-        );
-
-        candidates.forEach((element) => {
-          const text = normalizeText(element.textContent);
-
-          const isSecondaryInformation =
-            text.startsWith("50/50 team:") ||
-            text.startsWith("50/50:") ||
-            text.startsWith("bye team:") ||
-            text.startsWith("bye week:") ||
-            text.startsWith("bye:");
-
-          if (!isSecondaryInformation) {
-            return;
-          }
-
-          const containsSmallerMatchingChild =
-            Array.from(element.children).some((child) => {
-              const childText = normalizeText(
-                child.textContent
-              );
-
-              return (
-                childText.startsWith("50/50 team:") ||
-                childText.startsWith("50/50:") ||
-                childText.startsWith("bye team:") ||
-                childText.startsWith("bye week:") ||
-                childText.startsWith("bye:")
-              );
-            });
-
-          if (!containsSmallerMatchingChild) {
-            element.classList.add(
-              "schedule-secondary-information"
-            );
-          }
-        });
-      }
-
       monthButtons.forEach((button) => {
         button.addEventListener("click", () => {
           const monthName = button.dataset.month;
@@ -406,18 +354,6 @@
         });
       });
 
-      markSecondaryScheduleInformation();
-
-      if (scheduleContainer) {
-        const scheduleObserver = new MutationObserver(() => {
-          markSecondaryScheduleInformation();
-        });
-
-        scheduleObserver.observe(scheduleContainer, {
-          childList: true,
-          subtree: true
-        });
-      }
     });
   </script>
 
