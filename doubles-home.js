@@ -44,40 +44,41 @@ function renderUpcomingWeek(
       : [];
 
   if (schedule.length === 0) {
-  const phaseBadge =
-    document.getElementById(
-      "upcoming-week-phase"
-    );
+    updatePhaseBadge(null);
 
-  if (phaseBadge) {
-    phaseBadge.hidden = true;
+    container.innerHTML = `
+      <div class="upcoming-week-message">
+        <p>
+          <strong>
+            Schedule Coming Soon
+          </strong>
+        </p>
+
+        <p>
+          Upcoming games will appear here once the Fall
+          Doubles League schedule is available.
+        </p>
+      </div>
+    `;
+
+    return;
   }
 
-  container.innerHTML = `
-    <div class="upcoming-week-message">
-      <p>
-        <strong>Schedule Coming Soon</strong>
-      </p>
-
-      <p>
-        Upcoming games will appear here once the official
-        2026–27 Doubles League schedule is available.
-      </p>
-    </div>
-  `;
-
-  return;
-}
-
-  schedule.sort(compareWeeks);
+  schedule.sort(
+    compareWeeks
+  );
 
   const upcomingWeek =
-    findUpcomingWeek(schedule);
+    findUpcomingWeek(
+      schedule
+    );
 
   if (!upcomingWeek) {
+    updatePhaseBadge(null);
+
     renderUpcomingWeekMessage(
       container,
-      "The 2026–27 Doubles League season is complete."
+      "The 2026 Fall Doubles League session is complete."
     );
 
     return;
@@ -113,26 +114,22 @@ function renderUpcomingWeek(
 
     <section class="upcoming-week-draw">
       <h3>
-        ${escapeHtml(
-          getDrawHeading(
-            upcomingWeek
-          )
-        )}
+        Doubles Draw
         ·
         ${escapeHtml(
           upcomingWeek.drawTime ||
-          "4:30 PM"
+          "6:30 PM"
         )}
       </h3>
 
       ${games.length > 0
         ? games
-            .map((game) => {
-              return renderGame(
+            .map((game) =>
+              renderGame(
                 game,
                 leagueData
-              );
-            })
+              )
+            )
             .join("")
         : `
             <div class="upcoming-week-message">
@@ -143,18 +140,10 @@ function renderUpcomingWeek(
           `}
     </section>
 
-    <div class="upcoming-week-fifty-fifty">
-      <p style="grid-column: 1 / -1;">
-        <strong>
-          50/50 Team
-        </strong>
-        <br>
-        ${formatTeam(
-          upcomingWeek.fiftyFiftyTeam,
-          leagueData
-        )}
-      </p>
-    </div>
+    ${renderUpcomingBye(
+      upcomingWeek,
+      leagueData
+    )}
   `;
 }
 
@@ -172,17 +161,21 @@ function findUpcomingWeek(
     0
   );
 
-  return schedule.find((week) => {
-    const weekDate =
-      parseLocalDate(
-        week.date
-      );
+  return (
+    schedule.find(
+      (week) => {
+        const weekDate =
+          parseLocalDate(
+            week.date
+          );
 
-    return (
-      weekDate &&
-      weekDate >= today
-    );
-  }) || null;
+        return (
+          weekDate &&
+          weekDate >= today
+        );
+      }
+    ) || null
+  );
 }
 
 
@@ -198,7 +191,7 @@ function renderGame(
         )}
       </span>
 
-      <span class="upcoming-week-matchup">
+      <div class="upcoming-week-matchup">
         <span>
           ${getGameTeamLabel(
             game,
@@ -218,7 +211,7 @@ function renderGame(
             leagueData
           )}
         </span>
-      </span>
+      </div>
     </div>
   `;
 }
@@ -239,18 +232,16 @@ function getGameTeamLabel(
       ? "teamALabel"
       : "teamBLabel";
 
-  const teamNumber =
-    Number(
-      game[teamKey]
-    );
+  const teamValue =
+    game[teamKey];
 
   if (
-    Number.isFinite(
-      teamNumber
-    )
+    teamValue !== null &&
+    teamValue !== undefined &&
+    teamValue !== ""
   ) {
     return formatTeam(
-      teamNumber,
+      teamValue,
       leagueData
     );
   }
@@ -271,27 +262,47 @@ function getGameTeamLabel(
 }
 
 
-function getDrawHeading(
-  week
+function renderUpcomingBye(
+  week,
+  leagueData
 ) {
-  const phase =
-    normalizeValue(
-      week.phase
-    );
-
-  const isPlayoffs =
-    phase === "playoffs" ||
-    phase === "playoff";
+  let byeName = "";
 
   if (
-    isPlayoffs &&
-    typeof week.roundName === "string" &&
-    week.roundName.trim()
+    typeof week.byeLabel === "string" &&
+    week.byeLabel.trim()
   ) {
-    return week.roundName.trim();
+    byeName =
+      week.byeLabel.trim();
+  } else if (
+    week.byeTeam !== null &&
+    week.byeTeam !== undefined &&
+    week.byeTeam !== ""
+  ) {
+    byeName =
+      getTeamName(
+        week.byeTeam,
+        leagueData
+      );
   }
 
-  return "Doubles Draw";
+  if (!byeName) {
+    return "";
+  }
+
+  return `
+    <div class="upcoming-week-fifty-fifty">
+      <p style="grid-column: 1 / -1;">
+        <strong>
+          Bye:
+        </strong>
+
+        ${escapeHtml(
+          byeName
+        )}
+      </p>
+    </div>
+  `;
 }
 
 
@@ -304,6 +315,16 @@ function updatePhaseBadge(
     );
 
   if (!badge) {
+    return;
+  }
+
+  if (!phase) {
+    badge.hidden = true;
+
+    badge.classList.remove(
+      "playoffs"
+    );
+
     return;
   }
 
@@ -325,6 +346,30 @@ function updatePhaseBadge(
     "playoffs",
     isPlayoffs
   );
+
+  badge.hidden = false;
+}
+
+
+function getTeamName(
+  teamNumber,
+  leagueData
+) {
+  if (
+    teamNumber === null ||
+    teamNumber === undefined ||
+    teamNumber === ""
+  ) {
+    return "TBD";
+  }
+
+  const teams =
+    leagueData.teams || {};
+
+  return (
+    teams[teamNumber] ||
+    `Team ${teamNumber}`
+  );
 }
 
 
@@ -332,23 +377,11 @@ function formatTeam(
   teamNumber,
   leagueData
 ) {
-  const number =
-    Number(teamNumber);
-
-  if (
-    !Number.isFinite(
-      number
-    )
-  ) {
-    return "—";
-  }
-
-  const teamName =
-    leagueData.teams?.[number];
-
   return escapeHtml(
-    teamName ||
-    `Team ${number}`
+    getTeamName(
+      teamNumber,
+      leagueData
+    )
   );
 }
 
@@ -425,9 +458,33 @@ function parseLocalDate(
     return null;
   }
 
+  const parts =
+    value
+      .trim()
+      .split("-")
+      .map(Number);
+
+  if (
+    parts.length !== 3 ||
+    parts.some(
+      (part) =>
+        !Number.isFinite(part)
+    )
+  ) {
+    return null;
+  }
+
+  const [
+    year,
+    month,
+    day
+  ] = parts;
+
   const date =
     new Date(
-      `${value.trim()}T00:00:00`
+      year,
+      month - 1,
+      day
     );
 
   return Number.isNaN(
@@ -453,10 +510,22 @@ function normalizeValue(
 function numberOrBlank(
   value
 ) {
-  const number =
-    Number(value);
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return "";
+  }
 
-  return Number.isFinite(number)
+  const number =
+    Number(
+      value
+    );
+
+  return Number.isFinite(
+    number
+  )
     ? number
     : "";
 }
@@ -466,9 +535,13 @@ function numberOrZero(
   value
 ) {
   const number =
-    Number(value);
+    Number(
+      value
+    );
 
-  return Number.isFinite(number)
+  return Number.isFinite(
+    number
+  )
     ? number
     : 0;
 }
@@ -481,7 +554,9 @@ function renderUpcomingWeekMessage(
   container.innerHTML = `
     <div class="upcoming-week-message">
       <p>
-        ${escapeHtml(message)}
+        ${escapeHtml(
+          message
+        )}
       </p>
     </div>
   `;
@@ -491,10 +566,27 @@ function renderUpcomingWeekMessage(
 function escapeHtml(
   value
 ) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
