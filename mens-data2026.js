@@ -995,6 +995,17 @@ const mensLeagueData = {
     },
 
     {
+  week: null,
+  date: "2027-03-11",
+  displayDate: "March 11, 2027",
+  phase: "special",
+  specialEvent:
+    "Lorette Open Bonspiel — No Men’s Curling",
+  earlyGames: [],
+  lateGames: []
+},
+
+    {
       week: 22,
       date: "2027-03-18",
       displayDate: "March 18, 2027",
