@@ -1,3 +1,5 @@
+"use strict";
+
 const ladiesLeagueData = {
   season: "2026-27",
   leagueName: "Ladies League",
@@ -18,7 +20,8 @@ const ladiesLeagueData = {
     5: "Team 5",
     6: "Team 6",
     7: "Team 7",
-    8: "Team 8"
+    8: "Team 8",
+    9: "Team 9"
   },
 
   schedule: [
@@ -27,29 +30,30 @@ const ladiesLeagueData = {
       date: "2026-10-05",
       displayDate: "October 5, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 1,
+      fiftyFiftyTeam: 2,
+      byeTeam: 4,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 5,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 7,
+          teamA: 3,
           teamB: 8,
           resultType: null,
           winner: null
         },
         {
+          sheet: 2,
+          teamA: 5,
+          teamB: 9,
+          resultType: null,
+          winner: null
+        },
+        {
           sheet: 3,
-          teamA: 1,
-          teamB: 4,
+          teamA: 2,
+          teamB: 7,
           resultType: null,
           winner: null
         }
@@ -58,8 +62,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 6,
-          teamB: 2,
+          teamA: 1,
+          teamB: 6,
           resultType: null,
           winner: null
         }
@@ -71,29 +75,30 @@ const ladiesLeagueData = {
       date: "2026-10-13",
       displayDate: "October 13, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 2,
+      fiftyFiftyTeam: 1,
+      byeTeam: 5,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 2,
-          teamB: 5,
+          teamA: 1,
+          teamB: 8,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 1,
-          teamB: 7,
+          teamA: 4,
+          teamB: 6,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 8,
-          teamB: 6,
+          teamA: 2,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -103,7 +108,7 @@ const ladiesLeagueData = {
         {
           sheet: 2,
           teamA: 3,
-          teamB: 4,
+          teamB: 7,
           resultType: null,
           winner: null
         }
@@ -116,13 +121,14 @@ const ladiesLeagueData = {
       displayDate: "October 19, 2026",
       phase: "regular",
       fiftyFiftyTeam: 3,
+      byeTeam: 1,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 4,
+          teamA: 6,
           teamB: 7,
           resultType: null,
           winner: null
@@ -130,14 +136,14 @@ const ladiesLeagueData = {
         {
           sheet: 2,
           teamA: 3,
-          teamB: 8,
+          teamB: 5,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 1,
-          teamB: 2,
+          teamA: 4,
+          teamB: 8,
           resultType: null,
           winner: null
         }
@@ -146,8 +152,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 5,
-          teamB: 6,
+          teamA: 2,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -159,29 +165,30 @@ const ladiesLeagueData = {
       date: "2026-10-26",
       displayDate: "October 26, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 5,
+      fiftyFiftyTeam: 4,
+      byeTeam: 3,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 2,
-          teamB: 3,
+          teamA: 5,
+          teamB: 8,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 7,
-          teamB: 5,
+          teamA: 2,
+          teamB: 4,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 1,
-          teamB: 6,
+          teamA: 6,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -190,8 +197,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 8,
-          teamB: 4,
+          teamA: 1,
+          teamB: 7,
           resultType: null,
           winner: null
         }
@@ -203,28 +210,29 @@ const ladiesLeagueData = {
       date: "2026-11-02",
       displayDate: "November 2, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 4,
+      fiftyFiftyTeam: 5,
+      byeTeam: 5,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 4,
-          teamB: 2,
+          teamA: 1,
+          teamB: 9,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 6,
-          teamB: 7,
+          teamA: 2,
+          teamB: 6,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 5,
+          teamA: 7,
           teamB: 8,
           resultType: null,
           winner: null
@@ -234,8 +242,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 1,
-          teamB: 3,
+          teamA: 3,
+          teamB: 4,
           resultType: null,
           winner: null
         }
@@ -247,28 +255,29 @@ const ladiesLeagueData = {
       date: "2026-11-09",
       displayDate: "November 9, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 6,
+      fiftyFiftyTeam: 7,
+      byeTeam: 2,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 1,
-          teamB: 5,
+          teamA: 3,
+          teamB: 9,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 7,
-          teamB: 3,
+          teamA: 5,
+          teamB: 7,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 6,
+          teamA: 1,
           teamB: 4,
           resultType: null,
           winner: null
@@ -278,8 +287,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 8,
-          teamB: 2,
+          teamA: 6,
+          teamB: 8,
           resultType: null,
           winner: null
         }
@@ -291,29 +300,30 @@ const ladiesLeagueData = {
       date: "2026-11-16",
       displayDate: "November 16, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 7,
+      fiftyFiftyTeam: 6,
+      byeTeam: 7,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 4,
+          teamA: 2,
           teamB: 5,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 1,
-          teamB: 8,
+          teamA: 8,
+          teamB: 9,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 2,
-          teamB: 7,
+          teamA: 4,
+          teamB: 6,
           resultType: null,
           winner: null
         }
@@ -322,8 +332,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 3,
-          teamB: 6,
+          teamA: 1,
+          teamB: 3,
           resultType: null,
           winner: null
         }
@@ -335,29 +345,30 @@ const ladiesLeagueData = {
       date: "2026-11-23",
       displayDate: "November 23, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 8,
+      fiftyFiftyTeam: 9,
+      byeTeam: 9,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 3,
-          teamB: 6,
+          teamA: 6,
+          teamB: 7,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 4,
-          teamB: 5,
+          teamA: 3,
+          teamB: 4,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
           teamA: 1,
-          teamB: 8,
+          teamB: 5,
           resultType: null,
           winner: null
         }
@@ -367,7 +378,7 @@ const ladiesLeagueData = {
         {
           sheet: 2,
           teamA: 2,
-          teamB: 7,
+          teamB: 8,
           resultType: null,
           winner: null
         }
@@ -379,7 +390,8 @@ const ladiesLeagueData = {
       date: "2026-11-30",
       displayDate: "November 30, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 1,
+      fiftyFiftyTeam: 8,
+      byeTeam: 3,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
@@ -387,21 +399,21 @@ const ladiesLeagueData = {
         {
           sheet: 1,
           teamA: 1,
-          teamB: 4,
+          teamB: 2,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
           teamA: 6,
-          teamB: 2,
+          teamB: 8,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 5,
-          teamB: 3,
+          teamA: 7,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -410,8 +422,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 7,
-          teamB: 8,
+          teamA: 4,
+          teamB: 5,
           resultType: null,
           winner: null
         }
@@ -423,29 +435,30 @@ const ladiesLeagueData = {
       date: "2026-12-07",
       displayDate: "December 7, 2026",
       phase: "regular",
-      fiftyFiftyTeam: 4,
+      fiftyFiftyTeam: 1,
+      byeTeam: 4,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 1,
-          teamB: 6,
+          teamA: 3,
+          teamB: 8,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 8,
-          teamB: 4,
+          teamA: 1,
+          teamB: 5,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 7,
-          teamB: 5,
+          teamA: 2,
+          teamB: 6,
           resultType: null,
           winner: null
         }
@@ -454,8 +467,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 2,
-          teamB: 3,
+          teamA: 7,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -468,6 +481,7 @@ const ladiesLeagueData = {
       displayDate: "December 14, 2026",
       phase: "regular",
       fiftyFiftyTeam: 2,
+      byeTeam: 6,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
@@ -475,21 +489,21 @@ const ladiesLeagueData = {
         {
           sheet: 1,
           teamA: 1,
-          teamB: 7,
+          teamB: 2,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
           teamA: 3,
-          teamB: 4,
+          teamB: 7,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 2,
-          teamB: 5,
+          teamA: 8,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -498,8 +512,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 8,
-          teamB: 6,
+          teamA: 4,
+          teamB: 5,
           resultType: null,
           winner: null
         }
@@ -511,7 +525,8 @@ const ladiesLeagueData = {
       date: "2026-12-21",
       displayDate: "December 21, 2026",
       phase: "special",
-      specialEvent: "Dainties & Drinks",
+      specialEvent:
+        "Dainties & Drinks — All Teams @ 7:00 PM",
       earlyGames: [],
       lateGames: []
     },
@@ -531,7 +546,8 @@ const ladiesLeagueData = {
       date: "2027-01-04",
       displayDate: "January 4, 2027",
       phase: "regular",
-      fiftyFiftyTeam: 3,
+      fiftyFiftyTeam: 4,
+      byeTeam: 1,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
@@ -539,21 +555,21 @@ const ladiesLeagueData = {
         {
           sheet: 1,
           teamA: 6,
-          teamB: 4,
+          teamB: 9,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 7,
-          teamB: 3,
+          teamA: 4,
+          teamB: 7,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 8,
-          teamB: 2,
+          teamA: 5,
+          teamB: 8,
           resultType: null,
           winner: null
         }
@@ -562,8 +578,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 1,
-          teamB: 5,
+          teamA: 2,
+          teamB: 3,
           resultType: null,
           winner: null
         }
@@ -575,7 +591,8 @@ const ladiesLeagueData = {
       date: "2027-01-11",
       displayDate: "January 11, 2027",
       phase: "regular",
-      fiftyFiftyTeam: 5,
+      fiftyFiftyTeam: 3,
+      byeTeam: 8,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
@@ -583,21 +600,21 @@ const ladiesLeagueData = {
         {
           sheet: 1,
           teamA: 1,
-          teamB: 2,
+          teamB: 4,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 5,
+          teamA: 3,
           teamB: 6,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
-          teamA: 3,
-          teamB: 8,
+          teamA: 2,
+          teamB: 7,
           resultType: null,
           winner: null
         }
@@ -606,8 +623,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 4,
-          teamB: 7,
+          teamA: 5,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -619,29 +636,75 @@ const ladiesLeagueData = {
       date: "2027-01-18",
       displayDate: "January 18, 2027",
       phase: "regular",
-      fiftyFiftyTeam: 7,
+      fiftyFiftyTeam: 5,
+      byeTeam: 9,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 1,
-          teamB: 2,
+          teamA: 5,
+          teamB: 6,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
-          teamA: 3,
+          teamA: 2,
+          teamB: 4,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 3,
+          teamA: 1,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        }
+      ],
+
+      lateGames: [
+        {
+          sheet: 2,
+          teamA: 7,
           teamB: 8,
+          resultType: null,
+          winner: null
+        }
+      ]
+    },
+
+    {
+      week: 15,
+      date: "2027-01-25",
+      displayDate: "January 25, 2027",
+      phase: "regular",
+      fiftyFiftyTeam: 7,
+      byeTeam: 7,
+      earlyTime: "7:00 PM",
+      lateTime: "9:15 PM",
+
+      earlyGames: [
+        {
+          sheet: 1,
+          teamA: 2,
+          teamB: 3,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 1,
+          teamB: 9,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
           teamA: 4,
-          teamB: 7,
+          teamB: 8,
           resultType: null,
           winner: null
         }
@@ -659,33 +722,34 @@ const ladiesLeagueData = {
     },
 
     {
-      week: 15,
-      date: "2027-01-25",
-      displayDate: "January 25, 2027",
+      week: 16,
+      date: "2027-02-01",
+      displayDate: "February 1, 2027",
       phase: "regular",
       fiftyFiftyTeam: 6,
+      byeTeam: 2,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 7,
+          teamA: 5,
+          teamB: 7,
+          resultType: null,
+          winner: null
+        },
+        {
+          sheet: 2,
+          teamA: 1,
           teamB: 8,
           resultType: null,
           winner: null
         },
         {
-          sheet: 2,
-          teamA: 5,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        },
-        {
           sheet: 3,
-          teamA: 6,
-          teamB: 2,
+          teamA: 3,
+          teamB: 6,
           resultType: null,
           winner: null
         }
@@ -694,52 +758,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 1,
-          teamB: 4,
-          resultType: null,
-          winner: null
-        }
-      ]
-    },
-
-    {
-      week: 16,
-      date: "2027-02-01",
-      displayDate: "February 1, 2027",
-      phase: "regular",
-      fiftyFiftyTeam: 1,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
-
-      earlyGames: [
-        {
-          sheet: 1,
-          teamA: 7,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 1,
-          teamB: 5,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 6,
-          teamB: 4,
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 2,
-          teamA: 8,
-          teamB: 2,
+          teamA: 4,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -752,14 +772,15 @@ const ladiesLeagueData = {
       displayDate: "February 8, 2027",
       phase: "regular",
       fiftyFiftyTeam: 8,
+      byeTeam: 8,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 8,
-          teamB: 6,
+          teamA: 4,
+          teamB: 7,
           resultType: null,
           winner: null
         },
@@ -773,7 +794,7 @@ const ladiesLeagueData = {
         {
           sheet: 3,
           teamA: 3,
-          teamB: 4,
+          teamB: 9,
           resultType: null,
           winner: null
         }
@@ -783,7 +804,7 @@ const ladiesLeagueData = {
         {
           sheet: 2,
           teamA: 1,
-          teamB: 7,
+          teamB: 6,
           resultType: null,
           winner: null
         }
@@ -792,32 +813,33 @@ const ladiesLeagueData = {
 
     {
       week: 18,
-      date: "2027-02-16",
-      displayDate: "February 16, 2027",
+      date: "2027-02-15",
+      displayDate: "February 15, 2027",
       phase: "regular",
-      fiftyFiftyTeam: 2,
+      fiftyFiftyTeam: 9,
+      byeTeam: 6,
       earlyTime: "7:00 PM",
       lateTime: "9:15 PM",
 
       earlyGames: [
         {
           sheet: 1,
-          teamA: 2,
-          teamB: 7,
+          teamA: 4,
+          teamB: 9,
           resultType: null,
           winner: null
         },
         {
           sheet: 2,
           teamA: 1,
-          teamB: 8,
+          teamB: 7,
           resultType: null,
           winner: null
         },
         {
           sheet: 3,
           teamA: 3,
-          teamB: 6,
+          teamB: 5,
           resultType: null,
           winner: null
         }
@@ -826,8 +848,8 @@ const ladiesLeagueData = {
       lateGames: [
         {
           sheet: 2,
-          teamA: 4,
-          teamB: 5,
+          teamA: 2,
+          teamB: 8,
           resultType: null,
           winner: null
         }
@@ -838,88 +860,22 @@ const ladiesLeagueData = {
       week: 19,
       date: "2027-02-22",
       displayDate: "February 22, 2027",
-      phase: "regular",
-      fiftyFiftyTeam: 4,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
-
-      earlyGames: [
-        {
-          sheet: 1,
-          teamA: 5,
-          teamB: 8,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 6,
-          teamB: 7,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 4,
-          teamB: 2,
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 2,
-          teamA: 1,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        }
-      ]
+      phase: "playoffs",
+      specialEvent:
+        "Playoff Schedule Coming Soon",
+      earlyGames: [],
+      lateGames: []
     },
 
     {
       week: 20,
       date: "2027-03-01",
       displayDate: "March 1, 2027",
-      phase: "regular",
-      fiftyFiftyTeam: 3,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
-
-      earlyGames: [
-        {
-          sheet: 1,
-          teamA: 8,
-          teamB: 4,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 2,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 1,
-          teamB: 6,
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 2,
-          teamA: 7,
-          teamB: 5,
-          resultType: null,
-          winner: null
-        }
-      ]
+      phase: "playoffs",
+      specialEvent:
+        "Playoff Schedule Coming Soon",
+      earlyGames: [],
+      lateGames: []
     },
 
     {
@@ -927,43 +883,10 @@ const ladiesLeagueData = {
       date: "2027-03-08",
       displayDate: "March 8, 2027",
       phase: "playoffs",
-      fiftyFiftyTeam: 5,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
-
-      earlyGames: [
-        {
-          sheet: 1,
-          teamALabel: "B1",
-          teamBLabel: "B4",
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamALabel: "A1",
-          teamBLabel: "A4",
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamALabel: "B2",
-          teamBLabel: "B3",
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 2,
-          teamALabel: "A2",
-          teamBLabel: "A3",
-          resultType: null,
-          winner: null
-        }
-      ]
+      specialEvent:
+        "Playoff Schedule Coming Soon",
+      earlyGames: [],
+      lateGames: []
     },
 
     {
@@ -971,43 +894,10 @@ const ladiesLeagueData = {
       date: "2027-03-15",
       displayDate: "March 15, 2027",
       phase: "playoffs",
-      fiftyFiftyTeam: 6,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
-
-      earlyGames: [
-        {
-          sheet: 1,
-          teamALabel: "A2",
-          teamBLabel: "A4",
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamALabel: "B2",
-          teamBLabel: "B4",
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamALabel: "A1",
-          teamBLabel: "A3",
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 2,
-          teamALabel: "B1",
-          teamBLabel: "B3",
-          resultType: null,
-          winner: null
-        }
-      ]
+      specialEvent:
+        "Playoff Schedule Coming Soon",
+      earlyGames: [],
+      lateGames: []
     },
 
     {
@@ -1015,43 +905,10 @@ const ladiesLeagueData = {
       date: "2027-03-22",
       displayDate: "March 22, 2027",
       phase: "playoffs",
-      fiftyFiftyTeam: 7,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
-
-      earlyGames: [
-        {
-          sheet: 1,
-          teamALabel: "B1",
-          teamBLabel: "B2",
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamALabel: "A1",
-          teamBLabel: "A2",
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamALabel: "B3",
-          teamBLabel: "B4",
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 2,
-          teamALabel: "A3",
-          teamBLabel: "A4",
-          resultType: null,
-          winner: null
-        }
-      ]
+      specialEvent:
+        "Playoff Schedule Coming Soon",
+      earlyGames: [],
+      lateGames: []
     }
   ]
 };
