@@ -548,9 +548,13 @@ function getGameResult(
     );
 
   const winner =
-    Number(
-      game.winner
-    );
+  game.winner === null ||
+  game.winner === undefined ||
+  game.winner === ""
+    ? null
+    : Number(
+        game.winner
+      );
 
   if (
     resultType === "tie" ||
