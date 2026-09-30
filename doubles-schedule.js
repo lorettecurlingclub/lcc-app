@@ -3,12 +3,12 @@
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-    const container =
+    const scheduleContainer =
       document.getElementById(
         "schedule-container"
       );
 
-    if (!container) {
+    if (!scheduleContainer) {
       return;
     }
 
@@ -16,18 +16,30 @@ document.addEventListener(
       typeof doublesLeagueData === "undefined" ||
       !doublesLeagueData
     ) {
-      renderScheduleError(
-        container,
+      showScheduleError(
+        scheduleContainer,
         "The Doubles League schedule could not be loaded."
       );
 
       return;
     }
 
-    renderSchedule(
-      container,
-      doublesLeagueData
-    );
+    try {
+      renderSchedule(
+        scheduleContainer,
+        doublesLeagueData
+      );
+    } catch (error) {
+      console.error(
+        "Unable to render the Doubles League schedule:",
+        error
+      );
+
+      showScheduleError(
+        scheduleContainer,
+        "The Doubles League schedule could not be displayed."
+      );
+    }
   }
 );
 
@@ -40,39 +52,61 @@ function renderSchedule(
     Array.isArray(
       leagueData.schedule
     )
-      ? [...leagueData.schedule]
+      ? leagueData.schedule
       : [];
 
   if (schedule.length === 0) {
-  container.innerHTML = `
-    <section class="schedule-message-card">
-      <h2>2026–27 Schedule Coming Soon</h2>
+    container.innerHTML = `
+      <section class="schedule-message-card">
+        <h2>
+          Fall Doubles Schedule Coming Soon
+        </h2>
 
-      <p>
-        The official Doubles League schedule will be posted here
-        once it has been finalized.
-      </p>
-    </section>
-  `;
+        <p>
+          The Fall Doubles schedule will appear here
+          once it has been finalized.
+        </p>
+      </section>
+    `;
 
-  return;
-}
+    return;
+  }
 
-  schedule.sort(compareWeeks);
-
-  const months =
+  const scheduleByMonth =
     groupScheduleByMonth(
       schedule
     );
 
   container.innerHTML =
-    months
-      .map((month) => {
-        return renderMonth(
-          month,
-          leagueData
-        );
-      })
+    Object.entries(
+      scheduleByMonth
+    )
+      .map(
+        ([monthKey, month]) => `
+          <section
+            class="schedule-month-section"
+            id="${monthKey}"
+            data-schedule-month="${monthKey}"
+          >
+            <h2 class="schedule-month-heading">
+              ${escapeHtml(
+                month.name
+              )}
+            </h2>
+
+            <div class="schedule-month-cards">
+              ${month.weeks
+                .map((week) =>
+                  renderScheduleWeek(
+                    week,
+                    leagueData
+                  )
+                )
+                .join("")}
+            </div>
+          </section>
+        `
+      )
       .join("");
 }
 
@@ -80,8 +114,7 @@ function renderSchedule(
 function groupScheduleByMonth(
   schedule
 ) {
-  const groupedMonths =
-    new Map();
+  const groupedSchedule = {};
 
   schedule.forEach((week) => {
     const date =
@@ -93,9 +126,9 @@ function groupScheduleByMonth(
       return;
     }
 
-    const monthId =
+    const monthKey =
       date
-        .toLocaleDateString(
+        .toLocaleString(
           "en-CA",
           {
             month: "long"
@@ -104,188 +137,130 @@ function groupScheduleByMonth(
         .toLowerCase();
 
     const monthName =
-      date.toLocaleDateString(
+      date.toLocaleString(
         "en-CA",
         {
           month: "long"
         }
       );
 
-    if (
-      !groupedMonths.has(
-        monthId
-      )
-    ) {
-      groupedMonths.set(
-        monthId,
-        {
-          id: monthId,
-          name: monthName,
-          weeks: []
-        }
-      );
+    if (!groupedSchedule[monthKey]) {
+      groupedSchedule[monthKey] = {
+        name: monthName,
+        weeks: []
+      };
     }
 
-    groupedMonths
-      .get(monthId)
-      .weeks
-      .push(week);
+    groupedSchedule[
+      monthKey
+    ].weeks.push(
+      week
+    );
   });
 
-  return Array.from(
-    groupedMonths.values()
-  );
+  return groupedSchedule;
 }
 
 
-function renderMonth(
-  month,
-  leagueData
-) {
-  return `
-    <section
-      id="${escapeHtml(month.id)}"
-      class="schedule-month-section"
-    >
-      <h2 class="schedule-month-heading">
-        ${escapeHtml(month.name)}
-      </h2>
-
-      <div class="schedule-month-cards">
-        ${month.weeks
-          .map((week) => {
-            return renderWeek(
-              week,
-              leagueData
-            );
-          })
-          .join("")}
-      </div>
-    </section>
-  `;
-}
-
-
-function renderWeek(
+function renderScheduleWeek(
   week,
   leagueData
 ) {
   const phase =
-    normalizeValue(
-      week.phase
-    );
+    String(
+      week.phase || "regular"
+    )
+      .trim()
+      .toLowerCase();
 
   const isPlayoffs =
-    phase === "playoffs" ||
-    phase === "playoff";
+    phase === "playoff" ||
+    phase === "playoffs";
 
-  const games =
-    Array.isArray(
-      week.games
-    )
-      ? week.games
-      : [];
+  const weekLabel =
+    isPlayoffs
+      ? `Week ${numberOrBlank(
+          week.week
+        )} · Playoffs`
+      : `Week ${numberOrBlank(
+          week.week
+        )}`;
 
   return `
-    <article class="schedule-card">
-
+    <article
+      class="schedule-card"
+      data-week="${numberOrBlank(
+        week.week
+      )}"
+      data-date="${escapeHtml(
+        week.date || ""
+      )}"
+    >
       <header class="schedule-card-header">
         <span class="schedule-week-label">
-          Week ${numberOrBlank(
-            week.week
-          )}
-          ${isPlayoffs
-            ? " · Playoffs"
-            : ""}
-        </span>
-
-        <span class="schedule-date-area">
           ${escapeHtml(
-            getDisplayDate(
-              week
-            )
+            weekLabel
           )}
         </span>
-      </header>
 
-      ${renderWeekInformation(
-        week,
-        leagueData,
-        isPlayoffs
-      )}
-
-      <section class="schedule-draw-section">
-        <header class="schedule-draw-heading">
-          <span>
-            ${isPlayoffs
-              ? escapeHtml(
-                  week.roundName ||
-                  "Playoff Draw"
-                )
-              : "Doubles Draw"}
+        <div class="schedule-date-area">
+          <span
+            class="schedule-calendar-icon"
+            aria-hidden="true"
+          >
+            ▣
           </span>
 
-          <span class="schedule-draw-time">
+          <span class="schedule-date-text">
             ${escapeHtml(
-              week.drawTime ||
-              "4:30 PM"
+              getDisplayDate(
+                week
+              )
             )}
           </span>
-        </header>
+        </div>
+      </header>
 
-        ${renderGamesTable(
-          games,
-          leagueData
-        )}
-      </section>
+      ${renderByeInformation(
+        week,
+        leagueData
+      )}
 
+      ${renderDrawSection(
+        week,
+        leagueData
+      )}
     </article>
   `;
 }
 
 
-function renderWeekInformation(
+function renderByeInformation(
   week,
-  leagueData,
-  isPlayoffs
+  leagueData
 ) {
-  const fiftyFiftyTeam =
-    formatTeam(
-      week.fiftyFiftyTeam,
-      leagueData
-    );
+  let byeName = "";
 
   if (
-    isPlayoffs &&
-    week.roundName
+    typeof week.byeLabel === "string" &&
+    week.byeLabel.trim()
   ) {
-    return `
-      <div class="schedule-week-information">
+    byeName =
+      week.byeLabel.trim();
+  } else if (
+    week.byeTeam !== null &&
+    week.byeTeam !== undefined &&
+    week.byeTeam !== ""
+  ) {
+    byeName =
+      getTeamName(
+        week.byeTeam,
+        leagueData
+      );
+  }
 
-        <div class="schedule-fifty-fifty">
-          <strong>
-            50/50 Team
-          </strong>
-
-          <span>
-            ${fiftyFiftyTeam}
-          </span>
-        </div>
-
-        <div class="schedule-bye">
-          <strong>
-            Round
-          </strong>
-
-          <span>
-            ${escapeHtml(
-              week.roundName
-            )}
-          </span>
-        </div>
-
-      </div>
-    `;
+  if (!byeName) {
+    return "";
   }
 
   return `
@@ -295,65 +270,83 @@ function renderWeekInformation(
         schedule-week-information-single
       "
     >
-      <div class="schedule-fifty-fifty">
-        <strong>
-          50/50 Team
-        </strong>
-
-        <span>
-          ${fiftyFiftyTeam}
+      <div class="schedule-bye">
+        <span class="schedule-information-label">
+          Bye:
         </span>
+
+        <strong>
+          ${escapeHtml(
+            byeName
+          )}
+        </strong>
       </div>
     </div>
   `;
 }
 
 
-function renderGamesTable(
-  games,
+function renderDrawSection(
+  week,
   leagueData
 ) {
+  const games =
+    Array.isArray(
+      week.games
+    )
+      ? week.games
+      : [];
+
   if (games.length === 0) {
-    return `
-      <div class="schedule-message-card">
-        <p>
-          No games are listed for this week.
-        </p>
-      </div>
-    `;
+    return "";
   }
 
   return `
-    <div class="schedule-table-wrapper">
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th scope="col">
-              Sheet
-            </th>
+    <section class="schedule-draw-section">
+      <div class="schedule-draw-heading">
+        <h3>
+          Doubles Draw
+        </h3>
 
-            <th scope="col">
-              Matchup
-            </th>
+        <span class="schedule-draw-time">
+          ${escapeHtml(
+            week.drawTime ||
+            "6:30 PM"
+          )}
+        </span>
+      </div>
 
-            <th scope="col">
-              Result
-            </th>
-          </tr>
-        </thead>
+      <div class="schedule-table-wrapper">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th scope="col">
+                Sheet
+              </th>
 
-        <tbody>
-          ${games
-            .map((game) => {
-              return renderGameRow(
-                game,
-                leagueData
-              );
-            })
-            .join("")}
-        </tbody>
-      </table>
-    </div>
+              <th scope="col">
+                Matchup
+              </th>
+
+              <th scope="col">
+                Winner
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${games
+              .map((game) =>
+                renderGameRow(
+                  game,
+                  leagueData
+                )
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>
+    </section>
   `;
 }
 
@@ -363,58 +356,50 @@ function renderGameRow(
   leagueData
 ) {
   const teamA =
-    getGameTeamLabel(
-      game,
-      "A",
+    getGameTeamName(
+      game.teamA,
+      game.teamALabel,
       leagueData
     );
 
   const teamB =
-    getGameTeamLabel(
-      game,
-      "B",
+    getGameTeamName(
+      game.teamB,
+      game.teamBLabel,
       leagueData
     );
-
-  const gameLabel =
-    typeof game.gameLabel === "string" &&
-    game.gameLabel.trim()
-      ? `
-          <span class="schedule-secondary-information">
-            ${escapeHtml(
-              game.gameLabel.trim()
-            )}
-          </span>
-        `
-      : "";
 
   return `
     <tr class="schedule-game-row">
       <td>
-        Sheet ${numberOrBlank(
-          game.sheet
+        ${escapeHtml(
+          numberOrBlank(
+            game.sheet
+          )
         )}
       </td>
 
       <td>
-        <div class="schedule-matchup">
-          <span>
-            ${teamA}
-          </span>
+        <span class="schedule-matchup">
+          ${renderTeamLabel(
+            teamA,
+            game,
+            "A"
+          )}
 
           <span class="schedule-versus">
             vs
           </span>
 
-          <span>
-            ${teamB}
-          </span>
-        </div>
-
-        ${gameLabel}
+          ${renderTeamLabel(
+            teamB,
+            game,
+            "B"
+          )}
+        </span>
       </td>
 
-      <td class="schedule-result">
+      <td>
         ${renderGameResult(
           game,
           leagueData
@@ -425,50 +410,98 @@ function renderGameRow(
 }
 
 
-function getGameTeamLabel(
-  game,
-  side,
+function getGameTeamName(
+  teamNumber,
+  teamLabel,
   leagueData
 ) {
-  const teamKey =
-    side === "A"
-      ? "teamA"
-      : "teamB";
+  if (
+    typeof teamLabel === "string" &&
+    teamLabel.trim()
+  ) {
+    return teamLabel.trim();
+  }
 
-  const labelKey =
-    side === "A"
-      ? "teamALabel"
-      : "teamBLabel";
+  return getTeamName(
+    teamNumber,
+    leagueData
+  );
+}
 
+
+function renderTeamLabel(
+  displayName,
+  game,
+  side
+) {
+  const isWinner =
+    isGameWinner(
+      game,
+      side
+    );
+
+  const winningClass =
+    isWinner
+      ? " schedule-winning-team"
+      : "";
+
+  return `
+    <span
+      class="schedule-team${winningClass}"
+    >
+      ${escapeHtml(
+        displayName
+      )}
+    </span>
+  `;
+}
+
+
+function isGameWinner(
+  game,
+  side
+) {
   const teamNumber =
-    Number(
-      game[teamKey]
-    );
+    side === "A"
+      ? game.teamA
+      : game.teamB;
+
+  const teamLabel =
+    side === "A"
+      ? game.teamALabel
+      : game.teamBLabel;
 
   if (
-    Number.isFinite(
-      teamNumber
-    )
+    game.winner !== null &&
+    game.winner !== undefined &&
+    game.winner !== "" &&
+    teamNumber !== null &&
+    teamNumber !== undefined &&
+    teamNumber !== ""
   ) {
-    return formatTeam(
-      teamNumber,
-      leagueData
+    return (
+      Number(game.winner) ===
+      Number(teamNumber)
     );
   }
 
-  const label =
-    game[labelKey];
-
   if (
-    typeof label === "string" &&
-    label.trim()
+    typeof game.winnerLabel === "string" &&
+    game.winnerLabel.trim() &&
+    typeof teamLabel === "string" &&
+    teamLabel.trim()
   ) {
-    return escapeHtml(
-      label.trim()
+    return (
+      game.winnerLabel
+        .trim()
+        .toLowerCase() ===
+      teamLabel
+        .trim()
+        .toLowerCase()
     );
   }
 
-  return "TBD";
+  return false;
 }
 
 
@@ -477,47 +510,30 @@ function renderGameResult(
   leagueData
 ) {
   const resultType =
-    normalizeValue(
+    normalizeResultType(
       game.resultType
     );
 
-  if (
-    !resultType ||
-    resultType === "pending"
-  ) {
-    return `
-      <span class="schedule-result-pending">
-        —
-      </span>
-    `;
-  }
+  const winnerName =
+    getWinnerName(
+      game,
+      leagueData
+    );
 
   if (
-    resultType === "tie"
-  ) {
-    return `
-      <span class="schedule-result-tie">
-        Tie
-      </span>
-    `;
-  }
-
-  if (
-    resultType === "rescheduled"
-  ) {
-    return `
-      <span class="schedule-result-rescheduled">
-        Rescheduled
-      </span>
-    `;
-  }
-
-  if (
+    resultType === "rescheduled" ||
     resultType === "postponed"
   ) {
     return `
-      <span class="schedule-result-rescheduled">
-        Postponed
+      <span
+        class="
+          schedule-result
+          schedule-result-${resultType}
+        "
+      >
+        ${capitalizeWord(
+          resultType
+        )}
       </span>
     `;
   }
@@ -527,119 +543,127 @@ function renderGameResult(
     resultType === "canceled"
   ) {
     return `
-      <span class="schedule-result-rescheduled">
+      <span
+        class="
+          schedule-result
+          schedule-result-postponed
+        "
+      >
         Cancelled
       </span>
     `;
   }
 
   if (
-    resultType === "no-contest"
+    resultType === "tie"
   ) {
     return `
-      <span class="schedule-result-rescheduled">
-        No Contest
+      <span
+        class="
+          schedule-result
+          schedule-result-tie
+        "
+      >
+        Tie
       </span>
     `;
   }
-
-  const winner =
-    formatWinner(
-      game,
-      leagueData
-    );
 
   if (
     resultType === "default" ||
-    resultType === "forfeit" ||
-    resultType === "default-win" ||
-    resultType === "forfeit-win"
+    resultType === "forfeit"
   ) {
     return `
-      <span class="schedule-result-winner">
-        ${winner}
-      </span>
-
-      <span class="schedule-result-detail">
-        by forfeit
+      <span
+        class="
+          schedule-result
+          schedule-result-default
+        "
+      >
+        ${
+          winnerName
+            ? `${escapeHtml(
+                winnerName
+              )} by default`
+            : "Default"
+        }
       </span>
     `;
   }
 
-  if (
-    resultType === "win" ||
-    resultType === "completed" ||
-    resultType === "final"
-  ) {
+  if (winnerName) {
     return `
-      <span class="schedule-result-winner">
-        ${winner}
+      <span
+        class="
+          schedule-result
+          schedule-result-win
+        "
+      >
+        ${escapeHtml(
+          winnerName
+        )}
       </span>
     `;
   }
 
   return `
-    <span class="schedule-result-pending">
+    <span
+      class="
+        schedule-result
+        schedule-result-pending
+      "
+      aria-label="Winner not entered"
+    >
       —
     </span>
   `;
 }
 
 
-function formatWinner(
+function getWinnerName(
   game,
   leagueData
 ) {
-  const winnerNumber =
-    Number(
-      game.winner
-    );
-
-  if (
-    Number.isFinite(
-      winnerNumber
-    )
-  ) {
-    return `${formatTeam(
-      winnerNumber,
-      leagueData
-    )} wins`;
-  }
-
   if (
     typeof game.winnerLabel === "string" &&
     game.winnerLabel.trim()
   ) {
-    return `${escapeHtml(
-      game.winnerLabel.trim()
-    )} wins`;
+    return game.winnerLabel.trim();
   }
 
-  return "Winner TBD";
+  if (
+    game.winner !== null &&
+    game.winner !== undefined &&
+    game.winner !== ""
+  ) {
+    return getTeamName(
+      game.winner,
+      leagueData
+    );
+  }
+
+  return "";
 }
 
 
-function formatTeam(
+function getTeamName(
   teamNumber,
   leagueData
 ) {
-  const number =
-    Number(teamNumber);
-
   if (
-    !Number.isFinite(
-      number
-    )
+    teamNumber === null ||
+    teamNumber === undefined ||
+    teamNumber === ""
   ) {
-    return "TBD";
+    return "To Be Announced";
   }
 
-  const teamName =
-    leagueData.teams?.[number];
+  const teams =
+    leagueData.teams || {};
 
-  return escapeHtml(
-    teamName ||
-    `Team ${number}`
+  return (
+    teams[teamNumber] ||
+    `Team ${teamNumber}`
   );
 }
 
@@ -674,38 +698,6 @@ function getDisplayDate(
 }
 
 
-function compareWeeks(
-  weekA,
-  weekB
-) {
-  const dateA =
-    parseLocalDate(
-      weekA.date
-    );
-
-  const dateB =
-    parseLocalDate(
-      weekB.date
-    );
-
-  if (
-    dateA &&
-    dateB
-  ) {
-    return dateA - dateB;
-  }
-
-  return (
-    numberOrZero(
-      weekA.week
-    ) -
-    numberOrZero(
-      weekB.week
-    )
-  );
-}
-
-
 function parseLocalDate(
   value
 ) {
@@ -716,9 +708,33 @@ function parseLocalDate(
     return null;
   }
 
+  const parts =
+    value
+      .trim()
+      .split("-")
+      .map(Number);
+
+  if (
+    parts.length !== 3 ||
+    parts.some(
+      (part) =>
+        !Number.isFinite(part)
+    )
+  ) {
+    return null;
+  }
+
+  const [
+    year,
+    month,
+    day
+  ] = parts;
+
   const date =
     new Date(
-      `${value.trim()}T00:00:00`
+      year,
+      month - 1,
+      day
     );
 
   return Number.isNaN(
@@ -729,50 +745,74 @@ function parseLocalDate(
 }
 
 
-function normalizeValue(
+function normalizeResultType(
   value
 ) {
   return String(
-    value ?? ""
+    value || ""
   )
     .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "-");
+    .toLowerCase();
+}
+
+
+function capitalizeWord(
+  value
+) {
+  const text =
+    String(
+      value || ""
+    );
+
+  if (!text) {
+    return "";
+  }
+
+  return (
+    text.charAt(0).toUpperCase() +
+    text.slice(1)
+  );
 }
 
 
 function numberOrBlank(
   value
 ) {
-  const number =
-    Number(value);
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return "";
+  }
 
-  return Number.isFinite(number)
+  const number =
+    Number(
+      value
+    );
+
+  return Number.isFinite(
+    number
+  )
     ? number
     : "";
 }
 
 
-function numberOrZero(
-  value
-) {
-  const number =
-    Number(value);
-
-  return Number.isFinite(number)
-    ? number
-    : 0;
-}
-
-
-function renderScheduleError(
+function showScheduleError(
   container,
   message
 ) {
   container.innerHTML = `
     <section class="schedule-message-card">
+      <h2>
+        Schedule Unavailable
+      </h2>
+
       <p>
-        ${escapeHtml(message)}
+        ${escapeHtml(
+          message
+        )}
       </p>
     </section>
   `;
@@ -782,10 +822,27 @@ function renderScheduleError(
 function escapeHtml(
   value
 ) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
