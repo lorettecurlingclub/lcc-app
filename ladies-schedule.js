@@ -162,13 +162,12 @@ function createMonthSection(
     );
 
   const monthName =
-    firstWeekDate.toLocaleDateString(
-      "en-CA",
-      {
-        month: "long",
-        year: "numeric"
-      }
-    );
+  firstWeekDate.toLocaleDateString(
+    "en-CA",
+    {
+      month: "long"
+    }
+  );
 
   const monthId =
     firstWeekDate
