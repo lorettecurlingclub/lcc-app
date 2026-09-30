@@ -80,9 +80,21 @@ function renderUpcomingWeek(
     return;
   }
 
-  updatePhaseBubble(
-    upcomingWeek.phase
-  );
+  const normalizedPhase =
+  String(
+    upcomingWeek.phase || ""
+  )
+    .trim()
+    .toLowerCase();
+
+const isSpecial =
+  normalizedPhase === "special";
+
+updatePhaseBubble(
+  isSpecial
+    ? null
+    : upcomingWeek.phase
+);
 
   /*
     Playoff dates are known, but the official
@@ -101,11 +113,18 @@ function renderUpcomingWeek(
           )}
         </strong>
 
-        <span class="upcoming-week-number">
-          Week ${numberOrBlank(
-            upcomingWeek.week
-          )}
-        </span>
+        ${
+  upcomingWeek.week !== null &&
+  upcomingWeek.week !== undefined
+    ? `
+      <span class="upcoming-week-number">
+        Week ${numberOrBlank(
+          upcomingWeek.week
+        )}
+      </span>
+    `
+    : ""
+}
       </div>
 
       <div class="upcoming-week-message">
