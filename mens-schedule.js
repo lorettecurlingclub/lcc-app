@@ -186,17 +186,27 @@ function renderScheduleWeek(
       .toLowerCase();
 
   const isPlayoffs =
-    phase === "playoff" ||
-    phase === "playoffs";
+  phase === "playoff" ||
+  phase === "playoffs";
 
-  const weekLabel =
-    isPlayoffs
-      ? `Week ${numberOrBlank(
-          week.week
-        )} · Playoffs`
-      : `Week ${numberOrBlank(
-          week.week
-        )}`;
+const isSpecial =
+  phase === "special";
+
+let weekLabel = "";
+
+if (isSpecial) {
+  weekLabel = "League Event";
+} else if (isPlayoffs) {
+  weekLabel =
+    `Week ${numberOrBlank(
+      week.week
+    )} · Playoffs`;
+} else {
+  weekLabel =
+    `Week ${numberOrBlank(
+      week.week
+    )}`;
+}
 
   /*
     The playoff dates are known, but the actual
