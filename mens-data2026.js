@@ -652,6 +652,26 @@ const mensLeagueData = {
       ]
     },
 
+{
+  week: null,
+  date: "2026-12-24",
+  displayDate: "December 24, 2026",
+  phase: "special",
+  specialEvent: "Christmas Break",
+  earlyGames: [],
+  lateGames: []
+},
+
+{
+  week: null,
+  date: "2026-12-31",
+  displayDate: "December 31, 2026",
+  phase: "special",
+  specialEvent: "Christmas Break",
+  earlyGames: [],
+  lateGames: []
+},
+    
     {
       week: 13,
       date: "2027-01-07",
