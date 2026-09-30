@@ -1,4 +1,4 @@
-const CACHE_NAME = "lcc-app-v6";
+const CACHE_NAME = "lcc-app-v7";
 
 const APP_ROOT = "/lcc-app/";
 
