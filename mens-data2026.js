@@ -30,55 +30,55 @@ const mensLeagueData = {
   schedule: [
     {
       week: 1,
-      date: "2026-10-01",
-      displayDate: "October 1, 2026",
-      phase: "regular",
-      fiftyFiftyTeam: null,
-      byeTeam: 2,
-      earlyTime: "7:00 PM",
-      lateTime: "9:15 PM",
+date: "2026-10-01",
+displayDate: "October 1, 2026",
+phase: "regular",
+fiftyFiftyTeam: null,
+byeTeam: 2,
+earlyTime: "7:00 PM",
+lateTime: "9:15 PM",
 
-      earlyGames: [
-        {
-          sheet: 1,
-          teamA: 7,
-          teamB: 6,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 1,
-          teamB: 8,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 10,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        }
-      ],
+earlyGames: [
+  {
+    sheet: 1,
+    teamA: 7,
+    teamB: 6,
+    resultType: "win",
+    winner: 7
+  },
+  {
+    sheet: 2,
+    teamA: 1,
+    teamB: 8,
+    resultType: "win",
+    winner: 8
+  },
+  {
+    sheet: 3,
+    teamA: 10,
+    teamB: 3,
+    resultType: "win",
+    winner: 10
+  }
+],
 
-      lateGames: [
-        {
-          sheet: 1,
-          teamA: 9,
-          teamB: 11,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 4,
-          teamB: 5,
-          resultType: null,
-          winner: null
-        }
-      ]
-    },
+lateGames: [
+  {
+    sheet: 1,
+    teamA: 9,
+    teamB: 11,
+    resultType: "win",
+    winner: 11
+  },
+  {
+    sheet: 2,
+    teamA: 4,
+    teamB: 5,
+    resultType: "win",
+    winner: 5
+  }
+]
+},
 
     {
       week: 2,
