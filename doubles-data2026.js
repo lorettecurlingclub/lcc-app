@@ -34,26 +34,26 @@ const doublesLeagueData = {
 
       games: [
         {
-          sheet: 1,
-          teamA: 5,
-          teamB: 3,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 1,
-          teamB: 6,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 2,
-          teamB: 4,
-          resultType: null,
-          winner: null
-        }
+  sheet: 1,
+  teamA: 5,
+  teamB: 3,
+  resultType: "win",
+  winner: 3
+},
+{
+  sheet: 2,
+  teamA: 1,
+  teamB: 6,
+  resultType: "win",
+  winner: 6
+},
+{
+  sheet: 3,
+  teamA: 2,
+  teamB: 4,
+  resultType: "win",
+  winner: 2
+}
       ]
     },
 
