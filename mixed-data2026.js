@@ -38,43 +38,40 @@ const mixedLeagueData = {
 
       earlyGames: [
         {
-          sheet: 1,
-          teamA: 5,
-          teamB: 8,
-          resultType: null,
-          winner: null
-        },
+  sheet: 1,
+  teamA: 5,
+  teamB: 8,
+  resultType: "win",
+  winner: 5
+},
+{
+  sheet: 2,
+  teamA: 3,
+  teamB: 10,
+  resultType: "win",
+  winner: 3
+},
+{
+  sheet: 3,
+  teamA: 4,
+  teamB: 9,
+  resultType: "win",
+  winner: 4
+},
+{
+  sheet: 1,
+  teamA: 1,
+  teamB: 2,
+  resultType: "win",
+  winner: 2
+},
         {
-          sheet: 2,
-          teamA: 3,
-          teamB: 10,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 4,
-          teamB: 9,
-          resultType: null,
-          winner: null
-        }
-      ],
-
-      lateGames: [
-        {
-          sheet: 1,
-          teamA: 1,
-          teamB: 2,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 6,
-          teamB: 7,
-          resultType: null,
-          winner: null
-        }
+  sheet: 2,
+  teamA: 6,
+  teamB: 7,
+  resultType: "default",
+  winner: 7
+}
       ]
     },
 
