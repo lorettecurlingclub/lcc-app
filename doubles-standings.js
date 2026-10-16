@@ -50,8 +50,8 @@ function renderStandings(
         </h1>
 
         <p>
-  2026 Fall Round Robin
-</p>
+          2026 Fall Round Robin
+        </p>
       </header>
 
       <div class="standings-table-wrapper">
@@ -124,6 +124,18 @@ function calculateStandings(
       leagueData
     );
 
+  const headToHeadWins =
+    new Map();
+
+  standingsMap.forEach(
+    (team) => {
+      headToHeadWins.set(
+        team.teamNumber,
+        new Set()
+      );
+    }
+  );
+
   const schedule =
     Array.isArray(
       leagueData.schedule
@@ -157,12 +169,21 @@ function calculateStandings(
         game,
         leagueData.scoring || {}
       );
+
+      recordHeadToHeadResult(
+        game,
+        standingsMap,
+        headToHeadWins
+      );
     });
   });
 
-  return Array.from(
-    standingsMap.values()
-  ).sort(compareStandings);
+  return sortStandings(
+    Array.from(
+      standingsMap.values()
+    ),
+    headToHeadWins
+  );
 }
 
 
@@ -196,6 +217,325 @@ function createStandingsMap(
     });
 
   return map;
+}
+
+
+function recordHeadToHeadResult(
+  game,
+  standingsMap,
+  headToHeadWins
+) {
+  const teamA =
+    Number(game.teamA);
+
+  const teamB =
+    Number(game.teamB);
+
+  if (
+    !Number.isFinite(teamA) ||
+    !Number.isFinite(teamB) ||
+    !standingsMap.has(teamA) ||
+    !standingsMap.has(teamB)
+  ) {
+    return;
+  }
+
+  const resultType =
+    normalizeValue(
+      game.resultType
+    );
+
+  if (
+    !resultType ||
+    resultType === "pending" ||
+    resultType === "rescheduled" ||
+    resultType === "postponed" ||
+    resultType === "cancelled" ||
+    resultType === "canceled" ||
+    resultType === "no-contest" ||
+    resultType === "tie"
+  ) {
+    return;
+  }
+
+  const winnerText =
+    normalizeValue(
+      game.winner
+    );
+
+  if (
+    winnerText === "tie"
+  ) {
+    return;
+  }
+
+  const winner =
+    Number(game.winner);
+
+  if (
+    winner !== teamA &&
+    winner !== teamB
+  ) {
+    return;
+  }
+
+  const loser =
+    winner === teamA
+      ? teamB
+      : teamA;
+
+  const winnerResults =
+    headToHeadWins.get(
+      winner
+    );
+
+  if (!winnerResults) {
+    return;
+  }
+
+  winnerResults.add(
+    loser
+  );
+}
+
+
+function sortStandings(
+  standings,
+  headToHeadWins
+) {
+  const baseSorted =
+    [...standings].sort(
+      (
+        teamA,
+        teamB
+      ) => {
+        if (
+          teamB.points !==
+          teamA.points
+        ) {
+          return (
+            teamB.points -
+            teamA.points
+          );
+        }
+
+        if (
+          teamA.gamesPlayed !==
+          teamB.gamesPlayed
+        ) {
+          return (
+            teamA.gamesPlayed -
+            teamB.gamesPlayed
+          );
+        }
+
+        return (
+          teamA.teamNumber -
+          teamB.teamNumber
+        );
+      }
+    );
+
+  const finalStandings = [];
+
+  let index = 0;
+
+  while (
+    index <
+    baseSorted.length
+  ) {
+    const firstTeam =
+      baseSorted[index];
+
+    const tiedGroup = [
+      firstTeam
+    ];
+
+    let nextIndex =
+      index + 1;
+
+    while (
+      nextIndex <
+      baseSorted.length
+    ) {
+      const nextTeam =
+        baseSorted[
+          nextIndex
+        ];
+
+      if (
+        nextTeam.points !==
+          firstTeam.points ||
+        nextTeam.gamesPlayed !==
+          firstTeam.gamesPlayed
+      ) {
+        break;
+      }
+
+      tiedGroup.push(
+        nextTeam
+      );
+
+      nextIndex += 1;
+    }
+
+    const rankedGroup =
+      rankTiedGroup(
+        tiedGroup,
+        headToHeadWins
+      );
+
+    finalStandings.push(
+      ...rankedGroup
+    );
+
+    index = nextIndex;
+  }
+
+  return finalStandings;
+}
+
+
+function rankTiedGroup(
+  tiedGroup,
+  headToHeadWins
+) {
+  if (
+    tiedGroup.length <= 1
+  ) {
+    return tiedGroup;
+  }
+
+  const allowedTeams =
+    new Set(
+      tiedGroup.map(
+        (team) =>
+          team.teamNumber
+      )
+    );
+
+  return [...tiedGroup].sort(
+    (
+      teamA,
+      teamB
+    ) => {
+      const aAheadOfB =
+        hasHeadToHeadPath(
+          teamA.teamNumber,
+          teamB.teamNumber,
+          allowedTeams,
+          headToHeadWins
+        );
+
+      const bAheadOfA =
+        hasHeadToHeadPath(
+          teamB.teamNumber,
+          teamA.teamNumber,
+          allowedTeams,
+          headToHeadWins
+        );
+
+      if (
+        aAheadOfB &&
+        !bAheadOfA
+      ) {
+        return -1;
+      }
+
+      if (
+        bAheadOfA &&
+        !aAheadOfB
+      ) {
+        return 1;
+      }
+
+      return (
+        teamA.teamNumber -
+        teamB.teamNumber
+      );
+    }
+  );
+}
+
+
+function hasHeadToHeadPath(
+  startTeam,
+  targetTeam,
+  allowedTeams,
+  headToHeadWins
+) {
+  if (
+    startTeam === targetTeam
+  ) {
+    return false;
+  }
+
+  const visited =
+    new Set();
+
+  const queue = [
+    startTeam
+  ];
+
+  while (
+    queue.length > 0
+  ) {
+    const currentTeam =
+      queue.shift();
+
+    if (
+      visited.has(
+        currentTeam
+      )
+    ) {
+      continue;
+    }
+
+    visited.add(
+      currentTeam
+    );
+
+    const defeatedTeams =
+      headToHeadWins.get(
+        currentTeam
+      );
+
+    if (!defeatedTeams) {
+      continue;
+    }
+
+    for (
+      const defeatedTeam
+      of defeatedTeams
+    ) {
+      if (
+        !allowedTeams.has(
+          defeatedTeam
+        )
+      ) {
+        continue;
+      }
+
+      if (
+        defeatedTeam ===
+        targetTeam
+      ) {
+        return true;
+      }
+
+      if (
+        !visited.has(
+          defeatedTeam
+        )
+      ) {
+        queue.push(
+          defeatedTeam
+        );
+      }
+    }
+  }
+
+  return false;
 }
 
 
@@ -242,7 +582,9 @@ function applyGameResult(
   const teamBStanding =
     standingsMap.get(teamB);
 
-  if (resultType === "tie") {
+  if (
+    resultType === "tie"
+  ) {
     teamAStanding.gamesPlayed += 1;
     teamBStanding.gamesPlayed += 1;
 
@@ -324,33 +666,6 @@ function applyGameResult(
       scoring.loss,
       5
     );
-}
-
-
-function compareStandings(
-  teamA,
-  teamB
-) {
-  if (
-    teamB.points !==
-    teamA.points
-  ) {
-    return (
-      teamB.points -
-      teamA.points
-    );
-  }
-
-  /*
-    Teams tied in points remain in neutral
-    team-number order until the official
-    draw-to-the-button tiebreak is applied.
-  */
-
-  return (
-    teamA.teamNumber -
-    teamB.teamNumber
-  );
 }
 
 
