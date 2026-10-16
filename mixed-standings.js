@@ -163,6 +163,16 @@ function calculateStandings(
       })
     );
 
+  const headToHeadWins =
+    new Map();
+
+  standings.forEach((team) => {
+    headToHeadWins.set(
+      team.teamNumber,
+      new Set()
+    );
+  });
+
   const schedule =
     Array.isArray(
       leagueData.schedule
@@ -195,12 +205,335 @@ function calculateStandings(
         standingsByTeam,
         scoring
       );
+
+      recordHeadToHeadResult(
+        game,
+        standingsByTeam,
+        headToHeadWins
+      );
     });
   });
 
-  return standings.sort(
-    compareStandings
+  return sortStandings(
+    standings,
+    headToHeadWins
   );
+}
+
+
+function recordHeadToHeadResult(
+  game,
+  standingsByTeam,
+  headToHeadWins
+) {
+  const teamA =
+    Number(game.teamA);
+
+  const teamB =
+    Number(game.teamB);
+
+  if (
+    !standingsByTeam.has(teamA) ||
+    !standingsByTeam.has(teamB)
+  ) {
+    return;
+  }
+
+  const resultType =
+    normalizeResultType(
+      game.resultType
+    );
+
+  if (
+    shouldIgnoreResult(
+      resultType
+    ) ||
+    resultType === "tie"
+  ) {
+    return;
+  }
+
+  const winnerText =
+    normalizeResultType(
+      game.winner
+    );
+
+  if (
+    winnerText === "tie"
+  ) {
+    return;
+  }
+
+  const winner =
+    Number(game.winner);
+
+  if (
+    !Number.isFinite(winner) ||
+    (
+      winner !== teamA &&
+      winner !== teamB
+    )
+  ) {
+    return;
+  }
+
+  const loser =
+    winner === teamA
+      ? teamB
+      : teamA;
+
+  const winnerResults =
+    headToHeadWins.get(
+      winner
+    );
+
+  if (!winnerResults) {
+    return;
+  }
+
+  winnerResults.add(
+    loser
+  );
+}
+
+
+function sortStandings(
+  standings,
+  headToHeadWins
+) {
+  const baseSorted =
+    [...standings].sort(
+      (
+        teamA,
+        teamB
+      ) => {
+        if (
+          teamB.points !==
+          teamA.points
+        ) {
+          return (
+            teamB.points -
+            teamA.points
+          );
+        }
+
+        if (
+          teamA.gamesPlayed !==
+          teamB.gamesPlayed
+        ) {
+          return (
+            teamA.gamesPlayed -
+            teamB.gamesPlayed
+          );
+        }
+
+        return (
+          teamA.teamNumber -
+          teamB.teamNumber
+        );
+      }
+    );
+
+  const finalStandings = [];
+
+  let index = 0;
+
+  while (
+    index <
+    baseSorted.length
+  ) {
+    const firstTeam =
+      baseSorted[index];
+
+    const tiedGroup = [
+      firstTeam
+    ];
+
+    let nextIndex =
+      index + 1;
+
+    while (
+      nextIndex <
+      baseSorted.length
+    ) {
+      const nextTeam =
+        baseSorted[
+          nextIndex
+        ];
+
+      if (
+        nextTeam.points !==
+          firstTeam.points ||
+        nextTeam.gamesPlayed !==
+          firstTeam.gamesPlayed
+      ) {
+        break;
+      }
+
+      tiedGroup.push(
+        nextTeam
+      );
+
+      nextIndex += 1;
+    }
+
+    const rankedGroup =
+      rankTiedGroup(
+        tiedGroup,
+        headToHeadWins
+      );
+
+    finalStandings.push(
+      ...rankedGroup
+    );
+
+    index = nextIndex;
+  }
+
+  return finalStandings;
+}
+
+
+function rankTiedGroup(
+  tiedGroup,
+  headToHeadWins
+) {
+  if (
+    tiedGroup.length <= 1
+  ) {
+    return tiedGroup;
+  }
+
+  const allowedTeams =
+    new Set(
+      tiedGroup.map(
+        (team) =>
+          team.teamNumber
+      )
+    );
+
+  return [...tiedGroup].sort(
+    (
+      teamA,
+      teamB
+    ) => {
+      const aAheadOfB =
+        hasHeadToHeadPath(
+          teamA.teamNumber,
+          teamB.teamNumber,
+          allowedTeams,
+          headToHeadWins
+        );
+
+      const bAheadOfA =
+        hasHeadToHeadPath(
+          teamB.teamNumber,
+          teamA.teamNumber,
+          allowedTeams,
+          headToHeadWins
+        );
+
+      if (
+        aAheadOfB &&
+        !bAheadOfA
+      ) {
+        return -1;
+      }
+
+      if (
+        bAheadOfA &&
+        !aAheadOfB
+      ) {
+        return 1;
+      }
+
+      return (
+        teamA.teamNumber -
+        teamB.teamNumber
+      );
+    }
+  );
+}
+
+
+function hasHeadToHeadPath(
+  startTeam,
+  targetTeam,
+  allowedTeams,
+  headToHeadWins
+) {
+  if (
+    startTeam === targetTeam
+  ) {
+    return false;
+  }
+
+  const visited =
+    new Set();
+
+  const queue = [
+    startTeam
+  ];
+
+  while (
+    queue.length > 0
+  ) {
+    const currentTeam =
+      queue.shift();
+
+    if (
+      visited.has(
+        currentTeam
+      )
+    ) {
+      continue;
+    }
+
+    visited.add(
+      currentTeam
+    );
+
+    const defeatedTeams =
+      headToHeadWins.get(
+        currentTeam
+      );
+
+    if (!defeatedTeams) {
+      continue;
+    }
+
+    for (
+      const defeatedTeam
+      of defeatedTeams
+    ) {
+      if (
+        !allowedTeams.has(
+          defeatedTeam
+        )
+      ) {
+        continue;
+      }
+
+      if (
+        defeatedTeam ===
+        targetTeam
+      ) {
+        return true;
+      }
+
+      if (
+        !visited.has(
+          defeatedTeam
+        )
+      ) {
+        queue.push(
+          defeatedTeam
+        );
+      }
+    }
+  }
+
+  return false;
 }
 
 
@@ -343,32 +676,6 @@ function addTie(
   team.gamesPlayed += 1;
   team.ties += 1;
   team.points += points;
-}
-
-
-function compareStandings(
-  teamA,
-  teamB
-) {
-  if (
-    teamB.points !== teamA.points
-  ) {
-    return (
-      teamB.points -
-      teamA.points
-    );
-  }
-
-  /*
-    Teams tied in points remain in neutral
-    team-number order until an official
-    head-to-head tiebreak is required.
-  */
-
-  return (
-    teamA.teamNumber -
-    teamB.teamNumber
-  );
 }
 
 
