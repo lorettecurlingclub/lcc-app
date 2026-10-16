@@ -85,22 +85,22 @@ const ladiesLeagueData = {
           sheet: 1,
           teamA: 1,
           teamB: 8,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 8
         },
         {
           sheet: 2,
           teamA: 4,
           teamB: 6,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 6
         },
         {
           sheet: 3,
           teamA: 2,
           teamB: 9,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 2
         }
       ],
 
@@ -109,8 +109,8 @@ const ladiesLeagueData = {
           sheet: 2,
           teamA: 3,
           teamB: 7,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 7
         }
       ]
     },
