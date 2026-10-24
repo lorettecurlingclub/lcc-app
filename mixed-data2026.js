@@ -209,7 +209,7 @@ lateGames: [
           teamA: 3,
           teamB: 4,
           resultType: "win",
-    winner: 3l
+    winner: 3
         }
       ],
 
