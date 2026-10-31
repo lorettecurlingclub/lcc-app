@@ -2649,3 +2649,300 @@ body.league-schedule-page
 .schedule-information-label.schedule-secondary-information {
   font-size: 0.9rem !important;
 }
+
+/* =========================================================
+   TEAM STAT PAGES
+   Shared by Men's, Ladies, Mixed and Doubles
+   ========================================================= */
+
+body.league-home-page .team-page {
+  padding-bottom: 28px;
+}
+
+
+/* =========================================================
+   TEAM IDENTITY
+   ========================================================= */
+
+body.league-home-page
+#team-page-title {
+  margin-bottom: 8px;
+}
+
+body.league-home-page
+#team-page-season {
+  margin: 0;
+
+  color: #52606d;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   SEASON RECORD
+   ========================================================= */
+
+.team-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 14px;
+}
+
+.team-stat-item {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 8px;
+
+  background: #eef1fa;
+
+  border: 1px solid rgba(36, 46, 97, 0.18);
+  border-radius: 11px;
+
+  text-align: center;
+}
+
+.team-stat-item strong {
+  color: #242e61;
+
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.team-stat-item span {
+  margin-top: 5px;
+
+  color: #52606d;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   DRAW AND SHEET PERFORMANCE
+   ========================================================= */
+
+.team-performance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 14px;
+}
+
+#team-sheet-performance
+.team-performance-grid {
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+}
+
+.team-performance-card {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 14px 8px;
+
+  background: #f7f8fc;
+
+  border: 1px solid #d7dced;
+  border-radius: 11px;
+
+  text-align: center;
+}
+
+.team-performance-card > strong {
+  color: #242e61;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.team-performance-record {
+  margin-top: 7px;
+
+  color: #1f6f4a;
+
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.team-performance-subtitle {
+  margin-top: 6px;
+
+  color: #6b7280;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   WEEKLY RESULTS
+   ========================================================= */
+
+#team-weekly-results {
+  display: grid;
+
+  gap: 12px;
+
+  margin-top: 14px;
+}
+
+.team-result-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #d7dced;
+  border-radius: 12px;
+}
+
+.team-result-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  background: #eef1fa;
+
+  border-bottom: 1px solid #d7dced;
+}
+
+.team-result-heading > strong {
+  color: #242e61;
+
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.team-result-badge {
+  flex-shrink: 0;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+.team-result-win {
+  background: #e4f3ea;
+  color: #155f3d;
+}
+
+.team-result-loss {
+  background: #f6e7e7;
+  color: #8b2c2c;
+}
+
+.team-result-tie {
+  background: #fff4cc;
+  color: #6b4f00;
+}
+
+.team-result-matchup {
+  margin: 0 !important;
+
+  padding: 12px 12px 7px;
+
+  color: #1f2937;
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.team-result-details {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 6px;
+
+  padding: 0 12px 12px;
+
+  color: #52606d;
+
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+.team-result-details span {
+  min-width: 0;
+}
+
+.team-result-details strong {
+  color: #242e61;
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+  .team-stat-grid {
+    gap: 7px;
+  }
+
+  .team-stat-item {
+    padding: 12px 5px;
+  }
+
+  .team-stat-item strong {
+    font-size: 1.1rem;
+  }
+
+  .team-stat-item span {
+    font-size: 0.64rem;
+  }
+
+  #team-sheet-performance
+  .team-performance-grid {
+    gap: 7px;
+  }
+
+  .team-performance-card {
+    padding: 12px 5px;
+  }
+
+  .team-performance-card > strong {
+    font-size: 0.7rem;
+  }
+
+  .team-performance-record {
+    font-size: 1.1rem;
+  }
+
+  .team-performance-subtitle {
+    font-size: 0.62rem;
+  }
+
+  .team-result-details {
+    font-size: 0.68rem;
+  }
+}
