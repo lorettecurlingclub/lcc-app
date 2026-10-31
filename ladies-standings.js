@@ -672,6 +672,13 @@ function renderStandings(
               </td>
 
               <td class="standings-team">
+  <a
+    href="team.html?league=ladies&team=${team.teamNumber}"
+    class="standings-team-link"
+  >
+    Team ${team.teamNumber}
+  </a>
+</td>
                 ${escapeHtml(
                   team.teamName
                 )}
