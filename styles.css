@@ -2946,3 +2946,50 @@ body.league-home-page
     font-size: 0.68rem;
   }
 }
+
+/* =========================================================
+   TEAM STAT PAGE — TEXT SIZE REFINEMENTS
+   ========================================================= */
+
+.team-stat-item span {
+  font-size: 0.78rem;
+}
+
+.team-performance-card > strong {
+  font-size: 0.86rem;
+}
+
+.team-performance-subtitle {
+  font-size: 0.76rem;
+}
+
+.team-result-details {
+  font-size: 0.78rem;
+}
+
+.team-result-heading > strong {
+  font-size: 0.9rem;
+}
+
+.team-result-badge {
+  font-size: 0.74rem;
+}
+
+@media (max-width: 430px) {
+
+  .team-stat-item span {
+    font-size: 0.72rem;
+  }
+
+  .team-performance-card > strong {
+    font-size: 0.78rem;
+  }
+
+  .team-performance-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .team-result-details {
+    font-size: 0.74rem;
+  }
+}
