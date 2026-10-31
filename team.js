@@ -48,66 +48,66 @@ function getLeagueConfig(
   leagueKey
 ) {
   const leagues = {
-  mens: {
-    key: "mens",
-    name: "Men’s League",
-    shortName: "Men’s",
-    logo: "lcc-logo-mens.jpg?v=1",
-    home: "mens.html",
-    schedule:
-      "mens-schedule2026.html",
-    standings:
-      "mens-standings2026.html",
-    dataFile:
-      "mens-data2026.js?v=2",
-    dataVariable:
-      "mensLeagueData",
-    bodyClass:
-      "mens-home-page",
-    drawMode:
-      "early-late"
-  },
+    mens: {
+      key: "mens",
+      name: "Men’s League",
+      shortName: "Men’s",
+      logo: "lcc-logo-mens.jpg?v=1",
+      home: "mens.html",
+      schedule:
+        "mens-schedule2026.html",
+      standings:
+        "mens-standings2026.html",
+      dataFile:
+        "mens-data2026.js?v=2",
+      dataVariable:
+        "mensLeagueData",
+      bodyClass:
+        "mens-home-page",
+      drawMode:
+        "early-late"
+    },
 
-  ladies: {
-    key: "ladies",
-    name: "Ladies League",
-    shortName: "Ladies",
-    logo: "lcc-logo-ladies.jpg?v=1",
-    home: "ladies.html",
-    schedule:
-      "ladies-schedule2026.html",
-    standings:
-      "ladies-standings2026.html",
-    dataFile:
-      "ladies-data2026.js?v=1",
-    dataVariable:
-      "ladiesLeagueData",
-    bodyClass:
-      "ladies-home-page",
-    drawMode:
-      "early-late"
-  }
-},
+    ladies: {
+      key: "ladies",
+      name: "Ladies League",
+      shortName: "Ladies",
+      logo: "lcc-logo-ladies.jpg?v=1",
+      home: "ladies.html",
+      schedule:
+        "ladies-schedule2026.html",
+      standings:
+        "ladies-standings2026.html",
+      dataFile:
+        "ladies-data2026.js?v=1",
+      dataVariable:
+        "ladiesLeagueData",
+      bodyClass:
+        "ladies-home-page",
+      drawMode:
+        "early-late"
+    },
 
     mixed: {
-  key: "mixed",
-  name: "Mixed League",
-  shortName: "Mixed",
-  logo: "lcc-logo-mixed.jpg?v=1",
-  home: "mixed.html",
-  schedule:
-    "mixed-schedule2026.html",
-  standings:
-    "mixed-standings2026.html",
-  dataFile:
-    "mixed-data2026.js?v=1",
-  dataVariable:
-    "mixedLeagueData",
-  bodyClass:
-    "mixed-home-page",
-  drawMode:
-    "early-late"
-}
+      key: "mixed",
+      name: "Mixed League",
+      shortName: "Mixed",
+      logo: "lcc-logo-mixed.jpg?v=1",
+      home: "mixed.html",
+      schedule:
+        "mixed-schedule2026.html",
+      standings:
+        "mixed-standings2026.html",
+      dataFile:
+        "mixed-data2026.js?v=1",
+      dataVariable:
+        "mixedLeagueData",
+      bodyClass:
+        "mixed-home-page",
+      drawMode:
+        "early-late"
+    }
+  };
 
   return (
     leagues[leagueKey] ??
@@ -148,12 +148,12 @@ function loadLeagueData(
     }
 
     if (
-  leagueConfig.key === "mixed" &&
-  typeof mixedLeagueData !== "undefined"
-) {
-  leagueData =
-    mixedLeagueData;
-}
+      leagueConfig.key === "mixed" &&
+      typeof mixedLeagueData !== "undefined"
+    ) {
+      leagueData =
+        mixedLeagueData;
+    }
 
     if (!leagueData) {
       renderTeamPageError(
