@@ -156,9 +156,16 @@ function renderTeamPage(
       teamResults
     );
 
-  renderSeasonRecord(
-    seasonStats
+  const currentRank =
+  calculateCurrentRank(
+    leagueData,
+    teamNumber
   );
+
+renderSeasonRecord(
+  seasonStats,
+  currentRank
+);
 
   renderDrawPerformance(
     teamResults,
@@ -495,9 +502,482 @@ function calculateRecord(
   return stats;
 }
 
+function calculateCurrentRank(
+  leagueData,
+  teamNumber
+) {
+  const teams =
+    Object.keys(
+      leagueData.teams ?? {}
+    )
+      .map(Number)
+      .filter(
+        Number.isFinite
+      );
+
+  const standingsMap =
+    new Map();
+
+  const headToHeadWins =
+    new Map();
+
+  teams.forEach((number) => {
+    standingsMap.set(
+      number,
+      {
+        teamNumber: number,
+        gamesPlayed: 0,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+        points: 0
+      }
+    );
+
+    headToHeadWins.set(
+      number,
+      new Set()
+    );
+  });
+
+  const scoring = {
+    win:
+      Number(
+        leagueData.scoring?.win
+      ) || 10,
+
+    loss:
+      Number(
+        leagueData.scoring?.loss
+      ) || 5,
+
+    tie:
+      Number(
+        leagueData.scoring?.tie
+      ) || 7,
+
+    defaultWin:
+      Number(
+        leagueData.scoring?.defaultWin
+      ) || 10,
+
+    defaultLoss:
+      Number(
+        leagueData.scoring?.defaultLoss
+      ) || 0
+  };
+
+  const schedule =
+    Array.isArray(
+      leagueData.schedule
+    )
+      ? leagueData.schedule
+      : [];
+
+  schedule.forEach((week) => {
+    if (
+      !isRegularSeasonWeek(
+        week
+      )
+    ) {
+      return;
+    }
+
+    const games = [
+      ...(Array.isArray(
+        week.earlyGames
+      )
+        ? week.earlyGames
+        : []),
+
+      ...(Array.isArray(
+        week.lateGames
+      )
+        ? week.lateGames
+        : [])
+    ];
+
+    games.forEach((game) => {
+      applyGameToStandings(
+        game,
+        standingsMap,
+        headToHeadWins,
+        scoring
+      );
+    });
+  });
+
+  const standings =
+    sortTeamStandings(
+      Array.from(
+        standingsMap.values()
+      ),
+      headToHeadWins
+    );
+
+  const index =
+    standings.findIndex(
+      (team) =>
+        team.teamNumber ===
+        teamNumber
+    );
+
+  return index >= 0
+    ? index + 1
+    : "—";
+}
+
+
+function applyGameToStandings(
+  game,
+  standingsMap,
+  headToHeadWins,
+  scoring
+) {
+  const teamA =
+    standingsMap.get(
+      Number(game.teamA)
+    );
+
+  const teamB =
+    standingsMap.get(
+      Number(game.teamB)
+    );
+
+  if (!teamA || !teamB) {
+    return;
+  }
+
+  const resultType =
+    normalizeValue(
+      game.resultType
+    );
+
+  if (
+    !resultType ||
+    [
+      "rescheduled",
+      "postponed",
+      "cancelled",
+      "canceled",
+      "no-contest"
+    ].includes(resultType)
+  ) {
+    return;
+  }
+
+  if (
+    resultType === "tie" ||
+    normalizeValue(
+      game.winner
+    ) === "tie"
+  ) {
+    teamA.gamesPlayed += 1;
+    teamB.gamesPlayed += 1;
+
+    teamA.ties += 1;
+    teamB.ties += 1;
+
+    teamA.points +=
+      scoring.tie;
+
+    teamB.points +=
+      scoring.tie;
+
+    return;
+  }
+
+  const winnerNumber =
+    Number(game.winner);
+
+  if (
+    winnerNumber !==
+      teamA.teamNumber &&
+    winnerNumber !==
+      teamB.teamNumber
+  ) {
+    return;
+  }
+
+  const winner =
+    winnerNumber ===
+      teamA.teamNumber
+      ? teamA
+      : teamB;
+
+  const loser =
+    winnerNumber ===
+      teamA.teamNumber
+      ? teamB
+      : teamA;
+
+  const loserNumber =
+    loser.teamNumber;
+
+  const isDefault =
+    [
+      "default",
+      "forfeit",
+      "default-win",
+      "forfeit-win"
+    ].includes(resultType);
+
+  winner.gamesPlayed += 1;
+  winner.wins += 1;
+
+  loser.gamesPlayed += 1;
+  loser.losses += 1;
+
+  winner.points +=
+    isDefault
+      ? scoring.defaultWin
+      : scoring.win;
+
+  loser.points +=
+    isDefault
+      ? scoring.defaultLoss
+      : scoring.loss;
+
+  headToHeadWins
+    .get(winner.teamNumber)
+    ?.add(loserNumber);
+}
+
+
+function sortTeamStandings(
+  standings,
+  headToHeadWins
+) {
+  const baseSorted =
+    [...standings].sort(
+      (teamA, teamB) => {
+        if (
+          teamB.points !==
+          teamA.points
+        ) {
+          return (
+            teamB.points -
+            teamA.points
+          );
+        }
+
+        if (
+          teamA.gamesPlayed !==
+          teamB.gamesPlayed
+        ) {
+          return (
+            teamA.gamesPlayed -
+            teamB.gamesPlayed
+          );
+        }
+
+        return (
+          teamA.teamNumber -
+          teamB.teamNumber
+        );
+      }
+    );
+
+  const finalStandings = [];
+
+  let index = 0;
+
+  while (
+    index <
+    baseSorted.length
+  ) {
+    const firstTeam =
+      baseSorted[index];
+
+    const tiedGroup = [
+      firstTeam
+    ];
+
+    let nextIndex =
+      index + 1;
+
+    while (
+      nextIndex <
+      baseSorted.length
+    ) {
+      const nextTeam =
+        baseSorted[
+          nextIndex
+        ];
+
+      if (
+        nextTeam.points !==
+          firstTeam.points ||
+        nextTeam.gamesPlayed !==
+          firstTeam.gamesPlayed
+      ) {
+        break;
+      }
+
+      tiedGroup.push(
+        nextTeam
+      );
+
+      nextIndex += 1;
+    }
+
+    finalStandings.push(
+      ...rankTeamTiedGroup(
+        tiedGroup,
+        headToHeadWins
+      )
+    );
+
+    index = nextIndex;
+  }
+
+  return finalStandings;
+}
+
+
+function rankTeamTiedGroup(
+  tiedGroup,
+  headToHeadWins
+) {
+  if (
+    tiedGroup.length <= 1
+  ) {
+    return tiedGroup;
+  }
+
+  const allowedTeams =
+    new Set(
+      tiedGroup.map(
+        (team) =>
+          team.teamNumber
+      )
+    );
+
+  return [...tiedGroup].sort(
+    (teamA, teamB) => {
+      const aAheadOfB =
+        hasTeamHeadToHeadPath(
+          teamA.teamNumber,
+          teamB.teamNumber,
+          allowedTeams,
+          headToHeadWins
+        );
+
+      const bAheadOfA =
+        hasTeamHeadToHeadPath(
+          teamB.teamNumber,
+          teamA.teamNumber,
+          allowedTeams,
+          headToHeadWins
+        );
+
+      if (
+        aAheadOfB &&
+        !bAheadOfA
+      ) {
+        return -1;
+      }
+
+      if (
+        bAheadOfA &&
+        !aAheadOfB
+      ) {
+        return 1;
+      }
+
+      return (
+        teamA.teamNumber -
+        teamB.teamNumber
+      );
+    }
+  );
+}
+
+
+function hasTeamHeadToHeadPath(
+  startTeam,
+  targetTeam,
+  allowedTeams,
+  headToHeadWins
+) {
+  if (
+    startTeam ===
+    targetTeam
+  ) {
+    return false;
+  }
+
+  const visited =
+    new Set();
+
+  const queue = [
+    startTeam
+  ];
+
+  while (
+    queue.length > 0
+  ) {
+    const currentTeam =
+      queue.shift();
+
+    if (
+      visited.has(
+        currentTeam
+      )
+    ) {
+      continue;
+    }
+
+    visited.add(
+      currentTeam
+    );
+
+    const defeatedTeams =
+      headToHeadWins.get(
+        currentTeam
+      );
+
+    if (!defeatedTeams) {
+      continue;
+    }
+
+    for (
+      const defeatedTeam
+      of defeatedTeams
+    ) {
+      if (
+        !allowedTeams.has(
+          defeatedTeam
+        )
+      ) {
+        continue;
+      }
+
+      if (
+        defeatedTeam ===
+        targetTeam
+      ) {
+        return true;
+      }
+
+      if (
+        !visited.has(
+          defeatedTeam
+        )
+      ) {
+        queue.push(
+          defeatedTeam
+        );
+      }
+    }
+  }
+
+  return false;
+}
 
 function renderSeasonRecord(
-  stats
+  stats,
+  currentRank
 ) {
   const container =
     document.getElementById(
@@ -510,6 +990,16 @@ function renderSeasonRecord(
 
   container.innerHTML = `
     <div class="team-stat-grid">
+
+      <div class="team-stat-item">
+        <strong>
+          ${currentRank}
+        </strong>
+
+        <span>
+          Rank
+        </span>
+      </div>
 
       <div class="team-stat-item">
         <strong>
