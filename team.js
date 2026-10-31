@@ -87,7 +87,27 @@ function getLeagueConfig(
     drawMode:
       "early-late"
   }
-};
+},
+
+    mixed: {
+  key: "mixed",
+  name: "Mixed League",
+  shortName: "Mixed",
+  logo: "lcc-logo-mixed.jpg?v=1",
+  home: "mixed.html",
+  schedule:
+    "mixed-schedule2026.html",
+  standings:
+    "mixed-standings2026.html",
+  dataFile:
+    "mixed-data2026.js?v=1",
+  dataVariable:
+    "mixedLeagueData",
+  bodyClass:
+    "mixed-home-page",
+  drawMode:
+    "early-late"
+}
 
   return (
     leagues[leagueKey] ??
@@ -126,6 +146,14 @@ function loadLeagueData(
       leagueData =
         ladiesLeagueData;
     }
+
+    if (
+  leagueConfig.key === "mixed" &&
+  typeof mixedLeagueData !== "undefined"
+) {
+  leagueData =
+    mixedLeagueData;
+}
 
     if (!leagueData) {
       renderTeamPageError(
