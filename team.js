@@ -164,7 +164,8 @@ function renderTeamPage(
 
 renderSeasonRecord(
   seasonStats,
-  currentRank
+  currentRank,
+  teamNumber
 );
 
   renderDrawPerformance(
@@ -977,7 +978,8 @@ function hasTeamHeadToHeadPath(
 
 function renderSeasonRecord(
   stats,
-  currentRank
+  currentRank,
+  teamNumber
 ) {
   const container =
     document.getElementById(
@@ -989,52 +991,29 @@ function renderSeasonRecord(
   }
 
   container.innerHTML = `
-    <div class="team-stat-grid">
+    <div class="team-summary-table">
 
-      <div class="team-stat-item">
-        <strong>
-          ${currentRank}
-        </strong>
-
-        <span>
-          Rank
-        </span>
+      <div class="team-summary-header">
+        <span>Rank</span>
+        <span>Team</span>
+        <span>GP</span>
+        <span>Record</span>
+        <span>Pts</span>
       </div>
 
-      <div class="team-stat-item">
-        <strong>
-          ${stats.gamesPlayed}
-        </strong>
-
-        <span>
-          GP
-        </span>
-      </div>
-
-      <div class="team-stat-item">
+      <div class="team-summary-values">
+        <strong>${currentRank}</strong>
+        <strong>${teamNumber}</strong>
+        <strong>${stats.gamesPlayed}</strong>
         <strong>
           ${stats.wins}-${stats.losses}-${stats.ties}
         </strong>
-
-        <span>
-          Record
-        </span>
-      </div>
-
-      <div class="team-stat-item">
-        <strong>
-          ${stats.points}
-        </strong>
-
-        <span>
-          Points
-        </span>
+        <strong>${stats.points}</strong>
       </div>
 
     </div>
   `;
 }
-
 
 function renderDrawPerformance(
   results,
