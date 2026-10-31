@@ -106,7 +106,27 @@ function getLeagueConfig(
         "mixed-home-page",
       drawMode:
         "early-late"
-    }
+    },
+
+    doubles: {
+  key: "doubles",
+  name: "Doubles League",
+  shortName: "Doubles",
+  logo: "lcc-logo-doubles.jpg?v=1",
+  home: "doubles.html",
+  schedule:
+    "doubles-schedule2026.html",
+  standings:
+    "doubles-standings2026.html",
+  dataFile:
+    "doubles-data2026.js?v=1",
+  dataVariable:
+    "doublesLeagueData",
+  bodyClass:
+    "doubles-home-page",
+  drawMode:
+    "none"
+}
   };
 
   return (
@@ -154,6 +174,14 @@ function loadLeagueData(
       leagueData =
         mixedLeagueData;
     }
+
+    if (
+  leagueConfig.key === "doubles" &&
+  typeof doublesLeagueData !== "undefined"
+) {
+  leagueData =
+    doublesLeagueData;
+}
 
     if (!leagueData) {
       renderTeamPageError(
@@ -1098,20 +1126,20 @@ function renderDrawPerformance(
   }
 
   if (
-    leagueConfig.drawMode !==
-    "early-late"
-  ) {
-    heading.textContent =
-      "Draw Performance";
+  leagueConfig.drawMode ===
+  "none"
+) {
+  const section =
+    document.getElementById(
+      "team-draw-section"
+    );
 
-    container.innerHTML = `
-      <p>
-        Draw statistics will appear here.
-      </p>
-    `;
-
-    return;
+  if (section) {
+    section.hidden = true;
   }
+
+  return;
+}
 
   heading.textContent =
     "Early vs Late Draw";
