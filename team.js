@@ -90,8 +90,9 @@ function loadLeagueData(
 
   script.onload = () => {
     const leagueData =
-      window[
-        leagueConfig.dataVariable
+  typeof mensLeagueData !== "undefined"
+    ? mensLeagueData
+    : null;
       ];
 
     if (!leagueData) {
