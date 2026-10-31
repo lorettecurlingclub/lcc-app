@@ -3051,3 +3051,92 @@ body.league-home-page
     font-size: 0.82rem;
   }
 }
+
+/* =========================================================
+   TEAM SUMMARY TABLE
+   ========================================================= */
+
+.team-summary-table {
+  overflow: hidden;
+
+  margin-top: 14px;
+
+  border: 1px solid #d7dced;
+  border-radius: 16px;
+
+  background: #ffffff;
+}
+
+.team-summary-header,
+.team-summary-values {
+  display: grid;
+
+  grid-template-columns:
+    0.8fr
+    0.8fr
+    0.8fr
+    1.4fr
+    0.8fr;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.team-summary-header {
+  padding: 12px 6px;
+
+  background: #242e61;
+  color: #ffffff;
+}
+
+.team-summary-header span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.team-summary-values {
+  padding: 18px 6px;
+
+  background: #f7f8fc;
+}
+
+.team-summary-values strong {
+  color: #1f2937;
+
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.team-summary-values strong:nth-child(4) {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 430px) {
+
+  .team-summary-header {
+    padding:
+      11px
+      3px;
+  }
+
+  .team-summary-header span {
+    font-size: 0.65rem;
+  }
+
+  .team-summary-values {
+    padding:
+      16px
+      3px;
+  }
+
+  .team-summary-values strong {
+    font-size: 1rem;
+  }
+
+  .team-summary-values strong:nth-child(4) {
+    font-size: 1.15rem;
+  }
+}
