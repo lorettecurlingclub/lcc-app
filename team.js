@@ -48,26 +48,46 @@ function getLeagueConfig(
   leagueKey
 ) {
   const leagues = {
-    mens: {
-      key: "mens",
-      name: "Men’s League",
-      shortName: "Men’s",
-      logo: "lcc-logo-mens.jpg?v=1",
-      home: "mens.html",
-      schedule:
-        "mens-schedule2026.html",
-      standings:
-        "mens-standings2026.html",
-      dataFile:
-        "mens-data2026.js?v=2",
-      dataVariable:
-        "mensLeagueData",
-      bodyClass:
-        "mens-home-page",
-      drawMode:
-        "early-late"
-    }
-  };
+  mens: {
+    key: "mens",
+    name: "Men’s League",
+    shortName: "Men’s",
+    logo: "lcc-logo-mens.jpg?v=1",
+    home: "mens.html",
+    schedule:
+      "mens-schedule2026.html",
+    standings:
+      "mens-standings2026.html",
+    dataFile:
+      "mens-data2026.js?v=2",
+    dataVariable:
+      "mensLeagueData",
+    bodyClass:
+      "mens-home-page",
+    drawMode:
+      "early-late"
+  },
+
+  ladies: {
+    key: "ladies",
+    name: "Ladies League",
+    shortName: "Ladies",
+    logo: "lcc-logo-ladies.jpg?v=1",
+    home: "ladies.html",
+    schedule:
+      "ladies-schedule2026.html",
+    standings:
+      "ladies-standings2026.html",
+    dataFile:
+      "ladies-data2026.js?v=1",
+    dataVariable:
+      "ladiesLeagueData",
+    bodyClass:
+      "ladies-home-page",
+    drawMode:
+      "early-late"
+  }
+};
 
   return (
     leagues[leagueKey] ??
@@ -89,12 +109,25 @@ function loadLeagueData(
     leagueConfig.dataFile;
 
   script.onload = () => {
-  const leagueData =
-    typeof mensLeagueData !== "undefined"
-      ? mensLeagueData
-      : null;
+    let leagueData = null;
 
-  if (!leagueData) {
+    if (
+      leagueConfig.key === "mens" &&
+      typeof mensLeagueData !== "undefined"
+    ) {
+      leagueData =
+        mensLeagueData;
+    }
+
+    if (
+      leagueConfig.key === "ladies" &&
+      typeof ladiesLeagueData !== "undefined"
+    ) {
+      leagueData =
+        ladiesLeagueData;
+    }
+
+    if (!leagueData) {
       renderTeamPageError(
         `${leagueConfig.name} data could not be loaded.`
       );
