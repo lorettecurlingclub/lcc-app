@@ -89,13 +89,12 @@ function loadLeagueData(
     leagueConfig.dataFile;
 
   script.onload = () => {
-    const leagueData =
-  typeof mensLeagueData !== "undefined"
-    ? mensLeagueData
-    : null;
-      ];
+  const leagueData =
+    typeof mensLeagueData !== "undefined"
+      ? mensLeagueData
+      : null;
 
-    if (!leagueData) {
+  if (!leagueData) {
       renderTeamPageError(
         `${leagueConfig.name} data could not be loaded.`
       );
