@@ -2993,3 +2993,61 @@ body.league-home-page
     font-size: 0.74rem;
   }
 }
+
+/* =========================================================
+   TEAM STAT PAGE — READABILITY REFINEMENTS
+   ========================================================= */
+
+/* Early / Late and Sheet record numbers */
+
+.team-performance-record {
+  font-size: 1.55rem;
+  line-height: 1.05;
+}
+
+
+/* Early / Late times and Sheet GP */
+
+.team-performance-subtitle {
+  margin-top: 8px;
+
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+
+/* Sheet 1 / Sheet 2 / Sheet 3 and draw labels */
+
+.team-performance-card > strong {
+  font-size: 0.92rem;
+}
+
+
+/* Weekly Results: Draw / Time / Sheet row */
+
+.team-result-details {
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+
+/* Keep the increases useful on phones */
+
+@media (max-width: 430px) {
+
+  .team-performance-record {
+    font-size: 1.45rem;
+  }
+
+  .team-performance-card > strong {
+    font-size: 0.88rem;
+  }
+
+  .team-performance-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .team-result-details {
+    font-size: 0.82rem;
+  }
+}
