@@ -680,8 +680,13 @@ function renderStandingsRow(
       </td>
 
       <td class="standings-team">
-        Team ${team.teamNumber}
-      </td>
+  <a
+    href="team.html?league=doubles&team=${team.teamNumber}"
+    class="standings-team-link"
+  >
+    Team ${team.teamNumber}
+  </a>
+</td>
 
       <td>
         ${team.gamesPlayed}
