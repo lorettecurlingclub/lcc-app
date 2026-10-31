@@ -398,6 +398,17 @@ function buildTeamResults(
       week.lateTime,
       teamNumber
     );
+
+    addTeamGames(
+      results,
+      week,
+      week.games,
+      "Single Draw",
+      week.drawTime ??
+        week.time ??
+        "6:30 PM",
+      teamNumber
+    );
   });
 
   return results;
@@ -674,18 +685,24 @@ function calculateCurrentRank(
     }
 
     const games = [
-      ...(Array.isArray(
-        week.earlyGames
-      )
-        ? week.earlyGames
-        : []),
+  ...(Array.isArray(
+    week.earlyGames
+  )
+    ? week.earlyGames
+    : []),
 
-      ...(Array.isArray(
-        week.lateGames
-      )
-        ? week.lateGames
-        : [])
-    ];
+  ...(Array.isArray(
+    week.lateGames
+  )
+    ? week.lateGames
+    : []),
+
+  ...(Array.isArray(
+    week.games
+  )
+    ? week.games
+    : [])
+];
 
     games.forEach((game) => {
       applyGameToStandings(
