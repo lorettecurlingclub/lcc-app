@@ -169,15 +169,15 @@ const doublesLeagueData = {
           sheet: 1,
           teamA: 7,
           teamB: 5,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 7
         },
         {
           sheet: 2,
           teamA: 3,
           teamB: 4,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 3
         },
         {
           sheet: 3,
