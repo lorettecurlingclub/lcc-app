@@ -407,22 +407,22 @@ lateGames: [
           sheet: 1,
           teamA: 1,
           teamB: 5,
-          resultType: null,
-          winner: null
+          resultType: "win",
+      winner: 1
         },
         {
           sheet: 2,
           teamA: 10,
           teamB: 7,
-          resultType: null,
-          winner: null
+          resultType: "win",
+      winner: 7
         },
         {
           sheet: 3,
           teamA: 4,
           teamB: 11,
-          resultType: null,
-          winner: null
+          resultType: "win",
+      winner: 4
         }
       ],
 
@@ -431,15 +431,15 @@ lateGames: [
           sheet: 1,
           teamA: 6,
           teamB: 2,
-          resultType: null,
-          winner: null
+          resultType: "win",
+      winner: 6
         },
         {
           sheet: 2,
           teamA: 3,
           teamB: 9,
-          resultType: null,
-          winner: null
+          resultType: "win",
+      winner: 3
         }
       ]
     },
