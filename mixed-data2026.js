@@ -371,8 +371,8 @@ lateGames: [
           sheet: 1,
           teamA: 8,
           teamB: 2,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 2
         },
         {
           sheet: 2,
