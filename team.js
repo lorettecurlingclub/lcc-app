@@ -1,47 +1,55 @@
 "use strict";
 
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    const params = new URLSearchParams(
+      window.location.search
+    );
 
-    const leagueKey =
-      String(
-        params.get("league") ?? ""
-      )
-        .trim()
-        .toLowerCase();
+    const leagueKey = String(
+      params.get("league") ?? ""
+    ).trim().toLowerCase();
 
-    const teamNumber =
-      Number(
-        params.get("team")
-      );
+    const phase = String(
+      params.get("phase") ?? "regular"
+    ).trim().toLowerCase();
 
-    const leagueConfig =
-      getLeagueConfig(
-        leagueKey
-      );
+    const teamId = String(
+      params.get("team") ?? ""
+    ).trim().toUpperCase();
 
-    if (
-      !leagueConfig ||
-      !Number.isFinite(teamNumber)
-    ) {
+    const leagueConfig = getLeagueConfig(
+      leagueKey
+    );
+
+    const doublesPlayoff =
+      leagueKey === "doubles" &&
+      phase === "playoffs";
+
+    const validTeam = doublesPlayoff
+      ? /^(A[1-4]|B[1-3])$/.test(teamId)
+      : /^\d+$/.test(teamId) &&
+        Number(teamId) > 0;
+
+    if (!leagueConfig || !validTeam) {
       renderTeamPageError(
         "The requested team could not be found."
       );
-
       return;
     }
 
     loadLeagueData(
       leagueConfig,
-      teamNumber
+      doublesPlayoff
+        ? teamId
+        : Number(teamId),
+      phase
     );
   }
 );
+
 
 
 function getLeagueConfig(
@@ -138,7 +146,8 @@ function getLeagueConfig(
 
 function loadLeagueData(
   leagueConfig,
-  teamNumber
+  teamNumber,
+  phase = "regular"
 ) {
   const script =
     document.createElement(
@@ -191,11 +200,24 @@ function loadLeagueData(
       return;
     }
 
-    renderTeamPage(
-      leagueConfig,
-      leagueData,
-      teamNumber
-    );
+    
+if (
+  leagueConfig.key === "doubles" &&
+  phase === "playoffs"
+) {
+  renderDoublesPlayoffTeamPage(
+    leagueConfig,
+    leagueData,
+    teamNumber
+  );
+} else {
+  renderTeamPage(
+    leagueConfig,
+    leagueData,
+    teamNumber
+  );
+}
+
   };
 
   script.onerror = () => {
@@ -1501,4 +1523,263 @@ function escapeHtml(
       /'/g,
       "&#039;"
     );
+}
+
+
+
+// =====================================================
+// DOUBLES PLAYOFF TEAM STATISTICS
+// Fall 2026
+// =====================================================
+
+function renderDoublesPlayoffTeamPage(
+  config,
+  data,
+  teamId
+) {
+  const pool = teamId.charAt(0);
+
+  const poolTeams = pool === "A"
+    ? ["A1", "A2", "A3", "A4"]
+    : ["B1", "B2", "B3"];
+
+  if (!poolTeams.includes(teamId)) {
+    renderTeamPageError(
+      "The playoff team could not be found."
+    );
+    return;
+  }
+
+  configurePageAppearance(
+    config,
+    data,
+    teamId
+  );
+
+  const season = document.getElementById(
+    "team-page-season"
+  );
+
+  if (season) {
+    season.textContent =
+      `2026 Fall ${pool}-Side Playoffs`;
+  }
+
+  const results = buildDoublesPlayoffResults(
+    data,
+    teamId
+  );
+
+  const stats = calculateRecord(results);
+
+  const rankings = poolTeams.map(id => {
+    const games = buildDoublesPlayoffResults(
+      data,
+      id
+    );
+
+    return {
+      id,
+      stats: calculateRecord(games),
+      games
+    };
+  });
+
+  rankings.sort((a, b) => {
+    if (b.stats.points !== a.stats.points) {
+      return b.stats.points - a.stats.points;
+    }
+
+    if (
+      a.stats.gamesPlayed !==
+      b.stats.gamesPlayed
+    ) {
+      return (
+        a.stats.gamesPlayed -
+        b.stats.gamesPlayed
+      );
+    }
+
+    const aBeatB = a.games.some(game =>
+      game.opponent === b.id &&
+      game.result === "Win"
+    );
+
+    const bBeatA = b.games.some(game =>
+      game.opponent === a.id &&
+      game.result === "Win"
+    );
+
+    if (aBeatB !== bBeatA) {
+      return aBeatB ? -1 : 1;
+    }
+
+    return a.id.localeCompare(b.id);
+  });
+
+  const rank = rankings.findIndex(
+    item => item.id === teamId
+  ) + 1;
+
+  renderSeasonRecord(
+    stats,
+    rank,
+    teamId
+  );
+
+  renderDrawPerformance(
+    results,
+    config
+  );
+
+  renderSheetPerformance(results);
+
+  renderWeeklyResults(
+    results,
+    teamId
+  );
+}
+
+
+// Build results only from counting playoff games.
+
+function buildDoublesPlayoffResults(
+  data,
+  teamId
+) {
+  const results = [];
+  const scoring = data.scoring || {};
+
+  const getPoints = (name, fallback) => {
+    const value = Number(scoring[name]);
+
+    return Number.isFinite(value)
+      ? value
+      : fallback;
+  };
+
+  const schedule = Array.isArray(data.schedule)
+    ? data.schedule
+    : [];
+
+  schedule.forEach(week => {
+    if (week.phase !== "playoffs") {
+      return;
+    }
+
+    // December 20 is provisionally excluded.
+    if (
+      week.date === "2026-12-20" ||
+      week.countsForStandings === false
+    ) {
+      return;
+    }
+
+    const games = Array.isArray(week.games)
+      ? week.games
+      : [];
+
+    games.forEach(game => {
+      if (game.countsForStandings === false) {
+        return;
+      }
+
+      const teamA = String(
+        game.teamALabel ?? ""
+      ).toUpperCase();
+
+      const teamB = String(
+        game.teamBLabel ?? ""
+      ).toUpperCase();
+
+      if (
+        teamA !== teamId &&
+        teamB !== teamId
+      ) {
+        return;
+      }
+
+      const opponent = teamA === teamId
+        ? teamB
+        : teamA;
+
+      const type = normalizeValue(
+        game.resultType
+      );
+
+      if (
+        !type ||
+        [
+          "pending",
+          "rescheduled",
+          "postponed",
+          "cancelled",
+          "canceled",
+          "no-contest"
+        ].includes(type)
+      ) {
+        return;
+      }
+
+      let result = "";
+      let points = 0;
+      let resultType = type;
+
+      if (type === "tie") {
+        result = "Tie";
+        points = getPoints("tie", 7);
+      } else {
+        const winner = String(
+          game.winnerLabel ?? ""
+        ).toUpperCase();
+
+        if (
+          winner !== teamA &&
+          winner !== teamB
+        ) {
+          return;
+        }
+
+        const isDefault = [
+          "default",
+          "forfeit",
+          "default-win",
+          "forfeit-win"
+        ].includes(type);
+
+        if (winner === teamId) {
+          result = "Win";
+          points = isDefault
+            ? getPoints("defaultWin", 10)
+            : getPoints("win", 10);
+        } else {
+          result = "Loss";
+          points = isDefault
+            ? getPoints("defaultLoss", 0)
+            : getPoints("loss", 5);
+        }
+
+        resultType = isDefault
+          ? "default"
+          : "win";
+      }
+
+      results.push({
+        week: week.week ?? null,
+        date: week.date ?? "",
+        displayDate:
+          week.displayDate ?? week.date ?? "",
+        drawLabel: "Single Draw",
+        drawTime:
+          week.drawTime ?? "6:30 PM",
+        sheet: Number(game.sheet),
+        opponent,
+        result,
+        resultType,
+        points
+      });
+    });
+  });
+
+  return results;
 }
