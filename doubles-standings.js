@@ -1,536 +1,311 @@
+
 "use strict";
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-    const container =
-      document.getElementById(
-        "standings-container"
-      );
+document.addEventListener("DOMContentLoaded", () => {
+  const container =
+    document.getElementById("standings-container");
 
-    if (!container) {
-      return;
-    }
+  if (!container) return;
 
-    if (
-      typeof doublesLeagueData === "undefined" ||
-      !doublesLeagueData
-    ) {
-      renderStandingsError(
-        container,
-        "The Doubles League standings could not be loaded."
-      );
-
-      return;
-    }
-
-    renderStandings(
-      container,
-      doublesLeagueData
-    );
+  if (
+    typeof doublesLeagueData === "undefined" ||
+    !doublesLeagueData
+  ) {
+    container.innerHTML = `
+      <section class="standings-card">
+        <div class="standings-message">
+          <p>Doubles League standings could not be loaded.</p>
+        </div>
+      </section>
+    `;
+    return;
   }
-);
 
+  renderDoublesStandings(container, doublesLeagueData);
+});
 
-function renderStandings(
-  container,
-  leagueData
-) {
-  const standings =
-    calculateStandings(
-      leagueData
-    );
-
-  container.innerHTML = `
-    <section class="standings-card">
-
-      <header class="standings-card-heading">
-        <h1>
-          Doubles League Standings
-        </h1>
-
-        <p>
-          2026 Fall Round Robin
-        </p>
-      </header>
-
-      <div class="standings-table-wrapper">
-        <table class="standings-table">
-          <thead>
-            <tr>
-              <th scope="col">
-                #
-              </th>
-
-              <th scope="col">
-                Team
-              </th>
-
-              <th scope="col">
-                GP
-              </th>
-
-              <th scope="col">
-                Record
-              </th>
-
-              <th scope="col">
-                Pts
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            ${standings
-              .map((team, index) => {
-                return renderStandingsRow(
-                  team,
-                  index
-                );
-              })
-              .join("")}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="standings-scoring-note">
-        <strong>
-          Scoring:
-        </strong>
-
-        Win = ${numberOrZero(
-          leagueData.scoring?.win
-        )} points,
-
-        Loss = ${numberOrZero(
-          leagueData.scoring?.loss
-        )} points,
-
-        Tie = ${numberOrZero(
-          leagueData.scoring?.tie
-        )} points.
-      </div>
-
-    </section>
-  `;
-}
-
-
-function calculateStandings(
-  leagueData
-) {
-  const standingsMap =
-    createStandingsMap(
-      leagueData
-    );
-
-  const headToHeadWins =
-    new Map();
-
-  standingsMap.forEach(
-    (team) => {
-      headToHeadWins.set(
-        team.teamNumber,
-        new Set()
-      );
-    }
+function renderDoublesStandings(container, data) {
+  const regular = calculateDoublesStandings(
+    data, "regular"
   );
 
-  const schedule =
-    Array.isArray(
-      leagueData.schedule
-    )
-      ? leagueData.schedule
-      : [];
+  const playoffA = calculateDoublesStandings(
+    data, "playoffs", "A"
+  );
 
-  schedule.forEach((week) => {
-    const phase =
-      normalizeValue(
-        week.phase
-      );
+  const playoffB = calculateDoublesStandings(
+    data, "playoffs", "B"
+  );
 
-    if (
-      phase !== "regular" &&
-      phase !== "regular-season"
-    ) {
-      return;
+  const playoffsStarted =
+    new Date().toLocaleDateString("en-CA", {
+      timeZone: "America/Winnipeg"
+    }) >= "2026-11-29";
+
+  const scoring = data.scoring || {};
+
+  let html = "";
+
+  if (playoffsStarted) {
+    html += renderDoublesStandingsCard(
+      "A-Side Playoff Standings",
+      "2026 Fall Playoffs",
+      playoffA,
+      "playoffs",
+      scoring
+    );
+
+    html += renderDoublesStandingsCard(
+      "B-Side Playoff Standings",
+      "2026 Fall Playoffs",
+      playoffB,
+      "playoffs",
+      scoring
+    );
+  }
+
+  html += renderDoublesStandingsCard(
+    "Regular Season Standings",
+    "2026 Fall Round Robin",
+    regular,
+    "regular",
+    scoring
+  );
+
+  container.innerHTML = html;
+}
+
+function calculateDoublesStandings(
+  data,
+  phase,
+  pool = null
+) {
+  const standings = new Map();
+
+  if (phase === "regular") {
+    Object.keys(data.teams || {})
+      .map(Number)
+      .sort((a, b) => a - b)
+      .forEach(team => {
+        standings.set(String(team), {
+          id: String(team),
+          label: `Team ${team}`,
+          gp: 0,
+          wins: 0,
+          losses: 0,
+          ties: 0,
+          points: 0,
+          beaten: new Set()
+        });
+      });
+  } else {
+    const labels = pool === "A"
+      ? ["A1", "A2", "A3", "A4"]
+      : ["B1", "B2", "B3"];
+
+    labels.forEach(label => {
+      standings.set(label, {
+        id: label,
+        label,
+        gp: 0,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+        points: 0,
+        beaten: new Set()
+      });
+    });
+  }
+
+  const schedule = Array.isArray(data.schedule)
+    ? data.schedule
+    : [];
+
+  schedule.forEach(week => {
+    const weekPhase = String(
+      week.phase || ""
+    ).toLowerCase();
+
+    if (phase === "regular") {
+      if (
+        weekPhase !== "regular" &&
+        weekPhase !== "regular-season"
+      ) return;
+    } else {
+      if (weekPhase !== "playoffs") return;
+
+      // Provisional: December 20 crossover games
+      // do not count toward playoff standings.
+      if (
+        week.date === "2026-12-20" ||
+        week.countsForStandings === false
+      ) return;
     }
 
-    const games =
-      Array.isArray(
-        week.games
-      )
-        ? week.games
-        : [];
+    const games = Array.isArray(week.games)
+      ? week.games
+      : [];
 
-    games.forEach((game) => {
-      applyGameResult(
-        standingsMap,
-        game,
-        leagueData.scoring || {}
-      );
+    games.forEach(game => {
+      if (game.countsForStandings === false) return;
 
-      recordHeadToHeadResult(
+      const teamA = phase === "regular"
+        ? String(game.teamA)
+        : String(game.teamALabel || "");
+
+      const teamB = phase === "regular"
+        ? String(game.teamB)
+        : String(game.teamBLabel || "");
+
+      if (
+        !standings.has(teamA) ||
+        !standings.has(teamB)
+      ) return;
+
+      applyDoublesResult(
+        standings,
+        teamA,
+        teamB,
         game,
-        standingsMap,
-        headToHeadWins
+        data.scoring || {},
+        phase
       );
     });
   });
 
-  return sortStandings(
-    Array.from(
-      standingsMap.values()
-    ),
-    headToHeadWins
-  );
-}
+  return [...standings.values()].sort((a, b) => {
+    if (b.points !== a.points) {
+      return b.points - a.points;
+    }
 
+    if (a.gp !== b.gp) {
+      return a.gp - b.gp;
+    }
 
-function createStandingsMap(
-  leagueData
-) {
-  const map =
-    new Map();
-
-  const teams =
-    leagueData.teams || {};
-
-  Object.keys(teams)
-    .map(Number)
-    .filter(Number.isFinite)
-    .sort((teamA, teamB) => {
-      return teamA - teamB;
-    })
-    .forEach((teamNumber) => {
-      map.set(
-        teamNumber,
-        {
-          teamNumber,
-          gamesPlayed: 0,
-          wins: 0,
-          losses: 0,
-          ties: 0,
-          points: 0
-        }
-      );
-    });
-
-  return map;
-}
-
-
-function recordHeadToHeadResult(
-  game,
-  standingsMap,
-  headToHeadWins
-) {
-  const teamA =
-    Number(game.teamA);
-
-  const teamB =
-    Number(game.teamB);
-
-  if (
-    !Number.isFinite(teamA) ||
-    !Number.isFinite(teamB) ||
-    !standingsMap.has(teamA) ||
-    !standingsMap.has(teamB)
-  ) {
-    return;
-  }
-
-  const resultType =
-    normalizeValue(
-      game.resultType
+    const aBeatB = hasDoublesHeadToHeadPath(
+      a.id, b.id, standings
     );
 
-  if (
-    !resultType ||
-    resultType === "pending" ||
-    resultType === "rescheduled" ||
-    resultType === "postponed" ||
-    resultType === "cancelled" ||
-    resultType === "canceled" ||
-    resultType === "no-contest" ||
-    resultType === "tie"
-  ) {
-    return;
-  }
-
-  const winnerText =
-    normalizeValue(
-      game.winner
+    const bBeatA = hasDoublesHeadToHeadPath(
+      b.id, a.id, standings
     );
 
-  if (
-    winnerText === "tie"
-  ) {
-    return;
-  }
+    if (aBeatB && !bBeatA) return -1;
+    if (bBeatA && !aBeatB) return 1;
 
-  const winner =
-    Number(game.winner);
-
-  if (
-    winner !== teamA &&
-    winner !== teamB
-  ) {
-    return;
-  }
-
-  const loser =
-    winner === teamA
-      ? teamB
-      : teamA;
-
-  const winnerResults =
-    headToHeadWins.get(
-      winner
+    return a.id.localeCompare(
+      b.id, undefined, { numeric: true }
     );
-
-  if (!winnerResults) {
-    return;
-  }
-
-  winnerResults.add(
-    loser
-  );
+  });
 }
 
-
-function sortStandings(
+function applyDoublesResult(
   standings,
-  headToHeadWins
+  teamA,
+  teamB,
+  game,
+  scoring,
+  phase
 ) {
-  const baseSorted =
-    [...standings].sort(
-      (
-        teamA,
-        teamB
-      ) => {
-        if (
-          teamB.points !==
-          teamA.points
-        ) {
-          return (
-            teamB.points -
-            teamA.points
-          );
-        }
+  const a = standings.get(teamA);
+  const b = standings.get(teamB);
 
-        if (
-          teamA.gamesPlayed !==
-          teamB.gamesPlayed
-        ) {
-          return (
-            teamA.gamesPlayed -
-            teamB.gamesPlayed
-          );
-        }
+  const type = String(
+    game.resultType || ""
+  ).toLowerCase();
 
-        return (
-          teamA.teamNumber -
-          teamB.teamNumber
-        );
-      }
-    );
+  if (
+    !type ||
+    [
+      "pending",
+      "postponed",
+      "rescheduled",
+      "cancelled",
+      "canceled",
+      "no-contest"
+    ].includes(type)
+  ) return;
 
-  const finalStandings = [];
+  const score = (key, fallback) => {
+    const value = Number(scoring[key]);
+    return Number.isFinite(value)
+      ? value
+      : fallback;
+  };
 
-  let index = 0;
+  if (type === "tie") {
+    a.gp++;
+    b.gp++;
+    a.ties++;
+    b.ties++;
 
-  while (
-    index <
-    baseSorted.length
-  ) {
-    const firstTeam =
-      baseSorted[index];
-
-    const tiedGroup = [
-      firstTeam
-    ];
-
-    let nextIndex =
-      index + 1;
-
-    while (
-      nextIndex <
-      baseSorted.length
-    ) {
-      const nextTeam =
-        baseSorted[
-          nextIndex
-        ];
-
-      if (
-        nextTeam.points !==
-          firstTeam.points ||
-        nextTeam.gamesPlayed !==
-          firstTeam.gamesPlayed
-      ) {
-        break;
-      }
-
-      tiedGroup.push(
-        nextTeam
-      );
-
-      nextIndex += 1;
-    }
-
-    const rankedGroup =
-      rankTiedGroup(
-        tiedGroup,
-        headToHeadWins
-      );
-
-    finalStandings.push(
-      ...rankedGroup
-    );
-
-    index = nextIndex;
+    a.points += score("tie", 7);
+    b.points += score("tie", 7);
+    return;
   }
 
-  return finalStandings;
+  const winner = phase === "regular"
+    ? String(game.winner ?? "")
+    : String(game.winnerLabel ?? "");
+
+  if (winner !== teamA && winner !== teamB) {
+    return;
+  }
+
+  const winningTeam = standings.get(winner);
+  const losingId = winner === teamA
+    ? teamB
+    : teamA;
+  const losingTeam = standings.get(losingId);
+
+  winningTeam.gp++;
+  losingTeam.gp++;
+
+  winningTeam.wins++;
+  losingTeam.losses++;
+
+  winningTeam.beaten.add(losingId);
+
+  const isDefault = [
+    "default",
+    "forfeit",
+    "default-win",
+    "forfeit-win"
+  ].includes(type);
+
+  winningTeam.points += isDefault
+    ? score("defaultWin", 10)
+    : score("win", 10);
+
+  losingTeam.points += isDefault
+    ? score("defaultLoss", 0)
+    : score("loss", 5);
 }
 
-
-function rankTiedGroup(
-  tiedGroup,
-  headToHeadWins
+function hasDoublesHeadToHeadPath(
+  from,
+  target,
+  standings
 ) {
-  if (
-    tiedGroup.length <= 1
-  ) {
-    return tiedGroup;
-  }
+  if (from === target) return false;
 
-  const allowedTeams =
-    new Set(
-      tiedGroup.map(
-        (team) =>
-          team.teamNumber
-      )
-    );
+  const visited = new Set();
+  const queue = [from];
 
-  return [...tiedGroup].sort(
-    (
-      teamA,
-      teamB
-    ) => {
-      const aAheadOfB =
-        hasHeadToHeadPath(
-          teamA.teamNumber,
-          teamB.teamNumber,
-          allowedTeams,
-          headToHeadWins
-        );
+  while (queue.length) {
+    const current = queue.shift();
 
-      const bAheadOfA =
-        hasHeadToHeadPath(
-          teamB.teamNumber,
-          teamA.teamNumber,
-          allowedTeams,
-          headToHeadWins
-        );
+    if (visited.has(current)) continue;
+    visited.add(current);
 
-      if (
-        aAheadOfB &&
-        !bAheadOfA
-      ) {
-        return -1;
-      }
+    const team = standings.get(current);
+    if (!team) continue;
 
-      if (
-        bAheadOfA &&
-        !aAheadOfB
-      ) {
-        return 1;
-      }
+    for (const beaten of team.beaten) {
+      if (beaten === target) return true;
 
-      return (
-        teamA.teamNumber -
-        teamB.teamNumber
-      );
-    }
-  );
-}
-
-
-function hasHeadToHeadPath(
-  startTeam,
-  targetTeam,
-  allowedTeams,
-  headToHeadWins
-) {
-  if (
-    startTeam === targetTeam
-  ) {
-    return false;
-  }
-
-  const visited =
-    new Set();
-
-  const queue = [
-    startTeam
-  ];
-
-  while (
-    queue.length > 0
-  ) {
-    const currentTeam =
-      queue.shift();
-
-    if (
-      visited.has(
-        currentTeam
-      )
-    ) {
-      continue;
-    }
-
-    visited.add(
-      currentTeam
-    );
-
-    const defeatedTeams =
-      headToHeadWins.get(
-        currentTeam
-      );
-
-    if (!defeatedTeams) {
-      continue;
-    }
-
-    for (
-      const defeatedTeam
-      of defeatedTeams
-    ) {
-      if (
-        !allowedTeams.has(
-          defeatedTeam
-        )
-      ) {
-        continue;
-      }
-
-      if (
-        defeatedTeam ===
-        targetTeam
-      ) {
-        return true;
-      }
-
-      if (
-        !visited.has(
-          defeatedTeam
-        )
-      ) {
-        queue.push(
-          defeatedTeam
-        );
+      if (!visited.has(beaten)) {
+        queue.push(beaten);
       }
     }
   }
@@ -538,234 +313,82 @@ function hasHeadToHeadPath(
   return false;
 }
 
-
-function applyGameResult(
-  standingsMap,
-  game,
+function renderDoublesStandingsCard(
+  title,
+  subtitle,
+  standings,
+  phase,
   scoring
 ) {
-  const teamA =
-    Number(game.teamA);
-
-  const teamB =
-    Number(game.teamB);
-
-  if (
-    !Number.isFinite(teamA) ||
-    !Number.isFinite(teamB) ||
-    !standingsMap.has(teamA) ||
-    !standingsMap.has(teamB)
-  ) {
-    return;
-  }
-
-  const resultType =
-    normalizeValue(
-      game.resultType
-    );
-
-  if (
-    !resultType ||
-    resultType === "pending" ||
-    resultType === "rescheduled" ||
-    resultType === "postponed" ||
-    resultType === "cancelled" ||
-    resultType === "canceled" ||
-    resultType === "no-contest"
-  ) {
-    return;
-  }
-
-  const teamAStanding =
-    standingsMap.get(teamA);
-
-  const teamBStanding =
-    standingsMap.get(teamB);
-
-  if (
-    resultType === "tie"
-  ) {
-    teamAStanding.gamesPlayed += 1;
-    teamBStanding.gamesPlayed += 1;
-
-    teamAStanding.ties += 1;
-    teamBStanding.ties += 1;
-
-    teamAStanding.points +=
-      numberWithFallback(
-        scoring.tie,
-        7
-      );
-
-    teamBStanding.points +=
-      numberWithFallback(
-        scoring.tie,
-        7
-      );
-
-    return;
-  }
-
-  const winner =
-    Number(game.winner);
-
-  if (
-    winner !== teamA &&
-    winner !== teamB
-  ) {
-    return;
-  }
-
-  const loser =
-    winner === teamA
-      ? teamB
-      : teamA;
-
-  const winnerStanding =
-    standingsMap.get(winner);
-
-  const loserStanding =
-    standingsMap.get(loser);
-
-  winnerStanding.gamesPlayed += 1;
-  loserStanding.gamesPlayed += 1;
-
-  winnerStanding.wins += 1;
-  loserStanding.losses += 1;
-
-  const isDefault =
-    resultType === "default" ||
-    resultType === "forfeit" ||
-    resultType === "default-win" ||
-    resultType === "forfeit-win";
-
-  if (isDefault) {
-    winnerStanding.points +=
-      numberWithFallback(
-        scoring.defaultWin,
-        10
-      );
-
-    loserStanding.points +=
-      numberWithFallback(
-        scoring.defaultLoss,
-        0
-      );
-
-    return;
-  }
-
-  winnerStanding.points +=
-    numberWithFallback(
-      scoring.win,
-      10
-    );
-
-  loserStanding.points +=
-    numberWithFallback(
-      scoring.loss,
-      5
-    );
-}
-
-
-function renderStandingsRow(
-  team,
-  index
-) {
   return `
-    <tr>
-      <td class="standings-position">
-        ${index + 1}
-      </td>
-
-      <td class="standings-team">
-  <a
-    href="team.html?league=doubles&team=${team.teamNumber}"
-    class="standings-team-link"
-  >
-    Team ${team.teamNumber}
-  </a>
-</td>
-
-      <td>
-        ${team.gamesPlayed}
-      </td>
-
-      <td class="standings-record">
-        ${team.wins}-${team.losses}-${team.ties}
-      </td>
-
-      <td class="standings-points">
-        ${team.points}
-      </td>
-    </tr>
-  `;
-}
-
-
-function normalizeValue(
-  value
-) {
-  return String(
-    value ?? ""
-  )
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "-");
-}
-
-
-function numberWithFallback(
-  value,
-  fallback
-) {
-  const number =
-    Number(value);
-
-  return Number.isFinite(number)
-    ? number
-    : fallback;
-}
-
-
-function numberOrZero(
-  value
-) {
-  const number =
-    Number(value);
-
-  return Number.isFinite(number)
-    ? number
-    : 0;
-}
-
-
-function renderStandingsError(
-  container,
-  message
-) {
-  container.innerHTML = `
     <section class="standings-card">
+
       <header class="standings-card-heading">
-        <h1>
-          Doubles League Standings
-        </h1>
+        <h1>${escapeDoublesHtml(title)}</h1>
+        <p>${escapeDoublesHtml(subtitle)}</p>
       </header>
 
-      <div class="standings-message">
-        <p>
-          ${escapeHtml(message)}
-        </p>
+      <div class="standings-table-wrapper">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Team</th>
+              <th scope="col">GP</th>
+              <th scope="col">Record</th>
+              <th scope="col">Pts</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${standings.map((team, index) => {
+              const link = phase === "regular"
+                ? `team.html?league=doubles&team=${team.id}`
+                : `team.html?league=doubles&phase=playoffs&team=${team.id}`;
+
+              return `
+                <tr>
+                  <td class="standings-position">
+                    ${index + 1}
+                  </td>
+
+                  <td class="standings-team">
+                    <a
+                      href="${link}"
+                      class="standings-team-link"
+                    >
+                      ${escapeDoublesHtml(team.label)}
+                    </a>
+                  </td>
+
+                  <td>${team.gp}</td>
+
+                  <td class="standings-record">
+                    ${team.wins}-${team.losses}-${team.ties}
+                  </td>
+
+                  <td class="standings-points">
+                    ${team.points}
+                  </td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
       </div>
+
+      <div class="standings-scoring-note">
+        <strong>Scoring:</strong>
+        Win = ${Number(scoring.win ?? 10)} points,
+        Loss = ${Number(scoring.loss ?? 5)} points,
+        Tie = ${Number(scoring.tie ?? 7)} points.
+      </div>
+
     </section>
   `;
 }
 
-
-function escapeHtml(
-  value
-) {
+function escapeDoublesHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
