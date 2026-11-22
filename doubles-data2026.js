@@ -268,8 +268,8 @@ const doublesLeagueData = {
           sheet: 1,
           teamALabel: "A1",
           teamBLabel: "A2",
-          resultType: null,
-          winnerLabel: null
+          resultType: "win",
+          winnerLabel: "A2"
         },
         {
           sheet: 2,
