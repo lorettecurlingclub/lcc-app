@@ -37,9 +37,10 @@ function renderDoublesStandings(container, data) {
     data, "playoffs", "B"
   );
 
-  
-const playoffsStarted = true;
-
+const playoffsStarted =
+  new Date().toLocaleDateString("en-CA", {
+    timeZone: "America/Winnipeg"
+  }) >= "2026-11-26";
 
   const scoring = data.scoring || {};
 
