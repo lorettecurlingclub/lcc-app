@@ -216,44 +216,45 @@ const doublesLeagueData = {
           sheet: 3,
           teamA: 7,
           teamB: 4,
-          resultType: null,
-          winner: null
+          resultType: "win",
+    winner: 7
         }
       ]
     },
 
+    
+{
+  week: 7,
+  date: "2026-11-22",
+  displayDate: "November 22, 2026",
+  phase: "regular",
+  drawTime: "6:30 PM",
+  byeTeam: 3,
+
+  games: [
     {
-      week: 7,
-      date: "2026-11-22",
-      displayDate: "November 22, 2026",
-      phase: "regular",
-      drawTime: "6:30 PM",
-      byeTeam: 3,
-
-      games: [
-        {
-          sheet: 1,
-          teamA: 4,
-          teamB: 6,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 2,
-          teamA: 2,
-          teamB: 7,
-          resultType: null,
-          winner: null
-        },
-        {
-          sheet: 3,
-          teamA: 1,
-          teamB: 5,
-          resultType: null,
-          winner: null
-        }
-      ]
+      sheet: 1,
+      teamA: 4,
+      teamB: 6,
+      resultType: "tie",
+      winner: null
     },
+    {
+      sheet: 2,
+      teamA: 2,
+      teamB: 7,
+      resultType: "win",
+      winner: 7
+    },
+    {
+      sheet: 3,
+      teamA: 1,
+      teamB: 5,
+      resultType: "win",
+      winner: 5
+    }
+  ]
+},
 
     {
       week: 8,
